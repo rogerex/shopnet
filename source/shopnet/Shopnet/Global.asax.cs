@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
 
 namespace Shopnet
 {
@@ -35,6 +37,23 @@ namespace Shopnet
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            BootstrapContainer();
         }
+
+        protected void Application_End()
+        {
+            container.Dispose();
+        }
+
+        private static IWindsorContainer container;
+
+        private static void BootstrapContainer()
+        {
+            container = new WindsorContainer()
+                .Install(FromAssembly.This());
+            var controllerFactory = new WindsorControllerFactory(container.Kernel);
+            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+        }
+
     }
 }
