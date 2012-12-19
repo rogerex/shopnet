@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Shopnet.Controllers
 {
-    public class HomeController : Controller
+    public class BasicPageController : Controller
     {
         //
-        // GET: /Home/
+        // GET: /BasicPage/
 
         public ActionResult Index()
         {
