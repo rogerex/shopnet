@@ -18,133 +18,133 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(ITEM))]
-    [KnownType(typeof(USER))]
-    public partial class ROLE: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Item))]
+    [KnownType(typeof(User))]
+    public partial class Role: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_ROLE
+        public int RoleID
         {
-            get { return _iD_ROLE; }
+            get { return _roleID; }
             set
             {
-                if (_iD_ROLE != value)
+                if (_roleID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_ROLE' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'RoleID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_ROLE = value;
-                    OnPropertyChanged("ID_ROLE");
+                    _roleID = value;
+                    OnPropertyChanged("RoleID");
                 }
             }
         }
-        private int _iD_ROLE;
+        private int _roleID;
     
         [DataMember]
-        public string NAME_ROLE
+        public string Name
         {
-            get { return _nAME_ROLE; }
+            get { return _name; }
             set
             {
-                if (_nAME_ROLE != value)
+                if (_name != value)
                 {
-                    _nAME_ROLE = value;
-                    OnPropertyChanged("NAME_ROLE");
+                    _name = value;
+                    OnPropertyChanged("Name");
                 }
             }
         }
-        private string _nAME_ROLE;
+        private string _name;
     
         [DataMember]
-        public System.DateTime CREATION_ROLE
+        public System.DateTime Creation
         {
-            get { return _cREATION_ROLE; }
+            get { return _creation; }
             set
             {
-                if (_cREATION_ROLE != value)
+                if (_creation != value)
                 {
-                    _cREATION_ROLE = value;
-                    OnPropertyChanged("CREATION_ROLE");
+                    _creation = value;
+                    OnPropertyChanged("Creation");
                 }
             }
         }
-        private System.DateTime _cREATION_ROLE;
+        private System.DateTime _creation;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<ITEM> ITEMs
+        public TrackableCollection<Item> Items
         {
             get
             {
-                if (_iTEMs == null)
+                if (_items == null)
                 {
-                    _iTEMs = new TrackableCollection<ITEM>();
-                    _iTEMs.CollectionChanged += FixupITEMs;
+                    _items = new TrackableCollection<Item>();
+                    _items.CollectionChanged += FixupItems;
                 }
-                return _iTEMs;
+                return _items;
             }
             set
             {
-                if (!ReferenceEquals(_iTEMs, value))
+                if (!ReferenceEquals(_items, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_iTEMs != null)
+                    if (_items != null)
                     {
-                        _iTEMs.CollectionChanged -= FixupITEMs;
+                        _items.CollectionChanged -= FixupItems;
                     }
-                    _iTEMs = value;
-                    if (_iTEMs != null)
+                    _items = value;
+                    if (_items != null)
                     {
-                        _iTEMs.CollectionChanged += FixupITEMs;
+                        _items.CollectionChanged += FixupItems;
                     }
-                    OnNavigationPropertyChanged("ITEMs");
+                    OnNavigationPropertyChanged("Items");
                 }
             }
         }
-        private TrackableCollection<ITEM> _iTEMs;
+        private TrackableCollection<Item> _items;
     
         [DataMember]
-        public TrackableCollection<USER> USERs
+        public TrackableCollection<User> Usuarios
         {
             get
             {
-                if (_uSERs == null)
+                if (_usuarios == null)
                 {
-                    _uSERs = new TrackableCollection<USER>();
-                    _uSERs.CollectionChanged += FixupUSERs;
+                    _usuarios = new TrackableCollection<User>();
+                    _usuarios.CollectionChanged += FixupUsuarios;
                 }
-                return _uSERs;
+                return _usuarios;
             }
             set
             {
-                if (!ReferenceEquals(_uSERs, value))
+                if (!ReferenceEquals(_usuarios, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_uSERs != null)
+                    if (_usuarios != null)
                     {
-                        _uSERs.CollectionChanged -= FixupUSERs;
+                        _usuarios.CollectionChanged -= FixupUsuarios;
                     }
-                    _uSERs = value;
-                    if (_uSERs != null)
+                    _usuarios = value;
+                    if (_usuarios != null)
                     {
-                        _uSERs.CollectionChanged += FixupUSERs;
+                        _usuarios.CollectionChanged += FixupUsuarios;
                     }
-                    OnNavigationPropertyChanged("USERs");
+                    OnNavigationPropertyChanged("Usuarios");
                 }
             }
         }
-        private TrackableCollection<USER> _uSERs;
+        private TrackableCollection<User> _usuarios;
 
         #endregion
         #region ChangeTracking
@@ -224,14 +224,14 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            ITEMs.Clear();
-            USERs.Clear();
+            Items.Clear();
+            Usuarios.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupITEMs(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupItems(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -240,11 +240,11 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (ITEM item in e.NewItems)
+                foreach (Item item in e.NewItems)
                 {
-                    if (!item.ROLEs.Contains(this))
+                    if (!item.Roles.Contains(this))
                     {
-                        item.ROLEs.Add(this);
+                        item.Roles.Add(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
@@ -252,28 +252,28 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("ITEMs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Items", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (ITEM item in e.OldItems)
+                foreach (Item item in e.OldItems)
                 {
-                    if (item.ROLEs.Contains(this))
+                    if (item.Roles.Contains(this))
                     {
-                        item.ROLEs.Remove(this);
+                        item.Roles.Remove(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("ITEMs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Items", item);
                     }
                 }
             }
         }
     
-        private void FixupUSERs(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupUsuarios(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -282,11 +282,11 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (USER item in e.NewItems)
+                foreach (User item in e.NewItems)
                 {
-                    if (!item.ROLEs.Contains(this))
+                    if (!item.Roles.Contains(this))
                     {
-                        item.ROLEs.Add(this);
+                        item.Roles.Add(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
@@ -294,22 +294,22 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("USERs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Usuarios", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (USER item in e.OldItems)
+                foreach (User item in e.OldItems)
                 {
-                    if (item.ROLEs.Contains(this))
+                    if (item.Roles.Contains(this))
                     {
-                        item.ROLEs.Remove(this);
+                        item.Roles.Remove(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("USERs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Usuarios", item);
                     }
                 }
             }

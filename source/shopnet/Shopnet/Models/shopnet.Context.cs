@@ -77,29 +77,29 @@ namespace Shopnet.Models
     
         #region ObjectSet Properties
     
-        public ObjectSet<CUSTOMER> CUSTOMERs
+        public ObjectSet<Customer> Customers
         {
-            get { return _cUSTOMERs  ?? (_cUSTOMERs = CreateObjectSet<CUSTOMER>("CUSTOMERs")); }
+            get { return _customers  ?? (_customers = CreateObjectSet<Customer>("Customers")); }
         }
-        private ObjectSet<CUSTOMER> _cUSTOMERs;
+        private ObjectSet<Customer> _customers;
     
-        public ObjectSet<DetailOrder> DetailOrders
+        public ObjectSet<DetailSale> DetailSales
         {
-            get { return _detailOrders  ?? (_detailOrders = CreateObjectSet<DetailOrder>("DetailOrders")); }
+            get { return _detailSales  ?? (_detailSales = CreateObjectSet<DetailSale>("DetailSales")); }
         }
-        private ObjectSet<DetailOrder> _detailOrders;
+        private ObjectSet<DetailSale> _detailSales;
     
-        public ObjectSet<ITEM> ITEMs
+        public ObjectSet<Item> Items
         {
-            get { return _iTEMs  ?? (_iTEMs = CreateObjectSet<ITEM>("ITEMs")); }
+            get { return _items  ?? (_items = CreateObjectSet<Item>("Items")); }
         }
-        private ObjectSet<ITEM> _iTEMs;
+        private ObjectSet<Item> _items;
     
-        public ObjectSet<PAYMENT> PAYMENTs
+        public ObjectSet<Payment> Payments
         {
-            get { return _pAYMENTs  ?? (_pAYMENTs = CreateObjectSet<PAYMENT>("PAYMENTs")); }
+            get { return _payments  ?? (_payments = CreateObjectSet<Payment>("Payments")); }
         }
-        private ObjectSet<PAYMENT> _pAYMENTs;
+        private ObjectSet<Payment> _payments;
     
         public ObjectSet<Product> Products
         {
@@ -113,47 +113,47 @@ namespace Shopnet.Models
         }
         private ObjectSet<Provider> _providers;
     
-        public ObjectSet<PURCHASE_ORDER> PURCHASE_ORDER
+        public ObjectSet<Purchase> Purchases
         {
-            get { return _pURCHASE_ORDER  ?? (_pURCHASE_ORDER = CreateObjectSet<PURCHASE_ORDER>("PURCHASE_ORDER")); }
+            get { return _purchases  ?? (_purchases = CreateObjectSet<Purchase>("Purchases")); }
         }
-        private ObjectSet<PURCHASE_ORDER> _pURCHASE_ORDER;
+        private ObjectSet<Purchase> _purchases;
     
-        public ObjectSet<ROLE> ROLEs
+        public ObjectSet<Role> Roles
         {
-            get { return _rOLEs  ?? (_rOLEs = CreateObjectSet<ROLE>("ROLEs")); }
+            get { return _roles  ?? (_roles = CreateObjectSet<Role>("Roles")); }
         }
-        private ObjectSet<ROLE> _rOLEs;
+        private ObjectSet<Role> _roles;
     
-        public ObjectSet<SaleOrder> SaleOrders
+        public ObjectSet<Sale> Sales
         {
-            get { return _saleOrders  ?? (_saleOrders = CreateObjectSet<SaleOrder>("SaleOrders")); }
+            get { return _sales  ?? (_sales = CreateObjectSet<Sale>("Sales")); }
         }
-        private ObjectSet<SaleOrder> _saleOrders;
+        private ObjectSet<Sale> _sales;
     
-        public ObjectSet<SESSION> SESSIONs
+        public ObjectSet<Session> Sessions
         {
-            get { return _sESSIONs  ?? (_sESSIONs = CreateObjectSet<SESSION>("SESSIONs")); }
+            get { return _sessions  ?? (_sessions = CreateObjectSet<Session>("Sessions")); }
         }
-        private ObjectSet<SESSION> _sESSIONs;
+        private ObjectSet<Session> _sessions;
     
-        public ObjectSet<STOCK> STOCKs
+        public ObjectSet<Stock> Stocks
         {
-            get { return _sTOCKs  ?? (_sTOCKs = CreateObjectSet<STOCK>("STOCKs")); }
+            get { return _stocks  ?? (_stocks = CreateObjectSet<Stock>("Stocks")); }
         }
-        private ObjectSet<STOCK> _sTOCKs;
+        private ObjectSet<Stock> _stocks;
     
-        public ObjectSet<TYPE_PAYMENT> TYPE_PAYMENT
+        public ObjectSet<TypePayment> TypePayments
         {
-            get { return _tYPE_PAYMENT  ?? (_tYPE_PAYMENT = CreateObjectSet<TYPE_PAYMENT>("TYPE_PAYMENT")); }
+            get { return _typePayments  ?? (_typePayments = CreateObjectSet<TypePayment>("TypePayments")); }
         }
-        private ObjectSet<TYPE_PAYMENT> _tYPE_PAYMENT;
+        private ObjectSet<TypePayment> _typePayments;
     
-        public ObjectSet<USER> USERs
+        public ObjectSet<User> Users
         {
-            get { return _uSERs  ?? (_uSERs = CreateObjectSet<USER>("USERs")); }
+            get { return _users  ?? (_users = CreateObjectSet<User>("Users")); }
         }
-        private ObjectSet<USER> _uSERs;
+        private ObjectSet<User> _users;
 
         #endregion
     }

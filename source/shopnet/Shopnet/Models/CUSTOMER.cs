@@ -18,172 +18,172 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(SaleOrder))]
-    public partial class CUSTOMER: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Sale))]
+    public partial class Customer: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_CUSTOMER
+        public int CustomerID
         {
-            get { return _iD_CUSTOMER; }
+            get { return _customerID; }
             set
             {
-                if (_iD_CUSTOMER != value)
+                if (_customerID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_CUSTOMER' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'CustomerID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_CUSTOMER = value;
-                    OnPropertyChanged("ID_CUSTOMER");
+                    _customerID = value;
+                    OnPropertyChanged("CustomerID");
                 }
             }
         }
-        private int _iD_CUSTOMER;
+        private int _customerID;
     
         [DataMember]
-        public string NAME_CUSTOMER
+        public string Name
         {
-            get { return _nAME_CUSTOMER; }
+            get { return _name; }
             set
             {
-                if (_nAME_CUSTOMER != value)
+                if (_name != value)
                 {
-                    _nAME_CUSTOMER = value;
-                    OnPropertyChanged("NAME_CUSTOMER");
+                    _name = value;
+                    OnPropertyChanged("Name");
                 }
             }
         }
-        private string _nAME_CUSTOMER;
+        private string _name;
     
         [DataMember]
-        public System.DateTime CREATION_CUSTOMER
+        public System.DateTime Creation
         {
-            get { return _cREATION_CUSTOMER; }
+            get { return _creation; }
             set
             {
-                if (_cREATION_CUSTOMER != value)
+                if (_creation != value)
                 {
-                    _cREATION_CUSTOMER = value;
-                    OnPropertyChanged("CREATION_CUSTOMER");
+                    _creation = value;
+                    OnPropertyChanged("Creation");
                 }
             }
         }
-        private System.DateTime _cREATION_CUSTOMER;
+        private System.DateTime _creation;
     
         [DataMember]
-        public string PHONE_CUSTOMER
+        public string Phone
         {
-            get { return _pHONE_CUSTOMER; }
+            get { return _phone; }
             set
             {
-                if (_pHONE_CUSTOMER != value)
+                if (_phone != value)
                 {
-                    _pHONE_CUSTOMER = value;
-                    OnPropertyChanged("PHONE_CUSTOMER");
+                    _phone = value;
+                    OnPropertyChanged("Phone");
                 }
             }
         }
-        private string _pHONE_CUSTOMER;
+        private string _phone;
     
         [DataMember]
-        public string ADDRESS_CUSTOMER
+        public string Address
         {
-            get { return _aDDRESS_CUSTOMER; }
+            get { return _address; }
             set
             {
-                if (_aDDRESS_CUSTOMER != value)
+                if (_address != value)
                 {
-                    _aDDRESS_CUSTOMER = value;
-                    OnPropertyChanged("ADDRESS_CUSTOMER");
+                    _address = value;
+                    OnPropertyChanged("Address");
                 }
             }
         }
-        private string _aDDRESS_CUSTOMER;
+        private string _address;
     
         [DataMember]
-        public string EMAIL_CUSTOMER
+        public string Email
         {
-            get { return _eMAIL_CUSTOMER; }
+            get { return _email; }
             set
             {
-                if (_eMAIL_CUSTOMER != value)
+                if (_email != value)
                 {
-                    _eMAIL_CUSTOMER = value;
-                    OnPropertyChanged("EMAIL_CUSTOMER");
+                    _email = value;
+                    OnPropertyChanged("Email");
                 }
             }
         }
-        private string _eMAIL_CUSTOMER;
+        private string _email;
     
         [DataMember]
-        public Nullable<decimal> LATITUDE_CUSTOMER
+        public Nullable<decimal> Latitude
         {
-            get { return _lATITUDE_CUSTOMER; }
+            get { return _latitude; }
             set
             {
-                if (_lATITUDE_CUSTOMER != value)
+                if (_latitude != value)
                 {
-                    _lATITUDE_CUSTOMER = value;
-                    OnPropertyChanged("LATITUDE_CUSTOMER");
+                    _latitude = value;
+                    OnPropertyChanged("Latitude");
                 }
             }
         }
-        private Nullable<decimal> _lATITUDE_CUSTOMER;
+        private Nullable<decimal> _latitude;
     
         [DataMember]
-        public Nullable<decimal> LONGITUDE_CUSTOMER
+        public Nullable<decimal> Longitude
         {
-            get { return _lONGITUDE_CUSTOMER; }
+            get { return _longitude; }
             set
             {
-                if (_lONGITUDE_CUSTOMER != value)
+                if (_longitude != value)
                 {
-                    _lONGITUDE_CUSTOMER = value;
-                    OnPropertyChanged("LONGITUDE_CUSTOMER");
+                    _longitude = value;
+                    OnPropertyChanged("Longitude");
                 }
             }
         }
-        private Nullable<decimal> _lONGITUDE_CUSTOMER;
+        private Nullable<decimal> _longitude;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<SaleOrder> SALE_ORDER
+        public TrackableCollection<Sale> Sales
         {
             get
             {
-                if (_sALE_ORDER == null)
+                if (_sales == null)
                 {
-                    _sALE_ORDER = new TrackableCollection<SaleOrder>();
-                    _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
+                    _sales = new TrackableCollection<Sale>();
+                    _sales.CollectionChanged += FixupSales;
                 }
-                return _sALE_ORDER;
+                return _sales;
             }
             set
             {
-                if (!ReferenceEquals(_sALE_ORDER, value))
+                if (!ReferenceEquals(_sales, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_sALE_ORDER != null)
+                    if (_sales != null)
                     {
-                        _sALE_ORDER.CollectionChanged -= FixupSALE_ORDER;
+                        _sales.CollectionChanged -= FixupSales;
                     }
-                    _sALE_ORDER = value;
-                    if (_sALE_ORDER != null)
+                    _sales = value;
+                    if (_sales != null)
                     {
-                        _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
+                        _sales.CollectionChanged += FixupSales;
                     }
-                    OnNavigationPropertyChanged("SALE_ORDER");
+                    OnNavigationPropertyChanged("Sales");
                 }
             }
         }
-        private TrackableCollection<SaleOrder> _sALE_ORDER;
+        private TrackableCollection<Sale> _sales;
 
         #endregion
         #region ChangeTracking
@@ -263,13 +263,13 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            SALE_ORDER.Clear();
+            Sales.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupSALE_ORDER(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupSales(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -278,7 +278,7 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (SaleOrder item in e.NewItems)
+                foreach (Sale item in e.NewItems)
                 {
                     item.Customer = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
@@ -287,14 +287,14 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("SALE_ORDER", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Sales", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (SaleOrder item in e.OldItems)
+                foreach (Sale item in e.OldItems)
                 {
                     if (ReferenceEquals(item.Customer, this))
                     {
@@ -302,7 +302,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("SALE_ORDER", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Sales", item);
                     }
                 }
             }

@@ -19,8 +19,8 @@ namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(Product))]
-    [KnownType(typeof(SaleOrder))]
-    public partial class DetailOrder: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Sale))]
+    public partial class DetailSale: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
@@ -38,9 +38,9 @@ namespace Shopnet.Models
                     }
                     if (!IsDeserializing)
                     {
-                        if (SaleOrder != null && SaleOrder.SaleID != value)
+                        if (Sale != null && Sale.SaleID != value)
                         {
-                            SaleOrder = null;
+                            Sale = null;
                         }
                     }
                     _saleID = value;
@@ -77,34 +77,34 @@ namespace Shopnet.Models
         private int _productID;
     
         [DataMember]
-        public decimal PriceProduct
+        public decimal Price
         {
-            get { return _priceProduct; }
+            get { return _price; }
             set
             {
-                if (_priceProduct != value)
+                if (_price != value)
                 {
-                    _priceProduct = value;
-                    OnPropertyChanged("PriceProduct");
+                    _price = value;
+                    OnPropertyChanged("Price");
                 }
             }
         }
-        private decimal _priceProduct;
+        private decimal _price;
     
         [DataMember]
-        public int AmountProduct
+        public int Amount
         {
-            get { return _amountProduct; }
+            get { return _amount; }
             set
             {
-                if (_amountProduct != value)
+                if (_amount != value)
                 {
-                    _amountProduct = value;
-                    OnPropertyChanged("AmountProduct");
+                    _amount = value;
+                    OnPropertyChanged("Amount");
                 }
             }
         }
-        private int _amountProduct;
+        private int _amount;
 
         #endregion
         #region Navigation Properties
@@ -136,12 +136,12 @@ namespace Shopnet.Models
         private Product _product;
     
         [DataMember]
-        public SaleOrder SaleOrder
+        public Sale Sale
         {
-            get { return _saleOrder; }
+            get { return _sale; }
             set
             {
-                if (!ReferenceEquals(_saleOrder, value))
+                if (!ReferenceEquals(_sale, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
@@ -152,14 +152,14 @@ namespace Shopnet.Models
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
                     }
-                    var previousValue = _saleOrder;
-                    _saleOrder = value;
-                    FixupSaleOrder(previousValue);
-                    OnNavigationPropertyChanged("SaleOrder");
+                    var previousValue = _sale;
+                    _sale = value;
+                    FixupSale(previousValue);
+                    OnNavigationPropertyChanged("Sale");
                 }
             }
         }
-        private SaleOrder _saleOrder;
+        private Sale _sale;
 
         #endregion
         #region ChangeTracking
@@ -250,7 +250,7 @@ namespace Shopnet.Models
         protected virtual void ClearNavigationProperties()
         {
             Product = null;
-            SaleOrder = null;
+            Sale = null;
         }
 
         #endregion
@@ -295,41 +295,41 @@ namespace Shopnet.Models
             }
         }
     
-        private void FixupSaleOrder(SaleOrder previousValue)
+        private void FixupSale(Sale previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.DetailOrder.Contains(this))
+            if (previousValue != null && previousValue.Details.Contains(this))
             {
-                previousValue.DetailOrder.Remove(this);
+                previousValue.Details.Remove(this);
             }
     
-            if (SaleOrder != null)
+            if (Sale != null)
             {
-                if (!SaleOrder.DetailOrder.Contains(this))
+                if (!Sale.Details.Contains(this))
                 {
-                    SaleOrder.DetailOrder.Add(this);
+                    Sale.Details.Add(this);
                 }
     
-                SaleID = SaleOrder.SaleID;
+                SaleID = Sale.SaleID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("SaleOrder")
-                    && (ChangeTracker.OriginalValues["SaleOrder"] == SaleOrder))
+                if (ChangeTracker.OriginalValues.ContainsKey("Sale")
+                    && (ChangeTracker.OriginalValues["Sale"] == Sale))
                 {
-                    ChangeTracker.OriginalValues.Remove("SaleOrder");
+                    ChangeTracker.OriginalValues.Remove("Sale");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("SaleOrder", previousValue);
+                    ChangeTracker.RecordOriginalValue("Sale", previousValue);
                 }
-                if (SaleOrder != null && !SaleOrder.ChangeTracker.ChangeTrackingEnabled)
+                if (Sale != null && !Sale.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    SaleOrder.StartTracking();
+                    Sale.StartTracking();
                 }
             }
         }

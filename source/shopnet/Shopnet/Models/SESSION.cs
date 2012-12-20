@@ -18,117 +18,117 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(USER))]
-    public partial class SESSION: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(User))]
+    public partial class Session: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_SESSION
+        public int SessionID
         {
-            get { return _iD_SESSION; }
+            get { return _sessionID; }
             set
             {
-                if (_iD_SESSION != value)
+                if (_sessionID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_SESSION' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'SessionID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_SESSION = value;
-                    OnPropertyChanged("ID_SESSION");
+                    _sessionID = value;
+                    OnPropertyChanged("SessionID");
                 }
             }
         }
-        private int _iD_SESSION;
+        private int _sessionID;
     
         [DataMember]
-        public int ID_USER
+        public int UserID
         {
-            get { return _iD_USER; }
+            get { return _userID; }
             set
             {
-                if (_iD_USER != value)
+                if (_userID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_USER", _iD_USER);
+                    ChangeTracker.RecordOriginalValue("UserID", _userID);
                     if (!IsDeserializing)
                     {
-                        if (USER != null && USER.ID_USER != value)
+                        if (User != null && User.UserID != value)
                         {
-                            USER = null;
+                            User = null;
                         }
                     }
-                    _iD_USER = value;
-                    OnPropertyChanged("ID_USER");
+                    _userID = value;
+                    OnPropertyChanged("UserID");
                 }
             }
         }
-        private int _iD_USER;
+        private int _userID;
     
         [DataMember]
-        public System.DateTime INIT_SESSION
+        public System.DateTime Init
         {
-            get { return _iNIT_SESSION; }
+            get { return _init; }
             set
             {
-                if (_iNIT_SESSION != value)
+                if (_init != value)
                 {
-                    _iNIT_SESSION = value;
-                    OnPropertyChanged("INIT_SESSION");
+                    _init = value;
+                    OnPropertyChanged("Init");
                 }
             }
         }
-        private System.DateTime _iNIT_SESSION;
+        private System.DateTime _init;
     
         [DataMember]
-        public Nullable<System.DateTime> END_SESSION
+        public Nullable<System.DateTime> End
         {
-            get { return _eND_SESSION; }
+            get { return _end; }
             set
             {
-                if (_eND_SESSION != value)
+                if (_end != value)
                 {
-                    _eND_SESSION = value;
-                    OnPropertyChanged("END_SESSION");
+                    _end = value;
+                    OnPropertyChanged("End");
                 }
             }
         }
-        private Nullable<System.DateTime> _eND_SESSION;
+        private Nullable<System.DateTime> _end;
     
         [DataMember]
-        public int STATUS_SESSION
+        public int Status
         {
-            get { return _sTATUS_SESSION; }
+            get { return _status; }
             set
             {
-                if (_sTATUS_SESSION != value)
+                if (_status != value)
                 {
-                    _sTATUS_SESSION = value;
-                    OnPropertyChanged("STATUS_SESSION");
+                    _status = value;
+                    OnPropertyChanged("Status");
                 }
             }
         }
-        private int _sTATUS_SESSION;
+        private int _status;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public USER USER
+        public User User
         {
-            get { return _uSER; }
+            get { return _user; }
             set
             {
-                if (!ReferenceEquals(_uSER, value))
+                if (!ReferenceEquals(_user, value))
                 {
-                    var previousValue = _uSER;
-                    _uSER = value;
-                    FixupUSER(previousValue);
-                    OnNavigationPropertyChanged("USER");
+                    var previousValue = _user;
+                    _user = value;
+                    FixupUser(previousValue);
+                    OnNavigationPropertyChanged("User");
                 }
             }
         }
-        private USER _uSER;
+        private User _user;
 
         #endregion
         #region ChangeTracking
@@ -208,47 +208,47 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            USER = null;
+            User = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupUSER(USER previousValue)
+        private void FixupUser(User previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.SESSIONs.Contains(this))
+            if (previousValue != null && previousValue.Sessions.Contains(this))
             {
-                previousValue.SESSIONs.Remove(this);
+                previousValue.Sessions.Remove(this);
             }
     
-            if (USER != null)
+            if (User != null)
             {
-                if (!USER.SESSIONs.Contains(this))
+                if (!User.Sessions.Contains(this))
                 {
-                    USER.SESSIONs.Add(this);
+                    User.Sessions.Add(this);
                 }
     
-                ID_USER = USER.ID_USER;
+                UserID = User.UserID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("USER")
-                    && (ChangeTracker.OriginalValues["USER"] == USER))
+                if (ChangeTracker.OriginalValues.ContainsKey("User")
+                    && (ChangeTracker.OriginalValues["User"] == User))
                 {
-                    ChangeTracker.OriginalValues.Remove("USER");
+                    ChangeTracker.OriginalValues.Remove("User");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("USER", previousValue);
+                    ChangeTracker.RecordOriginalValue("User", previousValue);
                 }
-                if (USER != null && !USER.ChangeTracker.ChangeTrackingEnabled)
+                if (User != null && !User.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    USER.StartTracking();
+                    User.StartTracking();
                 }
             }
         }
