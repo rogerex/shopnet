@@ -95,7 +95,7 @@
     <Compile Include="Models\DetailPurchase.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeneralValidate.cs" />
+    <Compile Include="Models\GeneralValidate.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
