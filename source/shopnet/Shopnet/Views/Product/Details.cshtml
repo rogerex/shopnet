@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.PRODUCT
+﻿@model Shopnet.Models.Product
 
 @{
     ViewBag.Title = "Details";
@@ -7,35 +7,29 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>PRODUCT</legend>
+    <legend>Product</legend>
 
-    <div class="display-label">ID_PRODUCT</div>
-    
+    <div class="display-label">Code</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ID_PRODUCT)
-    </div>
-    
-    <div class="display-label">CODE_PRODUCT</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CODE_PRODUCT)
+        @Html.DisplayFor(model => model.Code)
     </div>
 
-    <div class="display-label">NAME_PRODUCT</div>
+    <div class="display-label">Name</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.NAME_PRODUCT)
+        @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">DESC_PRODUCT</div>
+    <div class="display-label">Descripton</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.DESC_PRODUCT)
+        @Html.DisplayFor(model => model.Descripton)
     </div>
 
-    <div class="display-label">MINIMUM_PRODUCT</div>
+    <div class="display-label">Minimum</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.MINIMUM_PRODUCT)
+        @Html.DisplayFor(model => model.Minimum)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProductID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

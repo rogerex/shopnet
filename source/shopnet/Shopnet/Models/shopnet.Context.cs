@@ -83,11 +83,11 @@ namespace Shopnet.Models
         }
         private ObjectSet<CUSTOMER> _cUSTOMERs;
     
-        public ObjectSet<DETAIL_ORDER> DETAIL_ORDER
+        public ObjectSet<DetailOrder> DetailOrders
         {
-            get { return _dETAIL_ORDER  ?? (_dETAIL_ORDER = CreateObjectSet<DETAIL_ORDER>("DETAIL_ORDER")); }
+            get { return _detailOrders  ?? (_detailOrders = CreateObjectSet<DetailOrder>("DetailOrders")); }
         }
-        private ObjectSet<DETAIL_ORDER> _dETAIL_ORDER;
+        private ObjectSet<DetailOrder> _detailOrders;
     
         public ObjectSet<ITEM> ITEMs
         {
@@ -101,11 +101,11 @@ namespace Shopnet.Models
         }
         private ObjectSet<PAYMENT> _pAYMENTs;
     
-        public ObjectSet<PRODUCT> PRODUCTs
+        public ObjectSet<Product> Products
         {
-            get { return _pRODUCTs  ?? (_pRODUCTs = CreateObjectSet<PRODUCT>("PRODUCTs")); }
+            get { return _products  ?? (_products = CreateObjectSet<Product>("Products")); }
         }
-        private ObjectSet<PRODUCT> _pRODUCTs;
+        private ObjectSet<Product> _products;
     
         public ObjectSet<PROVIDER> PROVIDERs
         {
@@ -125,11 +125,11 @@ namespace Shopnet.Models
         }
         private ObjectSet<ROLE> _rOLEs;
     
-        public ObjectSet<SALE_ORDER> SALE_ORDER
+        public ObjectSet<SaleOrder> SaleOrders
         {
-            get { return _sALE_ORDER  ?? (_sALE_ORDER = CreateObjectSet<SALE_ORDER>("SALE_ORDER")); }
+            get { return _saleOrders  ?? (_saleOrders = CreateObjectSet<SaleOrder>("SaleOrders")); }
         }
-        private ObjectSet<SALE_ORDER> _sALE_ORDER;
+        private ObjectSet<SaleOrder> _saleOrders;
     
         public ObjectSet<SESSION> SESSIONs
         {

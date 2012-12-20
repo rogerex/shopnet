@@ -18,7 +18,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Index()
         {
-            return View(db.PRODUCTs.ToList());
+            return View(db.Products.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Details(int id)
         {
-            PRODUCT product = db.PRODUCTs.Single(p => p.ID_PRODUCT == id);
+            Product product = db.Products.Single(p => p.ProductID == id);
             return View(product);
         }
 
@@ -42,11 +42,11 @@ namespace Shopnet.Controllers
         // POST: /Product/Create
 
         [HttpPost]
-        public ActionResult Create(PRODUCT product)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.PRODUCTs.AddObject(product);
+                db.Products.AddObject(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -59,7 +59,7 @@ namespace Shopnet.Controllers
  
         public ActionResult Edit(int id)
         {
-            PRODUCT product = db.PRODUCTs.Single(p => p.ID_PRODUCT == id);
+            Product product = db.Products.Single(p => p.ProductID == id);
             return View(product);
         }
 
@@ -67,11 +67,11 @@ namespace Shopnet.Controllers
         // POST: /Product/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(PRODUCT product)
+        public ActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.PRODUCTs.Attach(product);
+                db.Products.Attach(product);
                 db.ObjectStateManager.ChangeObjectState(product, EntityState.Modified);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,7 +84,7 @@ namespace Shopnet.Controllers
  
         public ActionResult Delete(int id)
         {
-            PRODUCT product = db.PRODUCTs.Single(p => p.ID_PRODUCT == id);
+            Product product = db.Products.Single(p => p.ProductID == id);
             return View(product);
         }
 
@@ -94,8 +94,8 @@ namespace Shopnet.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            PRODUCT product = db.PRODUCTs.Single(p => p.ID_PRODUCT == id);
-            db.PRODUCTs.DeleteObject(product);
+            Product product = db.Products.Single(p => p.ProductID == id);
+            db.Products.DeleteObject(product);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

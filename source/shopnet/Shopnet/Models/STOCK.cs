@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(PRODUCT))]
+    [KnownType(typeof(Product))]
     [KnownType(typeof(PURCHASE_ORDER))]
     public partial class STOCK: IObjectWithChangeTracker, INotifyPropertyChanged
     {
@@ -38,7 +38,7 @@ namespace Shopnet.Models
                     }
                     if (!IsDeserializing)
                     {
-                        if (PRODUCT != null && PRODUCT.ID_PRODUCT != value)
+                        if (PRODUCT != null && PRODUCT.ProductID != value)
                         {
                             PRODUCT = null;
                         }
@@ -140,7 +140,7 @@ namespace Shopnet.Models
         #region Navigation Properties
     
         [DataMember]
-        public PRODUCT PRODUCT
+        public Product PRODUCT
         {
             get { return _pRODUCT; }
             set
@@ -151,7 +151,7 @@ namespace Shopnet.Models
                     {
                         // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
                         // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ID_PRODUCT != value.ID_PRODUCT)
+                        if (ID_PRODUCT != value.ProductID)
                         {
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
@@ -163,7 +163,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private PRODUCT _pRODUCT;
+        private Product _pRODUCT;
     
         [DataMember]
         public PURCHASE_ORDER PURCHASE_ORDER
@@ -286,26 +286,26 @@ namespace Shopnet.Models
         #endregion
         #region Association Fixup
     
-        private void FixupPRODUCT(PRODUCT previousValue)
+        private void FixupPRODUCT(Product previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.STOCKs.Contains(this))
+            if (previousValue != null && previousValue.Stocks.Contains(this))
             {
-                previousValue.STOCKs.Remove(this);
+                previousValue.Stocks.Remove(this);
             }
     
             if (PRODUCT != null)
             {
-                if (!PRODUCT.STOCKs.Contains(this))
+                if (!PRODUCT.Stocks.Contains(this))
                 {
-                    PRODUCT.STOCKs.Add(this);
+                    PRODUCT.Stocks.Add(this);
                 }
     
-                ID_PRODUCT = PRODUCT.ID_PRODUCT;
+                ID_PRODUCT = PRODUCT.ProductID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {

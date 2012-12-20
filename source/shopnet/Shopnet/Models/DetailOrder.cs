@@ -18,148 +18,148 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(PRODUCT))]
-    [KnownType(typeof(SALE_ORDER))]
-    public partial class DETAIL_ORDER: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Product))]
+    [KnownType(typeof(SaleOrder))]
+    public partial class DetailOrder: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_SALE
+        public int SaleID
         {
-            get { return _iD_SALE; }
+            get { return _saleID; }
             set
             {
-                if (_iD_SALE != value)
+                if (_saleID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_SALE' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'SaleID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
                     if (!IsDeserializing)
                     {
-                        if (SALE_ORDER != null && SALE_ORDER.ID_SALE != value)
+                        if (SaleOrder != null && SaleOrder.SaleID != value)
                         {
-                            SALE_ORDER = null;
+                            SaleOrder = null;
                         }
                     }
-                    _iD_SALE = value;
-                    OnPropertyChanged("ID_SALE");
+                    _saleID = value;
+                    OnPropertyChanged("SaleID");
                 }
             }
         }
-        private int _iD_SALE;
+        private int _saleID;
     
         [DataMember]
-        public int ID_PRODUCT
+        public int ProductID
         {
-            get { return _iD_PRODUCT; }
+            get { return _productID; }
             set
             {
-                if (_iD_PRODUCT != value)
+                if (_productID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PRODUCT' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'ProductID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
                     if (!IsDeserializing)
                     {
-                        if (PRODUCT != null && PRODUCT.ID_PRODUCT != value)
+                        if (Product != null && Product.ProductID != value)
                         {
-                            PRODUCT = null;
+                            Product = null;
                         }
                     }
-                    _iD_PRODUCT = value;
-                    OnPropertyChanged("ID_PRODUCT");
+                    _productID = value;
+                    OnPropertyChanged("ProductID");
                 }
             }
         }
-        private int _iD_PRODUCT;
+        private int _productID;
     
         [DataMember]
-        public decimal PRICE_PRODUCT
+        public decimal PriceProduct
         {
-            get { return _pRICE_PRODUCT; }
+            get { return _priceProduct; }
             set
             {
-                if (_pRICE_PRODUCT != value)
+                if (_priceProduct != value)
                 {
-                    _pRICE_PRODUCT = value;
-                    OnPropertyChanged("PRICE_PRODUCT");
+                    _priceProduct = value;
+                    OnPropertyChanged("PriceProduct");
                 }
             }
         }
-        private decimal _pRICE_PRODUCT;
+        private decimal _priceProduct;
     
         [DataMember]
-        public int AMOUNT_PRODUCT
+        public int AmountProduct
         {
-            get { return _aMOUNT_PRODUCT; }
+            get { return _amountProduct; }
             set
             {
-                if (_aMOUNT_PRODUCT != value)
+                if (_amountProduct != value)
                 {
-                    _aMOUNT_PRODUCT = value;
-                    OnPropertyChanged("AMOUNT_PRODUCT");
+                    _amountProduct = value;
+                    OnPropertyChanged("AmountProduct");
                 }
             }
         }
-        private int _aMOUNT_PRODUCT;
+        private int _amountProduct;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public PRODUCT PRODUCT
+        public Product Product
         {
-            get { return _pRODUCT; }
+            get { return _product; }
             set
             {
-                if (!ReferenceEquals(_pRODUCT, value))
+                if (!ReferenceEquals(_product, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
                         // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
                         // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ID_PRODUCT != value.ID_PRODUCT)
+                        if (ProductID != value.ProductID)
                         {
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
                     }
-                    var previousValue = _pRODUCT;
-                    _pRODUCT = value;
-                    FixupPRODUCT(previousValue);
-                    OnNavigationPropertyChanged("PRODUCT");
+                    var previousValue = _product;
+                    _product = value;
+                    FixupProduct(previousValue);
+                    OnNavigationPropertyChanged("Product");
                 }
             }
         }
-        private PRODUCT _pRODUCT;
+        private Product _product;
     
         [DataMember]
-        public SALE_ORDER SALE_ORDER
+        public SaleOrder SaleOrder
         {
-            get { return _sALE_ORDER; }
+            get { return _saleOrder; }
             set
             {
-                if (!ReferenceEquals(_sALE_ORDER, value))
+                if (!ReferenceEquals(_saleOrder, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
                         // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
                         // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ID_SALE != value.ID_SALE)
+                        if (SaleID != value.SaleID)
                         {
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
                     }
-                    var previousValue = _sALE_ORDER;
-                    _sALE_ORDER = value;
-                    FixupSALE_ORDER(previousValue);
-                    OnNavigationPropertyChanged("SALE_ORDER");
+                    var previousValue = _saleOrder;
+                    _saleOrder = value;
+                    FixupSaleOrder(previousValue);
+                    OnNavigationPropertyChanged("SaleOrder");
                 }
             }
         }
-        private SALE_ORDER _sALE_ORDER;
+        private SaleOrder _saleOrder;
 
         #endregion
         #region ChangeTracking
@@ -249,87 +249,87 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            PRODUCT = null;
-            SALE_ORDER = null;
+            Product = null;
+            SaleOrder = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupPRODUCT(PRODUCT previousValue)
+        private void FixupProduct(Product previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.DETAIL_ORDER.Contains(this))
+            if (previousValue != null && previousValue.DetailOrder.Contains(this))
             {
-                previousValue.DETAIL_ORDER.Remove(this);
+                previousValue.DetailOrder.Remove(this);
             }
     
-            if (PRODUCT != null)
+            if (Product != null)
             {
-                if (!PRODUCT.DETAIL_ORDER.Contains(this))
+                if (!Product.DetailOrder.Contains(this))
                 {
-                    PRODUCT.DETAIL_ORDER.Add(this);
+                    Product.DetailOrder.Add(this);
                 }
     
-                ID_PRODUCT = PRODUCT.ID_PRODUCT;
+                ProductID = Product.ProductID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("PRODUCT")
-                    && (ChangeTracker.OriginalValues["PRODUCT"] == PRODUCT))
+                if (ChangeTracker.OriginalValues.ContainsKey("Product")
+                    && (ChangeTracker.OriginalValues["Product"] == Product))
                 {
-                    ChangeTracker.OriginalValues.Remove("PRODUCT");
+                    ChangeTracker.OriginalValues.Remove("Product");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("PRODUCT", previousValue);
+                    ChangeTracker.RecordOriginalValue("Product", previousValue);
                 }
-                if (PRODUCT != null && !PRODUCT.ChangeTracker.ChangeTrackingEnabled)
+                if (Product != null && !Product.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    PRODUCT.StartTracking();
+                    Product.StartTracking();
                 }
             }
         }
     
-        private void FixupSALE_ORDER(SALE_ORDER previousValue)
+        private void FixupSaleOrder(SaleOrder previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.DETAIL_ORDER.Contains(this))
+            if (previousValue != null && previousValue.DetailOrder.Contains(this))
             {
-                previousValue.DETAIL_ORDER.Remove(this);
+                previousValue.DetailOrder.Remove(this);
             }
     
-            if (SALE_ORDER != null)
+            if (SaleOrder != null)
             {
-                if (!SALE_ORDER.DETAIL_ORDER.Contains(this))
+                if (!SaleOrder.DetailOrder.Contains(this))
                 {
-                    SALE_ORDER.DETAIL_ORDER.Add(this);
+                    SaleOrder.DetailOrder.Add(this);
                 }
     
-                ID_SALE = SALE_ORDER.ID_SALE;
+                SaleID = SaleOrder.SaleID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("SALE_ORDER")
-                    && (ChangeTracker.OriginalValues["SALE_ORDER"] == SALE_ORDER))
+                if (ChangeTracker.OriginalValues.ContainsKey("SaleOrder")
+                    && (ChangeTracker.OriginalValues["SaleOrder"] == SaleOrder))
                 {
-                    ChangeTracker.OriginalValues.Remove("SALE_ORDER");
+                    ChangeTracker.OriginalValues.Remove("SaleOrder");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("SALE_ORDER", previousValue);
+                    ChangeTracker.RecordOriginalValue("SaleOrder", previousValue);
                 }
-                if (SALE_ORDER != null && !SALE_ORDER.ChangeTracker.ChangeTrackingEnabled)
+                if (SaleOrder != null && !SaleOrder.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    SALE_ORDER.StartTracking();
+                    SaleOrder.StartTracking();
                 }
             }
         }
