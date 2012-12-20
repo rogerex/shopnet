@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.PROVIDER
+﻿@model Shopnet.Models.Provider
 
 @{
     ViewBag.Title = "Details";
@@ -7,39 +7,34 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>PROVIDER</legend>
+    <legend>Provider</legend>
 
-    <div class="display-label">ID_PROVIDER</div>
+    <div class="display-label">Name</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ID_PROVIDER)
+        @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">NAME_PROVIDER</div>
+    <div class="display-label">Description</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.NAME_PROVIDER)
+        @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">DESC_PROVIDER</div>
+    <div class="display-label">Creation</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.DESC_PROVIDER)
+        @Html.DisplayFor(model => model.Creation)
     </div>
 
-    <div class="display-label">CREATION_PROVIDER</div>
+    <div class="display-label">Address</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CREATION_PROVIDER)
+        @Html.DisplayFor(model => model.Address)
     </div>
 
-    <div class="display-label">ADDRESS_PROVIDER</div>
+    <div class="display-label">Phone</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ADDRESS_PROVIDER)
-    </div>
-
-    <div class="display-label">PHONE_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PHONE_PROVIDER)
+        @Html.DisplayFor(model => model.Phone)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

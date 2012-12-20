@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(PROVIDER))]
+    [KnownType(typeof(Provider))]
     [KnownType(typeof(USER))]
     [KnownType(typeof(STOCK))]
     public partial class PURCHASE_ORDER: IObjectWithChangeTracker, INotifyPropertyChanged
@@ -55,7 +55,7 @@ namespace Shopnet.Models
                     ChangeTracker.RecordOriginalValue("ID_PROVIDER", _iD_PROVIDER);
                     if (!IsDeserializing)
                     {
-                        if (PROVIDER != null && PROVIDER.ID_PROVIDER != value)
+                        if (PROVIDER != null && PROVIDER.ProviderID != value)
                         {
                             PROVIDER = null;
                         }
@@ -124,7 +124,7 @@ namespace Shopnet.Models
         #region Navigation Properties
     
         [DataMember]
-        public PROVIDER PROVIDER
+        public Provider PROVIDER
         {
             get { return _pROVIDER; }
             set
@@ -138,7 +138,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private PROVIDER _pROVIDER;
+        private Provider _pROVIDER;
     
         [DataMember]
         public USER USER
@@ -290,26 +290,26 @@ namespace Shopnet.Models
         #endregion
         #region Association Fixup
     
-        private void FixupPROVIDER(PROVIDER previousValue)
+        private void FixupPROVIDER(Provider previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.PURCHASE_ORDER.Contains(this))
+            if (previousValue != null && previousValue.PurchasesOrders.Contains(this))
             {
-                previousValue.PURCHASE_ORDER.Remove(this);
+                previousValue.PurchasesOrders.Remove(this);
             }
     
             if (PROVIDER != null)
             {
-                if (!PROVIDER.PURCHASE_ORDER.Contains(this))
+                if (!PROVIDER.PurchasesOrders.Contains(this))
                 {
-                    PROVIDER.PURCHASE_ORDER.Add(this);
+                    PROVIDER.PurchasesOrders.Add(this);
                 }
     
-                ID_PROVIDER = PROVIDER.ID_PROVIDER;
+                ID_PROVIDER = PROVIDER.ProviderID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {

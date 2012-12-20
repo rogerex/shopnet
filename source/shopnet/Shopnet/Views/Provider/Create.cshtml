@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.PROVIDER
+﻿@model Shopnet.Models.Provider
 
 @{
     ViewBag.Title = "Create";
@@ -12,46 +12,38 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>PROVIDER</legend>
+        <legend>Provider</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NAME_PROVIDER)
+            @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.NAME_PROVIDER)
-            @Html.ValidationMessageFor(model => model.NAME_PROVIDER)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DESC_PROVIDER)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DESC_PROVIDER)
-            @Html.ValidationMessageFor(model => model.DESC_PROVIDER)
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CREATION_PROVIDER)
+            @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CREATION_PROVIDER)
-            @Html.ValidationMessageFor(model => model.CREATION_PROVIDER)
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ADDRESS_PROVIDER)
+            @Html.LabelFor(model => model.Address)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ADDRESS_PROVIDER)
-            @Html.ValidationMessageFor(model => model.ADDRESS_PROVIDER)
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PHONE_PROVIDER)
+            @Html.LabelFor(model => model.Phone)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PHONE_PROVIDER)
-            @Html.ValidationMessageFor(model => model.PHONE_PROVIDER)
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
         </div>
 
         <p>

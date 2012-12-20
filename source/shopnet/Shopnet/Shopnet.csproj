@@ -104,7 +104,7 @@
     <Compile Include="Models\PRODUCT.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PROVIDER.cs">
+    <Compile Include="Models\Provider.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PURCHASE_ORDER.cs">
@@ -251,16 +251,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Shopnet.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Provider\Index.cshtml" />
-    <Content Include="Views\Provider\Details.cshtml" />
-    <Content Include="Views\Provider\Create.cshtml" />
-    <Content Include="Views\Provider\Edit.cshtml" />
-    <Content Include="Views\Provider\Delete.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Provider\Index.cshtml" />
+    <Content Include="Views\Provider\Details.cshtml" />
+    <Content Include="Views\Provider\Create.cshtml" />
+    <Content Include="Views\Provider\Edit.cshtml" />
+    <Content Include="Views\Provider\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

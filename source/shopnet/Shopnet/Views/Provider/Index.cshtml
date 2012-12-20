@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shopnet.Models.PROVIDER>
+﻿@model IEnumerable<Shopnet.Models.Provider>
 
 @{
     ViewBag.Title = "Index";
@@ -12,22 +12,19 @@
 <table>
     <tr>
         <th>
-            ID_PROVIDER
+            Name
         </th>
         <th>
-            NAME_PROVIDER
+            Description
         </th>
         <th>
-            DESC_PROVIDER
+            Creation
         </th>
         <th>
-            CREATION_PROVIDER
+            Address
         </th>
         <th>
-            ADDRESS_PROVIDER
-        </th>
-        <th>
-            PHONE_PROVIDER
+            Phone
         </th>
         <th></th>
     </tr>
@@ -35,27 +32,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ID_PROVIDER)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NAME_PROVIDER)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DESC_PROVIDER)
+            @Html.DisplayFor(modelItem => item.Creation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CREATION_PROVIDER)
+            @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ADDRESS_PROVIDER)
+            @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PHONE_PROVIDER)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProviderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProviderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProviderID })
         </td>
     </tr>
 }

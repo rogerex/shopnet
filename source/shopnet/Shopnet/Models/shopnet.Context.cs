@@ -107,11 +107,11 @@ namespace Shopnet.Models
         }
         private ObjectSet<PRODUCT> _pRODUCTs;
     
-        public ObjectSet<PROVIDER> PROVIDERs
+        public ObjectSet<Provider> Providers
         {
-            get { return _pROVIDERs  ?? (_pROVIDERs = CreateObjectSet<PROVIDER>("PROVIDERs")); }
+            get { return _providers  ?? (_providers = CreateObjectSet<Provider>("Providers")); }
         }
-        private ObjectSet<PROVIDER> _pROVIDERs;
+        private ObjectSet<Provider> _providers;
     
         public ObjectSet<PURCHASE_ORDER> PURCHASE_ORDER
         {

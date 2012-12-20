@@ -18,7 +18,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Index()
         {
-            return View(db.PROVIDERs.ToList());
+            return View(db.Providers.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Details(int id)
         {
-            PROVIDER provider = db.PROVIDERs.Single(p => p.ID_PROVIDER == id);
+            Provider provider = db.Providers.Single(p => p.ProviderID == id);
             return View(provider);
         }
 
@@ -42,11 +42,12 @@ namespace Shopnet.Controllers
         // POST: /Provider/Create
 
         [HttpPost]
-        public ActionResult Create(PROVIDER provider)
+        public ActionResult Create(Provider provider)
         {
             if (ModelState.IsValid)
             {
-                db.PROVIDERs.AddObject(provider);
+                provider.Creation = DateTime.Now;
+                db.Providers.AddObject(provider);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -59,7 +60,7 @@ namespace Shopnet.Controllers
  
         public ActionResult Edit(int id)
         {
-            PROVIDER provider = db.PROVIDERs.Single(p => p.ID_PROVIDER == id);
+            Provider provider = db.Providers.Single(p => p.ProviderID == id);
             return View(provider);
         }
 
@@ -67,11 +68,11 @@ namespace Shopnet.Controllers
         // POST: /Provider/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(PROVIDER provider)
+        public ActionResult Edit(Provider provider)
         {
             if (ModelState.IsValid)
             {
-                db.PROVIDERs.Attach(provider);
+                db.Providers.Attach(provider);
                 db.ObjectStateManager.ChangeObjectState(provider, EntityState.Modified);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,7 +85,7 @@ namespace Shopnet.Controllers
  
         public ActionResult Delete(int id)
         {
-            PROVIDER provider = db.PROVIDERs.Single(p => p.ID_PROVIDER == id);
+            Provider provider = db.Providers.Single(p => p.ProviderID == id);
             return View(provider);
         }
 
@@ -94,8 +95,8 @@ namespace Shopnet.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            PROVIDER provider = db.PROVIDERs.Single(p => p.ID_PROVIDER == id);
-            db.PROVIDERs.DeleteObject(provider);
+            Provider provider = db.Providers.Single(p => p.ProviderID == id);
+            db.Providers.DeleteObject(provider);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

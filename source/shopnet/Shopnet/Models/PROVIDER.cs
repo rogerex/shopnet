@@ -19,141 +19,141 @@ namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(PURCHASE_ORDER))]
-    public partial class PROVIDER: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class Provider: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_PROVIDER
+        public int ProviderID
         {
-            get { return _iD_PROVIDER; }
+            get { return _providerID; }
             set
             {
-                if (_iD_PROVIDER != value)
+                if (_providerID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PROVIDER' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'ProviderID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_PROVIDER = value;
-                    OnPropertyChanged("ID_PROVIDER");
+                    _providerID = value;
+                    OnPropertyChanged("ProviderID");
                 }
             }
         }
-        private int _iD_PROVIDER;
+        private int _providerID;
     
         [DataMember]
-        public string NAME_PROVIDER
+        public string Name
         {
-            get { return _nAME_PROVIDER; }
+            get { return _name; }
             set
             {
-                if (_nAME_PROVIDER != value)
+                if (_name != value)
                 {
-                    _nAME_PROVIDER = value;
-                    OnPropertyChanged("NAME_PROVIDER");
+                    _name = value;
+                    OnPropertyChanged("Name");
                 }
             }
         }
-        private string _nAME_PROVIDER;
+        private string _name;
     
         [DataMember]
-        public string DESC_PROVIDER
+        public string Description
         {
-            get { return _dESC_PROVIDER; }
+            get { return _description; }
             set
             {
-                if (_dESC_PROVIDER != value)
+                if (_description != value)
                 {
-                    _dESC_PROVIDER = value;
-                    OnPropertyChanged("DESC_PROVIDER");
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
-        private string _dESC_PROVIDER;
+        private string _description;
     
         [DataMember]
-        public System.DateTime CREATION_PROVIDER
+        public System.DateTime Creation
         {
-            get { return _cREATION_PROVIDER; }
+            get { return _creation; }
             set
             {
-                if (_cREATION_PROVIDER != value)
+                if (_creation != value)
                 {
-                    _cREATION_PROVIDER = value;
-                    OnPropertyChanged("CREATION_PROVIDER");
+                    _creation = value;
+                    OnPropertyChanged("Creation");
                 }
             }
         }
-        private System.DateTime _cREATION_PROVIDER;
+        private System.DateTime _creation;
     
         [DataMember]
-        public string ADDRESS_PROVIDER
+        public string Address
         {
-            get { return _aDDRESS_PROVIDER; }
+            get { return _address; }
             set
             {
-                if (_aDDRESS_PROVIDER != value)
+                if (_address != value)
                 {
-                    _aDDRESS_PROVIDER = value;
-                    OnPropertyChanged("ADDRESS_PROVIDER");
+                    _address = value;
+                    OnPropertyChanged("Address");
                 }
             }
         }
-        private string _aDDRESS_PROVIDER;
+        private string _address;
     
         [DataMember]
-        public string PHONE_PROVIDER
+        public string Phone
         {
-            get { return _pHONE_PROVIDER; }
+            get { return _phone; }
             set
             {
-                if (_pHONE_PROVIDER != value)
+                if (_phone != value)
                 {
-                    _pHONE_PROVIDER = value;
-                    OnPropertyChanged("PHONE_PROVIDER");
+                    _phone = value;
+                    OnPropertyChanged("Phone");
                 }
             }
         }
-        private string _pHONE_PROVIDER;
+        private string _phone;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<PURCHASE_ORDER> PURCHASE_ORDER
+        public TrackableCollection<PURCHASE_ORDER> PurchasesOrders
         {
             get
             {
-                if (_pURCHASE_ORDER == null)
+                if (_purchasesOrders == null)
                 {
-                    _pURCHASE_ORDER = new TrackableCollection<PURCHASE_ORDER>();
-                    _pURCHASE_ORDER.CollectionChanged += FixupPURCHASE_ORDER;
+                    _purchasesOrders = new TrackableCollection<PURCHASE_ORDER>();
+                    _purchasesOrders.CollectionChanged += FixupPurchasesOrders;
                 }
-                return _pURCHASE_ORDER;
+                return _purchasesOrders;
             }
             set
             {
-                if (!ReferenceEquals(_pURCHASE_ORDER, value))
+                if (!ReferenceEquals(_purchasesOrders, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_pURCHASE_ORDER != null)
+                    if (_purchasesOrders != null)
                     {
-                        _pURCHASE_ORDER.CollectionChanged -= FixupPURCHASE_ORDER;
+                        _purchasesOrders.CollectionChanged -= FixupPurchasesOrders;
                     }
-                    _pURCHASE_ORDER = value;
-                    if (_pURCHASE_ORDER != null)
+                    _purchasesOrders = value;
+                    if (_purchasesOrders != null)
                     {
-                        _pURCHASE_ORDER.CollectionChanged += FixupPURCHASE_ORDER;
+                        _purchasesOrders.CollectionChanged += FixupPurchasesOrders;
                     }
-                    OnNavigationPropertyChanged("PURCHASE_ORDER");
+                    OnNavigationPropertyChanged("PurchasesOrders");
                 }
             }
         }
-        private TrackableCollection<PURCHASE_ORDER> _pURCHASE_ORDER;
+        private TrackableCollection<PURCHASE_ORDER> _purchasesOrders;
 
         #endregion
         #region ChangeTracking
@@ -233,13 +233,13 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            PURCHASE_ORDER.Clear();
+            PurchasesOrders.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupPURCHASE_ORDER(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupPurchasesOrders(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -257,7 +257,7 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("PURCHASE_ORDER", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("PurchasesOrders", item);
                     }
                 }
             }
@@ -272,7 +272,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("PURCHASE_ORDER", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("PurchasesOrders", item);
                     }
                 }
             }

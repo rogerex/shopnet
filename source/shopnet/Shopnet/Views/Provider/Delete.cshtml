@@ -1,45 +1,16 @@
-﻿@model Shopnet.Models.PROVIDER
+﻿@model Shopnet.Models.Provider
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete Confirmation</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>PROVIDER</legend>
+<h3>Are you sure you want to delete the Provider:</h3>
+<p>
+   <strong>@Model.Name</strong>?
+</p>
 
-    <div class="display-label">ID_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ID_PROVIDER)
-    </div>
-
-    <div class="display-label">NAME_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NAME_PROVIDER)
-    </div>
-
-    <div class="display-label">DESC_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DESC_PROVIDER)
-    </div>
-
-    <div class="display-label">CREATION_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CREATION_PROVIDER)
-    </div>
-
-    <div class="display-label">ADDRESS_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ADDRESS_PROVIDER)
-    </div>
-
-    <div class="display-label">PHONE_PROVIDER</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PHONE_PROVIDER)
-    </div>
-</fieldset>
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Delete" /> |

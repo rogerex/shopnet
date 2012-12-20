@@ -436,7 +436,7 @@
           <EntitySet Name="ITEMs" EntityType="shopnetModel.ITEM" />
           <EntitySet Name="PAYMENTs" EntityType="shopnetModel.PAYMENT" />
           <EntitySet Name="PRODUCTs" EntityType="shopnetModel.PRODUCT" />
-          <EntitySet Name="PROVIDERs" EntityType="shopnetModel.PROVIDER" />
+          <EntitySet Name="Providers" EntityType="shopnetModel.Provider" />
           <EntitySet Name="PURCHASE_ORDER" EntityType="shopnetModel.PURCHASE_ORDER" />
           <EntitySet Name="ROLEs" EntityType="shopnetModel.ROLE" />
           <EntitySet Name="SALE_ORDER" EntityType="shopnetModel.SALE_ORDER" />
@@ -469,7 +469,7 @@
             <End Role="STOCK" EntitySet="STOCKs" />
           </AssociationSet>
           <AssociationSet Name="FK_PURCHASE_PURCHASES_PROVIDER" Association="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER">
-            <End Role="PROVIDER" EntitySet="PROVIDERs" />
+            <End Role="PROVIDER" EntitySet="Providers" />
             <End Role="PURCHASE_ORDER" EntitySet="PURCHASE_ORDER" />
           </AssociationSet>
           <AssociationSet Name="FK_PURCHASE_PURCHASES_USER" Association="shopnetModel.FK_PURCHASE_PURCHASES_USER">
@@ -560,17 +560,17 @@
           <NavigationProperty Name="DETAIL_ORDER" Relationship="shopnetModel.FK_DETAIL_O_DETAILS_P_PRODUCT" FromRole="PRODUCT" ToRole="DETAIL_ORDER" />
           <NavigationProperty Name="STOCKs" Relationship="shopnetModel.FK_STOCK_STOCKS_PR_PRODUCT" FromRole="PRODUCT" ToRole="STOCK" />
         </EntityType>
-        <EntityType Name="PROVIDER">
+        <EntityType Name="Provider">
           <Key>
-            <PropertyRef Name="ID_PROVIDER" />
+            <PropertyRef Name="ProviderID" />
           </Key>
-          <Property Name="ID_PROVIDER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ConcurrencyMode="Fixed" a:GetterAccess="Public" />
-          <Property Name="NAME_PROVIDER" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="DESC_PROVIDER" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="CREATION_PROVIDER" Type="DateTime" Nullable="false" />
-          <Property Name="ADDRESS_PROVIDER" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="PHONE_PROVIDER" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="PURCHASE_ORDER" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" FromRole="PROVIDER" ToRole="PURCHASE_ORDER" />
+          <Property Name="ProviderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ConcurrencyMode="Fixed" a:GetterAccess="Public" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" ConcurrencyMode="None" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Public" />
+          <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="PurchasesOrders" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" FromRole="PROVIDER" ToRole="PURCHASE_ORDER" />
         </EntityType>
         <EntityType Name="PURCHASE_ORDER">
           <Key>
@@ -733,11 +733,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PURCHASE_PURCHASES_PROVIDER">
-          <End Role="PROVIDER" Type="shopnetModel.PROVIDER" Multiplicity="1" />
+          <End Role="PROVIDER" Type="shopnetModel.Provider" Multiplicity="1" />
           <End Role="PURCHASE_ORDER" Type="shopnetModel.PURCHASE_ORDER" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROVIDER">
-              <PropertyRef Name="ID_PROVIDER" />
+              <PropertyRef Name="ProviderID" />
             </Principal>
             <Dependent Role="PURCHASE_ORDER">
               <PropertyRef Name="ID_PROVIDER" />
@@ -852,13 +852,13 @@
             <ScalarProperty Name="DESC_PRODUCT" ColumnName="DESC_PRODUCT" />
             <ScalarProperty Name="MINIMUM_PRODUCT" ColumnName="MINIMUM_PRODUCT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="PROVIDERs"><EntityTypeMapping TypeName="shopnetModel.PROVIDER"><MappingFragment StoreEntitySet="PROVIDER">
-            <ScalarProperty Name="ID_PROVIDER" ColumnName="ID_PROVIDER" />
-            <ScalarProperty Name="NAME_PROVIDER" ColumnName="NAME_PROVIDER" />
-            <ScalarProperty Name="DESC_PROVIDER" ColumnName="DESC_PROVIDER" />
-            <ScalarProperty Name="CREATION_PROVIDER" ColumnName="CREATION_PROVIDER" />
-            <ScalarProperty Name="ADDRESS_PROVIDER" ColumnName="ADDRESS_PROVIDER" />
-            <ScalarProperty Name="PHONE_PROVIDER" ColumnName="PHONE_PROVIDER" />
+          <EntitySetMapping Name="Providers"><EntityTypeMapping TypeName="shopnetModel.Provider"><MappingFragment StoreEntitySet="PROVIDER">
+            <ScalarProperty Name="ProviderID" ColumnName="ID_PROVIDER" />
+            <ScalarProperty Name="Name" ColumnName="NAME_PROVIDER" />
+            <ScalarProperty Name="Description" ColumnName="DESC_PROVIDER" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_PROVIDER" />
+            <ScalarProperty Name="Address" ColumnName="ADDRESS_PROVIDER" />
+            <ScalarProperty Name="Phone" ColumnName="PHONE_PROVIDER" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="PURCHASE_ORDER"><EntityTypeMapping TypeName="shopnetModel.PURCHASE_ORDER"><MappingFragment StoreEntitySet="PURCHASE_ORDER">
             <ScalarProperty Name="ID_PURCHASE" ColumnName="ID_PURCHASE" />
@@ -951,7 +951,7 @@
         <EntityTypeShape EntityType="shopnetModel.ITEM" Width="1.5" PointX="0.75" PointY="4.25" Height="1.9210009765624996" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.PAYMENT" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.PRODUCT" Width="1.5" PointX="6" PointY="3.125" Height="2.0853483072916656" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.PROVIDER" Width="1.5" PointX="0.75" PointY="10.125" Height="2.0853483072916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Provider" Width="1.5" PointX="0.75" PointY="10.125" Height="2.0853483072916674" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.PURCHASE_ORDER" Width="1.5" PointX="3" PointY="7.125" Height="2.2496956380208317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.ROLE" Width="1.5" PointX="3" PointY="4.375" Height="1.7566536458333317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.SALE_ORDER" Width="1.5" PointX="6" PointY="6.875" Height="2.7427376302083317" IsExpanded="true" />
