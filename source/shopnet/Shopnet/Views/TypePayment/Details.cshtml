@@ -1,0 +1,30 @@
+﻿@model Shopnet.Models.TypePayment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TypePayment</legend>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">Amount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+
+    <div class="display-label">TotalNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalNumber)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TypePaymentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

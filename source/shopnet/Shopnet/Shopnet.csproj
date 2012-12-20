@@ -84,18 +84,20 @@
     <Compile Include="Controllers\BasicPageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\TypePaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
+    <Compile Include="Models\GeneralValidate.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DetailPurchase.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeneralValidate.cs">
+    <Compile Include="Models\DetailSale.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
@@ -261,6 +263,11 @@
     <Content Include="Views\Provider\Create.cshtml" />
     <Content Include="Views\Provider\Edit.cshtml" />
     <Content Include="Views\Provider\Delete.cshtml" />
+    <Content Include="Views\TypePayment\Create.cshtml" />
+    <Content Include="Views\TypePayment\Delete.cshtml" />
+    <Content Include="Views\TypePayment\Details.cshtml" />
+    <Content Include="Views\TypePayment\Edit.cshtml" />
+    <Content Include="Views\TypePayment\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

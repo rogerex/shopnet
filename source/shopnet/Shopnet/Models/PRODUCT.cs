@@ -14,9 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Security;
-using System.Web.Mvc;
+
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
@@ -44,9 +42,8 @@ namespace Shopnet.Models
             }
         }
         private int _productID;
-        [Required]
+    
         [DataMember]
-        [ValidateLength(_minChars=4)]
         public string Code
         {
             get { return _code; }
@@ -60,10 +57,8 @@ namespace Shopnet.Models
             }
         }
         private string _code;
-
-        [Required]
+    
         [DataMember]
-        [ValidateLength]
         public string Name
         {
             get { return _name; }
@@ -77,8 +72,7 @@ namespace Shopnet.Models
             }
         }
         private string _name;
-
-        
+    
         [DataMember]
         public string Descripton
         {
@@ -93,9 +87,7 @@ namespace Shopnet.Models
             }
         }
         private string _descripton;
-
-        [Required]
-        [Display(Name="Value Minimum")]
+    
         [DataMember]
         public Nullable<int> Minimum
         {
@@ -410,11 +402,6 @@ namespace Shopnet.Models
             }
         }
 
-        #endregion
-
-        #region Validation        
-
-               
         #endregion
     }
 }
