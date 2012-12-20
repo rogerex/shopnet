@@ -18,9 +18,9 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(Product))]
     [KnownType(typeof(Purchase))]
-    public partial class Stock: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Product))]
+    public partial class DetailPurchase: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
@@ -77,19 +77,19 @@ namespace Shopnet.Models
         private int _purchaseID;
     
         [DataMember]
-        public int Amount
+        public int CurrentAmount
         {
-            get { return _amount; }
+            get { return _currentAmount; }
             set
             {
-                if (_amount != value)
+                if (_currentAmount != value)
                 {
-                    _amount = value;
-                    OnPropertyChanged("Amount");
+                    _currentAmount = value;
+                    OnPropertyChanged("CurrentAmount");
                 }
             }
         }
-        private int _amount;
+        private int _currentAmount;
     
         [DataMember]
         public decimal Cost
@@ -122,48 +122,22 @@ namespace Shopnet.Models
         private decimal _price;
     
         [DataMember]
-        public System.DateTime Creation
+        public int TotalAmount
         {
-            get { return _creation; }
+            get { return _totalAmount; }
             set
             {
-                if (_creation != value)
+                if (_totalAmount != value)
                 {
-                    _creation = value;
-                    OnPropertyChanged("Creation");
+                    _totalAmount = value;
+                    OnPropertyChanged("TotalAmount");
                 }
             }
         }
-        private System.DateTime _creation;
+        private int _totalAmount;
 
         #endregion
         #region Navigation Properties
-    
-        [DataMember]
-        public Product Product
-        {
-            get { return _product; }
-            set
-            {
-                if (!ReferenceEquals(_product, value))
-                {
-                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
-                    {
-                        // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
-                        // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ProductID != value.ProductID)
-                        {
-                            throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
-                        }
-                    }
-                    var previousValue = _product;
-                    _product = value;
-                    FixupProduct(previousValue);
-                    OnNavigationPropertyChanged("Product");
-                }
-            }
-        }
-        private Product _product;
     
         [DataMember]
         public Purchase Purchase
@@ -190,6 +164,32 @@ namespace Shopnet.Models
             }
         }
         private Purchase _purchase;
+    
+        [DataMember]
+        public Product Product
+        {
+            get { return _product; }
+            set
+            {
+                if (!ReferenceEquals(_product, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
+                    {
+                        // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
+                        // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
+                        if (ProductID != value.ProductID)
+                        {
+                            throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
+                        }
+                    }
+                    var previousValue = _product;
+                    _product = value;
+                    FixupProduct(previousValue);
+                    OnNavigationPropertyChanged("Product");
+                }
+            }
+        }
+        private Product _product;
 
         #endregion
         #region ChangeTracking
@@ -279,51 +279,12 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            Product = null;
             Purchase = null;
+            Product = null;
         }
 
         #endregion
         #region Association Fixup
-    
-        private void FixupProduct(Product previousValue)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.Stocks.Contains(this))
-            {
-                previousValue.Stocks.Remove(this);
-            }
-    
-            if (Product != null)
-            {
-                if (!Product.Stocks.Contains(this))
-                {
-                    Product.Stocks.Add(this);
-                }
-    
-                ProductID = Product.ProductID;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("Product")
-                    && (ChangeTracker.OriginalValues["Product"] == Product))
-                {
-                    ChangeTracker.OriginalValues.Remove("Product");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("Product", previousValue);
-                }
-                if (Product != null && !Product.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    Product.StartTracking();
-                }
-            }
-        }
     
         private void FixupPurchase(Purchase previousValue)
         {
@@ -360,6 +321,45 @@ namespace Shopnet.Models
                 if (Purchase != null && !Purchase.ChangeTracker.ChangeTrackingEnabled)
                 {
                     Purchase.StartTracking();
+                }
+            }
+        }
+    
+        private void FixupProduct(Product previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.Purchases.Contains(this))
+            {
+                previousValue.Purchases.Remove(this);
+            }
+    
+            if (Product != null)
+            {
+                if (!Product.Purchases.Contains(this))
+                {
+                    Product.Purchases.Add(this);
+                }
+    
+                ProductID = Product.ProductID;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("Product")
+                    && (ChangeTracker.OriginalValues["Product"] == Product))
+                {
+                    ChangeTracker.OriginalValues.Remove("Product");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("Product", previousValue);
+                }
+                if (Product != null && !Product.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    Product.StartTracking();
                 }
             }
         }

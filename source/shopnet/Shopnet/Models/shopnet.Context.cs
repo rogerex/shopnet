@@ -83,12 +83,6 @@ namespace Shopnet.Models
         }
         private ObjectSet<Customer> _customers;
     
-        public ObjectSet<DetailSale> DetailSales
-        {
-            get { return _detailSales  ?? (_detailSales = CreateObjectSet<DetailSale>("DetailSales")); }
-        }
-        private ObjectSet<DetailSale> _detailSales;
-    
         public ObjectSet<Item> Items
         {
             get { return _items  ?? (_items = CreateObjectSet<Item>("Items")); }
@@ -137,12 +131,6 @@ namespace Shopnet.Models
         }
         private ObjectSet<Session> _sessions;
     
-        public ObjectSet<Stock> Stocks
-        {
-            get { return _stocks  ?? (_stocks = CreateObjectSet<Stock>("Stocks")); }
-        }
-        private ObjectSet<Stock> _stocks;
-    
         public ObjectSet<TypePayment> TypePayments
         {
             get { return _typePayments  ?? (_typePayments = CreateObjectSet<TypePayment>("TypePayments")); }
@@ -154,6 +142,18 @@ namespace Shopnet.Models
             get { return _users  ?? (_users = CreateObjectSet<User>("Users")); }
         }
         private ObjectSet<User> _users;
+    
+        public ObjectSet<DetailPurchase> DetailPurchases
+        {
+            get { return _detailPurchases  ?? (_detailPurchases = CreateObjectSet<DetailPurchase>("DetailPurchases")); }
+        }
+        private ObjectSet<DetailPurchase> _detailPurchases;
+    
+        public ObjectSet<DetailSale> DetailSales
+        {
+            get { return _detailSales  ?? (_detailSales = CreateObjectSet<DetailSale>("DetailSales")); }
+        }
+        private ObjectSet<DetailSale> _detailSales;
 
         #endregion
     }

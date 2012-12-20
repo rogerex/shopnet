@@ -18,8 +18,8 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
+    [KnownType(typeof(DetailPurchase))]
     [KnownType(typeof(DetailSale))]
-    [KnownType(typeof(Stock))]
     public partial class Product: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -102,103 +102,118 @@ namespace Shopnet.Models
             }
         }
         private Nullable<int> _minimum;
+    
+        [DataMember]
+        public System.DateTime Creation
+        {
+            get { return _creation; }
+            set
+            {
+                if (_creation != value)
+                {
+                    _creation = value;
+                    OnPropertyChanged("Creation");
+                }
+            }
+        }
+        private System.DateTime _creation;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<DetailSale> DetailOrder
+        public TrackableCollection<DetailPurchase> Purchases
         {
             get
             {
-                if (_detailOrder == null)
+                if (_purchases == null)
                 {
-                    _detailOrder = new TrackableCollection<DetailSale>();
-                    _detailOrder.CollectionChanged += FixupDetailOrder;
+                    _purchases = new TrackableCollection<DetailPurchase>();
+                    _purchases.CollectionChanged += FixupPurchases;
                 }
-                return _detailOrder;
+                return _purchases;
             }
             set
             {
-                if (!ReferenceEquals(_detailOrder, value))
+                if (!ReferenceEquals(_purchases, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_detailOrder != null)
+                    if (_purchases != null)
                     {
-                        _detailOrder.CollectionChanged -= FixupDetailOrder;
+                        _purchases.CollectionChanged -= FixupPurchases;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (DetailSale item in _detailOrder)
+                        foreach (DetailPurchase item in _purchases)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
                     }
-                    _detailOrder = value;
-                    if (_detailOrder != null)
+                    _purchases = value;
+                    if (_purchases != null)
                     {
-                        _detailOrder.CollectionChanged += FixupDetailOrder;
+                        _purchases.CollectionChanged += FixupPurchases;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (DetailSale item in _detailOrder)
+                        foreach (DetailPurchase item in _purchases)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
                     }
-                    OnNavigationPropertyChanged("DetailOrder");
+                    OnNavigationPropertyChanged("Purchases");
                 }
             }
         }
-        private TrackableCollection<DetailSale> _detailOrder;
+        private TrackableCollection<DetailPurchase> _purchases;
     
         [DataMember]
-        public TrackableCollection<Stock> Stocks
+        public TrackableCollection<DetailSale> Sales
         {
             get
             {
-                if (_stocks == null)
+                if (_sales == null)
                 {
-                    _stocks = new TrackableCollection<Stock>();
-                    _stocks.CollectionChanged += FixupStocks;
+                    _sales = new TrackableCollection<DetailSale>();
+                    _sales.CollectionChanged += FixupSales;
                 }
-                return _stocks;
+                return _sales;
             }
             set
             {
-                if (!ReferenceEquals(_stocks, value))
+                if (!ReferenceEquals(_sales, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_stocks != null)
+                    if (_sales != null)
                     {
-                        _stocks.CollectionChanged -= FixupStocks;
+                        _sales.CollectionChanged -= FixupSales;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (Stock item in _stocks)
+                        foreach (DetailSale item in _sales)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
                     }
-                    _stocks = value;
-                    if (_stocks != null)
+                    _sales = value;
+                    if (_sales != null)
                     {
-                        _stocks.CollectionChanged += FixupStocks;
+                        _sales.CollectionChanged += FixupSales;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (Stock item in _stocks)
+                        foreach (DetailSale item in _sales)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
                     }
-                    OnNavigationPropertyChanged("Stocks");
+                    OnNavigationPropertyChanged("Sales");
                 }
             }
         }
-        private TrackableCollection<Stock> _stocks;
+        private TrackableCollection<DetailSale> _sales;
 
         #endregion
         #region ChangeTracking
@@ -278,14 +293,65 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            DetailOrder.Clear();
-            Stocks.Clear();
+            Purchases.Clear();
+            Sales.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupDetailOrder(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupPurchases(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (DetailPurchase item in e.NewItems)
+                {
+                    item.Product = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("Purchases", item);
+                    }
+                    // This is the principal end in an association that performs cascade deletes.
+                    // Update the event listener to refer to the new dependent.
+                    ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (DetailPurchase item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.Product, this))
+                    {
+                        item.Product = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Purchases", item);
+                        // Delete the dependent end of this identifying association. If the current state is Added,
+                        // allow the relationship to be changed without causing the dependent to be deleted.
+                        if (item.ChangeTracker.State != ObjectState.Added)
+                        {
+                            item.MarkAsDeleted();
+                        }
+                    }
+                    // This is the principal end in an association that performs cascade deletes.
+                    // Remove the previous dependent from the event listener.
+                    ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
+                }
+            }
+        }
+    
+        private void FixupSales(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -303,7 +369,7 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("DetailOrder", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Sales", item);
                     }
                     // This is the principal end in an association that performs cascade deletes.
                     // Update the event listener to refer to the new dependent.
@@ -321,58 +387,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("DetailOrder", item);
-                        // Delete the dependent end of this identifying association. If the current state is Added,
-                        // allow the relationship to be changed without causing the dependent to be deleted.
-                        if (item.ChangeTracker.State != ObjectState.Added)
-                        {
-                            item.MarkAsDeleted();
-                        }
-                    }
-                    // This is the principal end in an association that performs cascade deletes.
-                    // Remove the previous dependent from the event listener.
-                    ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
-                }
-            }
-        }
-    
-        private void FixupStocks(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (Stock item in e.NewItems)
-                {
-                    item.Product = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("Stocks", item);
-                    }
-                    // This is the principal end in an association that performs cascade deletes.
-                    // Update the event listener to refer to the new dependent.
-                    ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (Stock item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.Product, this))
-                    {
-                        item.Product = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("Stocks", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Sales", item);
                         // Delete the dependent end of this identifying association. If the current state is Added,
                         // allow the relationship to be changed without causing the dependent to be deleted.
                         if (item.ChangeTracker.State != ObjectState.Added)

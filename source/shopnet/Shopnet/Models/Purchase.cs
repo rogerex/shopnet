@@ -20,7 +20,7 @@ namespace Shopnet.Models
     [DataContract(IsReference = true)]
     [KnownType(typeof(Provider))]
     [KnownType(typeof(User))]
-    [KnownType(typeof(Stock))]
+    [KnownType(typeof(DetailPurchase))]
     public partial class Purchase: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -158,13 +158,13 @@ namespace Shopnet.Models
         private User _user;
     
         [DataMember]
-        public TrackableCollection<Stock> Details
+        public TrackableCollection<DetailPurchase> Details
         {
             get
             {
                 if (_details == null)
                 {
-                    _details = new TrackableCollection<Stock>();
+                    _details = new TrackableCollection<DetailPurchase>();
                     _details.CollectionChanged += FixupDetails;
                 }
                 return _details;
@@ -182,7 +182,7 @@ namespace Shopnet.Models
                         _details.CollectionChanged -= FixupDetails;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (Stock item in _details)
+                        foreach (DetailPurchase item in _details)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
@@ -193,7 +193,7 @@ namespace Shopnet.Models
                         _details.CollectionChanged += FixupDetails;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (Stock item in _details)
+                        foreach (DetailPurchase item in _details)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
@@ -202,7 +202,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private TrackableCollection<Stock> _details;
+        private TrackableCollection<DetailPurchase> _details;
 
         #endregion
         #region ChangeTracking
@@ -377,7 +377,7 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (Stock item in e.NewItems)
+                foreach (DetailPurchase item in e.NewItems)
                 {
                     item.Purchase = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
@@ -396,7 +396,7 @@ namespace Shopnet.Models
     
             if (e.OldItems != null)
             {
-                foreach (Stock item in e.OldItems)
+                foreach (DetailPurchase item in e.OldItems)
                 {
                     if (ReferenceEquals(item.Purchase, this))
                     {

@@ -92,7 +92,10 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DetailOrder.cs">
+    <Compile Include="Models\DetailPurchase.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailSale.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
@@ -136,9 +139,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Shopnet.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Stock.cs">
-      <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypePayment.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>

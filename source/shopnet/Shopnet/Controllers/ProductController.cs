@@ -46,6 +46,7 @@ namespace Shopnet.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.Creation = DateTime.Now;
                 db.Products.AddObject(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");  

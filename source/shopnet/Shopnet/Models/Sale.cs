@@ -19,10 +19,10 @@ namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(Customer))]
-    [KnownType(typeof(DetailSale))]
     [KnownType(typeof(Payment))]
     [KnownType(typeof(TypePayment))]
     [KnownType(typeof(User))]
+    [KnownType(typeof(DetailSale))]
     public partial class Sale: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -166,53 +166,6 @@ namespace Shopnet.Models
         private Customer _customer;
     
         [DataMember]
-        public TrackableCollection<DetailSale> Details
-        {
-            get
-            {
-                if (_details == null)
-                {
-                    _details = new TrackableCollection<DetailSale>();
-                    _details.CollectionChanged += FixupDetails;
-                }
-                return _details;
-            }
-            set
-            {
-                if (!ReferenceEquals(_details, value))
-                {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_details != null)
-                    {
-                        _details.CollectionChanged -= FixupDetails;
-                        // This is the principal end in an association that performs cascade deletes.
-                        // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (DetailSale item in _details)
-                        {
-                            ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
-                        }
-                    }
-                    _details = value;
-                    if (_details != null)
-                    {
-                        _details.CollectionChanged += FixupDetails;
-                        // This is the principal end in an association that performs cascade deletes.
-                        // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (DetailSale item in _details)
-                        {
-                            ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
-                        }
-                    }
-                    OnNavigationPropertyChanged("Details");
-                }
-            }
-        }
-        private TrackableCollection<DetailSale> _details;
-    
-        [DataMember]
         public TrackableCollection<Payment> Payments
         {
             get
@@ -280,6 +233,53 @@ namespace Shopnet.Models
             }
         }
         private User _user;
+    
+        [DataMember]
+        public TrackableCollection<DetailSale> Details
+        {
+            get
+            {
+                if (_details == null)
+                {
+                    _details = new TrackableCollection<DetailSale>();
+                    _details.CollectionChanged += FixupDetails;
+                }
+                return _details;
+            }
+            set
+            {
+                if (!ReferenceEquals(_details, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_details != null)
+                    {
+                        _details.CollectionChanged -= FixupDetails;
+                        // This is the principal end in an association that performs cascade deletes.
+                        // Remove the cascade delete event handler for any entities in the current collection.
+                        foreach (DetailSale item in _details)
+                        {
+                            ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
+                        }
+                    }
+                    _details = value;
+                    if (_details != null)
+                    {
+                        _details.CollectionChanged += FixupDetails;
+                        // This is the principal end in an association that performs cascade deletes.
+                        // Add the cascade delete event handler for any entities that are already in the new collection.
+                        foreach (DetailSale item in _details)
+                        {
+                            ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
+                        }
+                    }
+                    OnNavigationPropertyChanged("Details");
+                }
+            }
+        }
+        private TrackableCollection<DetailSale> _details;
 
         #endregion
         #region ChangeTracking
@@ -360,10 +360,10 @@ namespace Shopnet.Models
         protected virtual void ClearNavigationProperties()
         {
             Customer = null;
-            Details.Clear();
             Payments.Clear();
             TypePayment = null;
             User = null;
+            Details.Clear();
         }
 
         #endregion
@@ -486,6 +486,45 @@ namespace Shopnet.Models
             }
         }
     
+        private void FixupPayments(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (Payment item in e.NewItems)
+                {
+                    item.Sale = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("Payments", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (Payment item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.Sale, this))
+                    {
+                        item.Sale = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Payments", item);
+                    }
+                }
+            }
+        }
+    
         private void FixupDetails(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
@@ -533,45 +572,6 @@ namespace Shopnet.Models
                     // This is the principal end in an association that performs cascade deletes.
                     // Remove the previous dependent from the event listener.
                     ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
-                }
-            }
-        }
-    
-        private void FixupPayments(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (Payment item in e.NewItems)
-                {
-                    item.Sale = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("Payments", item);
-                    }
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (Payment item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.Sale, this))
-                    {
-                        item.Sale = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("Payments", item);
-                    }
                 }
             }
         }

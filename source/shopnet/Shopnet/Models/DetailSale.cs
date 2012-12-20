@@ -263,16 +263,16 @@ namespace Shopnet.Models
                 return;
             }
     
-            if (previousValue != null && previousValue.DetailOrder.Contains(this))
+            if (previousValue != null && previousValue.Sales.Contains(this))
             {
-                previousValue.DetailOrder.Remove(this);
+                previousValue.Sales.Remove(this);
             }
     
             if (Product != null)
             {
-                if (!Product.DetailOrder.Contains(this))
+                if (!Product.Sales.Contains(this))
                 {
-                    Product.DetailOrder.Add(this);
+                    Product.Sales.Add(this);
                 }
     
                 ProductID = Product.ProductID;
