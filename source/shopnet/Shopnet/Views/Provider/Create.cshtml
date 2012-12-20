@@ -1,0 +1,65 @@
+﻿@model Shopnet.Models.PROVIDER
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>PROVIDER</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NAME_PROVIDER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NAME_PROVIDER)
+            @Html.ValidationMessageFor(model => model.NAME_PROVIDER)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESC_PROVIDER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESC_PROVIDER)
+            @Html.ValidationMessageFor(model => model.DESC_PROVIDER)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CREATION_PROVIDER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CREATION_PROVIDER)
+            @Html.ValidationMessageFor(model => model.CREATION_PROVIDER)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ADDRESS_PROVIDER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ADDRESS_PROVIDER)
+            @Html.ValidationMessageFor(model => model.ADDRESS_PROVIDER)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PHONE_PROVIDER)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PHONE_PROVIDER)
+            @Html.ValidationMessageFor(model => model.PHONE_PROVIDER)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

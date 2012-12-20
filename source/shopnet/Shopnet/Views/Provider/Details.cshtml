@@ -1,0 +1,45 @@
+﻿@model Shopnet.Models.PROVIDER
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>PROVIDER</legend>
+
+    <div class="display-label">ID_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_PROVIDER)
+    </div>
+
+    <div class="display-label">NAME_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NAME_PROVIDER)
+    </div>
+
+    <div class="display-label">DESC_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESC_PROVIDER)
+    </div>
+
+    <div class="display-label">CREATION_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CREATION_PROVIDER)
+    </div>
+
+    <div class="display-label">ADDRESS_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ADDRESS_PROVIDER)
+    </div>
+
+    <div class="display-label">PHONE_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PHONE_PROVIDER)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
