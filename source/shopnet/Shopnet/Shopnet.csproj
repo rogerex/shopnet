@@ -55,6 +55,8 @@
       <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -80,11 +82,69 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BasicPageController.cs" />
+    <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
+    <Compile Include="Models\CUSTOMER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DETAIL_ORDER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ITEM.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PAYMENT.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PRODUCT.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PROVIDER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PURCHASE_ORDER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ROLE.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SALE_ORDER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SESSION.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shopnet.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shopnet.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shopnet.Context.Extensions.cs">
+      <DependentUpon>Shopnet.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shopnet.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shopnet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shopnet.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STOCK.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TYPE_PAYMENT.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USER.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -128,7 +188,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -145,13 +207,15 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -164,6 +228,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="log4net.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\Shopnet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Shopnet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Shopnet.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Shopnet.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\Shopnet.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Shopnet.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Provider\Index.cshtml" />
+    <Content Include="Views\Provider\Details.cshtml" />
+    <Content Include="Views\Provider\Create.cshtml" />
+    <Content Include="Views\Provider\Edit.cshtml" />
+    <Content Include="Views\Provider\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

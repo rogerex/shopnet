@@ -1,0 +1,48 @@
+﻿@model Shopnet.Models.PROVIDER
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>PROVIDER</legend>
+
+    <div class="display-label">ID_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_PROVIDER)
+    </div>
+
+    <div class="display-label">NAME_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NAME_PROVIDER)
+    </div>
+
+    <div class="display-label">DESC_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESC_PROVIDER)
+    </div>
+
+    <div class="display-label">CREATION_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CREATION_PROVIDER)
+    </div>
+
+    <div class="display-label">ADDRESS_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ADDRESS_PROVIDER)
+    </div>
+
+    <div class="display-label">PHONE_PROVIDER</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PHONE_PROVIDER)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
