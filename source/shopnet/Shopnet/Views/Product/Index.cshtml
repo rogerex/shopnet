@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shopnet.Models.PRODUCT>
+﻿@model IEnumerable<Shopnet.Models.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,16 @@
 <table>
     <tr>
         <th>
-            ID_PRODUCT
+            Code
         </th>
         <th>
-            CODE_PRODUCT
+            Name
         </th>
         <th>
-            NAME_PRODUCT
+            Descripton
         </th>
         <th>
-            DESC_PRODUCT
-        </th>
-        <th>
-            MINIMUM_PRODUCT
+            Minimum
         </th>
         <th></th>
     </tr>
@@ -32,24 +29,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ID_PRODUCT)
+            @Html.DisplayFor(modelItem => item.Code)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CODE_PRODUCT)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NAME_PRODUCT)
+            @Html.DisplayFor(modelItem => item.Descripton)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DESC_PRODUCT)
+            @Html.DisplayFor(modelItem => item.Minimum)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MINIMUM_PRODUCT)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
         </td>
     </tr>
 }

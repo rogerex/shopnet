@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(SALE_ORDER))]
+    [KnownType(typeof(SaleOrder))]
     public partial class PAYMENT: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -53,7 +53,7 @@ namespace Shopnet.Models
                     ChangeTracker.RecordOriginalValue("ID_SALE", _iD_SALE);
                     if (!IsDeserializing)
                     {
-                        if (SALE_ORDER != null && SALE_ORDER.ID_SALE != value)
+                        if (SALE_ORDER != null && SALE_ORDER.SaleID != value)
                         {
                             SALE_ORDER = null;
                         }
@@ -99,7 +99,7 @@ namespace Shopnet.Models
         #region Navigation Properties
     
         [DataMember]
-        public SALE_ORDER SALE_ORDER
+        public SaleOrder SALE_ORDER
         {
             get { return _sALE_ORDER; }
             set
@@ -113,7 +113,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private SALE_ORDER _sALE_ORDER;
+        private SaleOrder _sALE_ORDER;
 
         #endregion
         #region ChangeTracking
@@ -199,26 +199,26 @@ namespace Shopnet.Models
         #endregion
         #region Association Fixup
     
-        private void FixupSALE_ORDER(SALE_ORDER previousValue)
+        private void FixupSALE_ORDER(SaleOrder previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.PAYMENTs.Contains(this))
+            if (previousValue != null && previousValue.Payments.Contains(this))
             {
-                previousValue.PAYMENTs.Remove(this);
+                previousValue.Payments.Remove(this);
             }
     
             if (SALE_ORDER != null)
             {
-                if (!SALE_ORDER.PAYMENTs.Contains(this))
+                if (!SALE_ORDER.Payments.Contains(this))
                 {
-                    SALE_ORDER.PAYMENTs.Add(this);
+                    SALE_ORDER.Payments.Add(this);
                 }
     
-                ID_SALE = SALE_ORDER.ID_SALE;
+                ID_SALE = SALE_ORDER.SaleID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {

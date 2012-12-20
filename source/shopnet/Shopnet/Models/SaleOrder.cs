@@ -19,267 +19,267 @@ namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(CUSTOMER))]
-    [KnownType(typeof(DETAIL_ORDER))]
+    [KnownType(typeof(DetailOrder))]
     [KnownType(typeof(PAYMENT))]
     [KnownType(typeof(TYPE_PAYMENT))]
     [KnownType(typeof(USER))]
-    public partial class SALE_ORDER: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class SaleOrder: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_SALE
+        public int SaleID
         {
-            get { return _iD_SALE; }
+            get { return _saleID; }
             set
             {
-                if (_iD_SALE != value)
+                if (_saleID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_SALE' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'SaleID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_SALE = value;
-                    OnPropertyChanged("ID_SALE");
+                    _saleID = value;
+                    OnPropertyChanged("SaleID");
                 }
             }
         }
-        private int _iD_SALE;
+        private int _saleID;
     
         [DataMember]
-        public int ID_CUSTOMER
+        public int CustomerID
         {
-            get { return _iD_CUSTOMER; }
+            get { return _customerID; }
             set
             {
-                if (_iD_CUSTOMER != value)
+                if (_customerID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_CUSTOMER", _iD_CUSTOMER);
+                    ChangeTracker.RecordOriginalValue("CustomerID", _customerID);
                     if (!IsDeserializing)
                     {
-                        if (CUSTOMER != null && CUSTOMER.ID_CUSTOMER != value)
+                        if (Customer != null && Customer.ID_CUSTOMER != value)
                         {
-                            CUSTOMER = null;
+                            Customer = null;
                         }
                     }
-                    _iD_CUSTOMER = value;
-                    OnPropertyChanged("ID_CUSTOMER");
+                    _customerID = value;
+                    OnPropertyChanged("CustomerID");
                 }
             }
         }
-        private int _iD_CUSTOMER;
+        private int _customerID;
     
         [DataMember]
-        public int ID_TYPE_PAYMENT
+        public int TypePaymentID
         {
-            get { return _iD_TYPE_PAYMENT; }
+            get { return _typePaymentID; }
             set
             {
-                if (_iD_TYPE_PAYMENT != value)
+                if (_typePaymentID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_TYPE_PAYMENT", _iD_TYPE_PAYMENT);
+                    ChangeTracker.RecordOriginalValue("TypePaymentID", _typePaymentID);
                     if (!IsDeserializing)
                     {
-                        if (TYPE_PAYMENT != null && TYPE_PAYMENT.ID_TYPE_PAYMENT != value)
+                        if (TypePayment != null && TypePayment.ID_TYPE_PAYMENT != value)
                         {
-                            TYPE_PAYMENT = null;
+                            TypePayment = null;
                         }
                     }
-                    _iD_TYPE_PAYMENT = value;
-                    OnPropertyChanged("ID_TYPE_PAYMENT");
+                    _typePaymentID = value;
+                    OnPropertyChanged("TypePaymentID");
                 }
             }
         }
-        private int _iD_TYPE_PAYMENT;
+        private int _typePaymentID;
     
         [DataMember]
-        public int ID_USER
+        public int UserID
         {
-            get { return _iD_USER; }
+            get { return _userID; }
             set
             {
-                if (_iD_USER != value)
+                if (_userID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_USER", _iD_USER);
+                    ChangeTracker.RecordOriginalValue("UserID", _userID);
                     if (!IsDeserializing)
                     {
-                        if (USER != null && USER.ID_USER != value)
+                        if (User != null && User.ID_USER != value)
                         {
-                            USER = null;
+                            User = null;
                         }
                     }
-                    _iD_USER = value;
-                    OnPropertyChanged("ID_USER");
+                    _userID = value;
+                    OnPropertyChanged("UserID");
                 }
             }
         }
-        private int _iD_USER;
+        private int _userID;
     
         [DataMember]
-        public System.DateTime CREATION_SALE
+        public System.DateTime Creation
         {
-            get { return _cREATION_SALE; }
+            get { return _creation; }
             set
             {
-                if (_cREATION_SALE != value)
+                if (_creation != value)
                 {
-                    _cREATION_SALE = value;
-                    OnPropertyChanged("CREATION_SALE");
+                    _creation = value;
+                    OnPropertyChanged("Creation");
                 }
             }
         }
-        private System.DateTime _cREATION_SALE;
+        private System.DateTime _creation;
     
         [DataMember]
-        public decimal TOTAL_SALE
+        public decimal Total
         {
-            get { return _tOTAL_SALE; }
+            get { return _total; }
             set
             {
-                if (_tOTAL_SALE != value)
+                if (_total != value)
                 {
-                    _tOTAL_SALE = value;
-                    OnPropertyChanged("TOTAL_SALE");
+                    _total = value;
+                    OnPropertyChanged("Total");
                 }
             }
         }
-        private decimal _tOTAL_SALE;
+        private decimal _total;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public CUSTOMER CUSTOMER
+        public CUSTOMER Customer
         {
-            get { return _cUSTOMER; }
+            get { return _customer; }
             set
             {
-                if (!ReferenceEquals(_cUSTOMER, value))
+                if (!ReferenceEquals(_customer, value))
                 {
-                    var previousValue = _cUSTOMER;
-                    _cUSTOMER = value;
-                    FixupCUSTOMER(previousValue);
-                    OnNavigationPropertyChanged("CUSTOMER");
+                    var previousValue = _customer;
+                    _customer = value;
+                    FixupCustomer(previousValue);
+                    OnNavigationPropertyChanged("Customer");
                 }
             }
         }
-        private CUSTOMER _cUSTOMER;
+        private CUSTOMER _customer;
     
         [DataMember]
-        public TrackableCollection<DETAIL_ORDER> DETAIL_ORDER
+        public TrackableCollection<DetailOrder> DetailOrder
         {
             get
             {
-                if (_dETAIL_ORDER == null)
+                if (_detailOrder == null)
                 {
-                    _dETAIL_ORDER = new TrackableCollection<DETAIL_ORDER>();
-                    _dETAIL_ORDER.CollectionChanged += FixupDETAIL_ORDER;
+                    _detailOrder = new TrackableCollection<DetailOrder>();
+                    _detailOrder.CollectionChanged += FixupDetailOrder;
                 }
-                return _dETAIL_ORDER;
+                return _detailOrder;
             }
             set
             {
-                if (!ReferenceEquals(_dETAIL_ORDER, value))
+                if (!ReferenceEquals(_detailOrder, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_dETAIL_ORDER != null)
+                    if (_detailOrder != null)
                     {
-                        _dETAIL_ORDER.CollectionChanged -= FixupDETAIL_ORDER;
+                        _detailOrder.CollectionChanged -= FixupDetailOrder;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (DETAIL_ORDER item in _dETAIL_ORDER)
+                        foreach (DetailOrder item in _detailOrder)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
                     }
-                    _dETAIL_ORDER = value;
-                    if (_dETAIL_ORDER != null)
+                    _detailOrder = value;
+                    if (_detailOrder != null)
                     {
-                        _dETAIL_ORDER.CollectionChanged += FixupDETAIL_ORDER;
+                        _detailOrder.CollectionChanged += FixupDetailOrder;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (DETAIL_ORDER item in _dETAIL_ORDER)
+                        foreach (DetailOrder item in _detailOrder)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
                     }
-                    OnNavigationPropertyChanged("DETAIL_ORDER");
+                    OnNavigationPropertyChanged("DetailOrder");
                 }
             }
         }
-        private TrackableCollection<DETAIL_ORDER> _dETAIL_ORDER;
+        private TrackableCollection<DetailOrder> _detailOrder;
     
         [DataMember]
-        public TrackableCollection<PAYMENT> PAYMENTs
+        public TrackableCollection<PAYMENT> Payments
         {
             get
             {
-                if (_pAYMENTs == null)
+                if (_payments == null)
                 {
-                    _pAYMENTs = new TrackableCollection<PAYMENT>();
-                    _pAYMENTs.CollectionChanged += FixupPAYMENTs;
+                    _payments = new TrackableCollection<PAYMENT>();
+                    _payments.CollectionChanged += FixupPayments;
                 }
-                return _pAYMENTs;
+                return _payments;
             }
             set
             {
-                if (!ReferenceEquals(_pAYMENTs, value))
+                if (!ReferenceEquals(_payments, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_pAYMENTs != null)
+                    if (_payments != null)
                     {
-                        _pAYMENTs.CollectionChanged -= FixupPAYMENTs;
+                        _payments.CollectionChanged -= FixupPayments;
                     }
-                    _pAYMENTs = value;
-                    if (_pAYMENTs != null)
+                    _payments = value;
+                    if (_payments != null)
                     {
-                        _pAYMENTs.CollectionChanged += FixupPAYMENTs;
+                        _payments.CollectionChanged += FixupPayments;
                     }
-                    OnNavigationPropertyChanged("PAYMENTs");
+                    OnNavigationPropertyChanged("Payments");
                 }
             }
         }
-        private TrackableCollection<PAYMENT> _pAYMENTs;
+        private TrackableCollection<PAYMENT> _payments;
     
         [DataMember]
-        public TYPE_PAYMENT TYPE_PAYMENT
+        public TYPE_PAYMENT TypePayment
         {
-            get { return _tYPE_PAYMENT; }
+            get { return _typePayment; }
             set
             {
-                if (!ReferenceEquals(_tYPE_PAYMENT, value))
+                if (!ReferenceEquals(_typePayment, value))
                 {
-                    var previousValue = _tYPE_PAYMENT;
-                    _tYPE_PAYMENT = value;
-                    FixupTYPE_PAYMENT(previousValue);
-                    OnNavigationPropertyChanged("TYPE_PAYMENT");
+                    var previousValue = _typePayment;
+                    _typePayment = value;
+                    FixupTypePayment(previousValue);
+                    OnNavigationPropertyChanged("TypePayment");
                 }
             }
         }
-        private TYPE_PAYMENT _tYPE_PAYMENT;
+        private TYPE_PAYMENT _typePayment;
     
         [DataMember]
-        public USER USER
+        public USER User
         {
-            get { return _uSER; }
+            get { return _user; }
             set
             {
-                if (!ReferenceEquals(_uSER, value))
+                if (!ReferenceEquals(_user, value))
                 {
-                    var previousValue = _uSER;
-                    _uSER = value;
-                    FixupUSER(previousValue);
-                    OnNavigationPropertyChanged("USER");
+                    var previousValue = _user;
+                    _user = value;
+                    FixupUser(previousValue);
+                    OnNavigationPropertyChanged("User");
                 }
             }
         }
-        private USER _uSER;
+        private USER _user;
 
         #endregion
         #region ChangeTracking
@@ -359,17 +359,17 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            CUSTOMER = null;
-            DETAIL_ORDER.Clear();
-            PAYMENTs.Clear();
-            TYPE_PAYMENT = null;
-            USER = null;
+            Customer = null;
+            DetailOrder.Clear();
+            Payments.Clear();
+            TypePayment = null;
+            User = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupCUSTOMER(CUSTOMER previousValue)
+        private void FixupCustomer(CUSTOMER previousValue)
         {
             if (IsDeserializing)
             {
@@ -381,34 +381,34 @@ namespace Shopnet.Models
                 previousValue.SALE_ORDER.Remove(this);
             }
     
-            if (CUSTOMER != null)
+            if (Customer != null)
             {
-                if (!CUSTOMER.SALE_ORDER.Contains(this))
+                if (!Customer.SALE_ORDER.Contains(this))
                 {
-                    CUSTOMER.SALE_ORDER.Add(this);
+                    Customer.SALE_ORDER.Add(this);
                 }
     
-                ID_CUSTOMER = CUSTOMER.ID_CUSTOMER;
+                CustomerID = Customer.ID_CUSTOMER;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("CUSTOMER")
-                    && (ChangeTracker.OriginalValues["CUSTOMER"] == CUSTOMER))
+                if (ChangeTracker.OriginalValues.ContainsKey("Customer")
+                    && (ChangeTracker.OriginalValues["Customer"] == Customer))
                 {
-                    ChangeTracker.OriginalValues.Remove("CUSTOMER");
+                    ChangeTracker.OriginalValues.Remove("Customer");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("CUSTOMER", previousValue);
+                    ChangeTracker.RecordOriginalValue("Customer", previousValue);
                 }
-                if (CUSTOMER != null && !CUSTOMER.ChangeTracker.ChangeTrackingEnabled)
+                if (Customer != null && !Customer.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    CUSTOMER.StartTracking();
+                    Customer.StartTracking();
                 }
             }
         }
     
-        private void FixupTYPE_PAYMENT(TYPE_PAYMENT previousValue)
+        private void FixupTypePayment(TYPE_PAYMENT previousValue)
         {
             if (IsDeserializing)
             {
@@ -420,34 +420,34 @@ namespace Shopnet.Models
                 previousValue.SALE_ORDER.Remove(this);
             }
     
-            if (TYPE_PAYMENT != null)
+            if (TypePayment != null)
             {
-                if (!TYPE_PAYMENT.SALE_ORDER.Contains(this))
+                if (!TypePayment.SALE_ORDER.Contains(this))
                 {
-                    TYPE_PAYMENT.SALE_ORDER.Add(this);
+                    TypePayment.SALE_ORDER.Add(this);
                 }
     
-                ID_TYPE_PAYMENT = TYPE_PAYMENT.ID_TYPE_PAYMENT;
+                TypePaymentID = TypePayment.ID_TYPE_PAYMENT;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("TYPE_PAYMENT")
-                    && (ChangeTracker.OriginalValues["TYPE_PAYMENT"] == TYPE_PAYMENT))
+                if (ChangeTracker.OriginalValues.ContainsKey("TypePayment")
+                    && (ChangeTracker.OriginalValues["TypePayment"] == TypePayment))
                 {
-                    ChangeTracker.OriginalValues.Remove("TYPE_PAYMENT");
+                    ChangeTracker.OriginalValues.Remove("TypePayment");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("TYPE_PAYMENT", previousValue);
+                    ChangeTracker.RecordOriginalValue("TypePayment", previousValue);
                 }
-                if (TYPE_PAYMENT != null && !TYPE_PAYMENT.ChangeTracker.ChangeTrackingEnabled)
+                if (TypePayment != null && !TypePayment.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    TYPE_PAYMENT.StartTracking();
+                    TypePayment.StartTracking();
                 }
             }
         }
     
-        private void FixupUSER(USER previousValue)
+        private void FixupUser(USER previousValue)
         {
             if (IsDeserializing)
             {
@@ -459,34 +459,34 @@ namespace Shopnet.Models
                 previousValue.SALE_ORDER.Remove(this);
             }
     
-            if (USER != null)
+            if (User != null)
             {
-                if (!USER.SALE_ORDER.Contains(this))
+                if (!User.SALE_ORDER.Contains(this))
                 {
-                    USER.SALE_ORDER.Add(this);
+                    User.SALE_ORDER.Add(this);
                 }
     
-                ID_USER = USER.ID_USER;
+                UserID = User.ID_USER;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("USER")
-                    && (ChangeTracker.OriginalValues["USER"] == USER))
+                if (ChangeTracker.OriginalValues.ContainsKey("User")
+                    && (ChangeTracker.OriginalValues["User"] == User))
                 {
-                    ChangeTracker.OriginalValues.Remove("USER");
+                    ChangeTracker.OriginalValues.Remove("User");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("USER", previousValue);
+                    ChangeTracker.RecordOriginalValue("User", previousValue);
                 }
-                if (USER != null && !USER.ChangeTracker.ChangeTrackingEnabled)
+                if (User != null && !User.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    USER.StartTracking();
+                    User.StartTracking();
                 }
             }
         }
     
-        private void FixupDETAIL_ORDER(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupDetailOrder(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -495,16 +495,16 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (DETAIL_ORDER item in e.NewItems)
+                foreach (DetailOrder item in e.NewItems)
                 {
-                    item.SALE_ORDER = this;
+                    item.SaleOrder = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("DETAIL_ORDER", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("DetailOrder", item);
                     }
                     // This is the principal end in an association that performs cascade deletes.
                     // Update the event listener to refer to the new dependent.
@@ -514,15 +514,15 @@ namespace Shopnet.Models
     
             if (e.OldItems != null)
             {
-                foreach (DETAIL_ORDER item in e.OldItems)
+                foreach (DetailOrder item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.SALE_ORDER, this))
+                    if (ReferenceEquals(item.SaleOrder, this))
                     {
-                        item.SALE_ORDER = null;
+                        item.SaleOrder = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("DETAIL_ORDER", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("DetailOrder", item);
                         // Delete the dependent end of this identifying association. If the current state is Added,
                         // allow the relationship to be changed without causing the dependent to be deleted.
                         if (item.ChangeTracker.State != ObjectState.Added)
@@ -537,7 +537,7 @@ namespace Shopnet.Models
             }
         }
     
-        private void FixupPAYMENTs(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupPayments(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -555,7 +555,7 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("PAYMENTs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Payments", item);
                     }
                 }
             }
@@ -570,7 +570,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("PAYMENTs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Payments", item);
                     }
                 }
             }

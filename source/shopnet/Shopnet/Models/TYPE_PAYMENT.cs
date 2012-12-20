@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(SALE_ORDER))]
+    [KnownType(typeof(SaleOrder))]
     public partial class TYPE_PAYMENT: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -91,13 +91,13 @@ namespace Shopnet.Models
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<SALE_ORDER> SALE_ORDER
+        public TrackableCollection<SaleOrder> SALE_ORDER
         {
             get
             {
                 if (_sALE_ORDER == null)
                 {
-                    _sALE_ORDER = new TrackableCollection<SALE_ORDER>();
+                    _sALE_ORDER = new TrackableCollection<SaleOrder>();
                     _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
                 }
                 return _sALE_ORDER;
@@ -123,7 +123,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private TrackableCollection<SALE_ORDER> _sALE_ORDER;
+        private TrackableCollection<SaleOrder> _sALE_ORDER;
 
         #endregion
         #region ChangeTracking
@@ -218,9 +218,9 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (SALE_ORDER item in e.NewItems)
+                foreach (SaleOrder item in e.NewItems)
                 {
-                    item.TYPE_PAYMENT = this;
+                    item.TypePayment = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
@@ -234,11 +234,11 @@ namespace Shopnet.Models
     
             if (e.OldItems != null)
             {
-                foreach (SALE_ORDER item in e.OldItems)
+                foreach (SaleOrder item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.TYPE_PAYMENT, this))
+                    if (ReferenceEquals(item.TypePayment, this))
                     {
-                        item.TYPE_PAYMENT = null;
+                        item.TypePayment = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {

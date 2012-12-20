@@ -18,187 +18,187 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(DETAIL_ORDER))]
+    [KnownType(typeof(DetailOrder))]
     [KnownType(typeof(STOCK))]
-    public partial class PRODUCT: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class Product: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_PRODUCT
+        public int ProductID
         {
-            get { return _iD_PRODUCT; }
+            get { return _productID; }
             set
             {
-                if (_iD_PRODUCT != value)
+                if (_productID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PRODUCT' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'ProductID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_PRODUCT = value;
-                    OnPropertyChanged("ID_PRODUCT");
+                    _productID = value;
+                    OnPropertyChanged("ProductID");
                 }
             }
         }
-        private int _iD_PRODUCT;
+        private int _productID;
     
         [DataMember]
-        public string CODE_PRODUCT
+        public string Code
         {
-            get { return _cODE_PRODUCT; }
+            get { return _code; }
             set
             {
-                if (_cODE_PRODUCT != value)
+                if (_code != value)
                 {
-                    _cODE_PRODUCT = value;
-                    OnPropertyChanged("CODE_PRODUCT");
+                    _code = value;
+                    OnPropertyChanged("Code");
                 }
             }
         }
-        private string _cODE_PRODUCT;
+        private string _code;
     
         [DataMember]
-        public string NAME_PRODUCT
+        public string Name
         {
-            get { return _nAME_PRODUCT; }
+            get { return _name; }
             set
             {
-                if (_nAME_PRODUCT != value)
+                if (_name != value)
                 {
-                    _nAME_PRODUCT = value;
-                    OnPropertyChanged("NAME_PRODUCT");
+                    _name = value;
+                    OnPropertyChanged("Name");
                 }
             }
         }
-        private string _nAME_PRODUCT;
+        private string _name;
     
         [DataMember]
-        public string DESC_PRODUCT
+        public string Descripton
         {
-            get { return _dESC_PRODUCT; }
+            get { return _descripton; }
             set
             {
-                if (_dESC_PRODUCT != value)
+                if (_descripton != value)
                 {
-                    _dESC_PRODUCT = value;
-                    OnPropertyChanged("DESC_PRODUCT");
+                    _descripton = value;
+                    OnPropertyChanged("Descripton");
                 }
             }
         }
-        private string _dESC_PRODUCT;
+        private string _descripton;
     
         [DataMember]
-        public Nullable<int> MINIMUM_PRODUCT
+        public Nullable<int> Minimum
         {
-            get { return _mINIMUM_PRODUCT; }
+            get { return _minimum; }
             set
             {
-                if (_mINIMUM_PRODUCT != value)
+                if (_minimum != value)
                 {
-                    _mINIMUM_PRODUCT = value;
-                    OnPropertyChanged("MINIMUM_PRODUCT");
+                    _minimum = value;
+                    OnPropertyChanged("Minimum");
                 }
             }
         }
-        private Nullable<int> _mINIMUM_PRODUCT;
+        private Nullable<int> _minimum;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<DETAIL_ORDER> DETAIL_ORDER
+        public TrackableCollection<DetailOrder> DetailOrder
         {
             get
             {
-                if (_dETAIL_ORDER == null)
+                if (_detailOrder == null)
                 {
-                    _dETAIL_ORDER = new TrackableCollection<DETAIL_ORDER>();
-                    _dETAIL_ORDER.CollectionChanged += FixupDETAIL_ORDER;
+                    _detailOrder = new TrackableCollection<DetailOrder>();
+                    _detailOrder.CollectionChanged += FixupDetailOrder;
                 }
-                return _dETAIL_ORDER;
+                return _detailOrder;
             }
             set
             {
-                if (!ReferenceEquals(_dETAIL_ORDER, value))
+                if (!ReferenceEquals(_detailOrder, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_dETAIL_ORDER != null)
+                    if (_detailOrder != null)
                     {
-                        _dETAIL_ORDER.CollectionChanged -= FixupDETAIL_ORDER;
+                        _detailOrder.CollectionChanged -= FixupDetailOrder;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (DETAIL_ORDER item in _dETAIL_ORDER)
+                        foreach (DetailOrder item in _detailOrder)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
                     }
-                    _dETAIL_ORDER = value;
-                    if (_dETAIL_ORDER != null)
+                    _detailOrder = value;
+                    if (_detailOrder != null)
                     {
-                        _dETAIL_ORDER.CollectionChanged += FixupDETAIL_ORDER;
+                        _detailOrder.CollectionChanged += FixupDetailOrder;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (DETAIL_ORDER item in _dETAIL_ORDER)
+                        foreach (DetailOrder item in _detailOrder)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
                     }
-                    OnNavigationPropertyChanged("DETAIL_ORDER");
+                    OnNavigationPropertyChanged("DetailOrder");
                 }
             }
         }
-        private TrackableCollection<DETAIL_ORDER> _dETAIL_ORDER;
+        private TrackableCollection<DetailOrder> _detailOrder;
     
         [DataMember]
-        public TrackableCollection<STOCK> STOCKs
+        public TrackableCollection<STOCK> Stocks
         {
             get
             {
-                if (_sTOCKs == null)
+                if (_stocks == null)
                 {
-                    _sTOCKs = new TrackableCollection<STOCK>();
-                    _sTOCKs.CollectionChanged += FixupSTOCKs;
+                    _stocks = new TrackableCollection<STOCK>();
+                    _stocks.CollectionChanged += FixupStocks;
                 }
-                return _sTOCKs;
+                return _stocks;
             }
             set
             {
-                if (!ReferenceEquals(_sTOCKs, value))
+                if (!ReferenceEquals(_stocks, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_sTOCKs != null)
+                    if (_stocks != null)
                     {
-                        _sTOCKs.CollectionChanged -= FixupSTOCKs;
+                        _stocks.CollectionChanged -= FixupStocks;
                         // This is the principal end in an association that performs cascade deletes.
                         // Remove the cascade delete event handler for any entities in the current collection.
-                        foreach (STOCK item in _sTOCKs)
+                        foreach (STOCK item in _stocks)
                         {
                             ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
                         }
                     }
-                    _sTOCKs = value;
-                    if (_sTOCKs != null)
+                    _stocks = value;
+                    if (_stocks != null)
                     {
-                        _sTOCKs.CollectionChanged += FixupSTOCKs;
+                        _stocks.CollectionChanged += FixupStocks;
                         // This is the principal end in an association that performs cascade deletes.
                         // Add the cascade delete event handler for any entities that are already in the new collection.
-                        foreach (STOCK item in _sTOCKs)
+                        foreach (STOCK item in _stocks)
                         {
                             ChangeTracker.ObjectStateChanging += item.HandleCascadeDelete;
                         }
                     }
-                    OnNavigationPropertyChanged("STOCKs");
+                    OnNavigationPropertyChanged("Stocks");
                 }
             }
         }
-        private TrackableCollection<STOCK> _sTOCKs;
+        private TrackableCollection<STOCK> _stocks;
 
         #endregion
         #region ChangeTracking
@@ -278,14 +278,14 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            DETAIL_ORDER.Clear();
-            STOCKs.Clear();
+            DetailOrder.Clear();
+            Stocks.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupDETAIL_ORDER(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupDetailOrder(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -294,16 +294,16 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (DETAIL_ORDER item in e.NewItems)
+                foreach (DetailOrder item in e.NewItems)
                 {
-                    item.PRODUCT = this;
+                    item.Product = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("DETAIL_ORDER", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("DetailOrder", item);
                     }
                     // This is the principal end in an association that performs cascade deletes.
                     // Update the event listener to refer to the new dependent.
@@ -313,15 +313,15 @@ namespace Shopnet.Models
     
             if (e.OldItems != null)
             {
-                foreach (DETAIL_ORDER item in e.OldItems)
+                foreach (DetailOrder item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.PRODUCT, this))
+                    if (ReferenceEquals(item.Product, this))
                     {
-                        item.PRODUCT = null;
+                        item.Product = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("DETAIL_ORDER", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("DetailOrder", item);
                         // Delete the dependent end of this identifying association. If the current state is Added,
                         // allow the relationship to be changed without causing the dependent to be deleted.
                         if (item.ChangeTracker.State != ObjectState.Added)
@@ -336,7 +336,7 @@ namespace Shopnet.Models
             }
         }
     
-        private void FixupSTOCKs(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupStocks(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -354,7 +354,7 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("STOCKs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Stocks", item);
                     }
                     // This is the principal end in an association that performs cascade deletes.
                     // Update the event listener to refer to the new dependent.
@@ -372,7 +372,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("STOCKs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Stocks", item);
                         // Delete the dependent end of this identifying association. If the current state is Added,
                         // allow the relationship to be changed without causing the dependent to be deleted.
                         if (item.ChangeTracker.State != ObjectState.Added)

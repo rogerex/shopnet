@@ -19,7 +19,7 @@ namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(PURCHASE_ORDER))]
-    [KnownType(typeof(SALE_ORDER))]
+    [KnownType(typeof(SaleOrder))]
     [KnownType(typeof(SESSION))]
     [KnownType(typeof(ROLE))]
     public partial class USER: IObjectWithChangeTracker, INotifyPropertyChanged
@@ -144,13 +144,13 @@ namespace Shopnet.Models
         private TrackableCollection<PURCHASE_ORDER> _pURCHASE_ORDER;
     
         [DataMember]
-        public TrackableCollection<SALE_ORDER> SALE_ORDER
+        public TrackableCollection<SaleOrder> SALE_ORDER
         {
             get
             {
                 if (_sALE_ORDER == null)
                 {
-                    _sALE_ORDER = new TrackableCollection<SALE_ORDER>();
+                    _sALE_ORDER = new TrackableCollection<SaleOrder>();
                     _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
                 }
                 return _sALE_ORDER;
@@ -176,7 +176,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private TrackableCollection<SALE_ORDER> _sALE_ORDER;
+        private TrackableCollection<SaleOrder> _sALE_ORDER;
     
         [DataMember]
         public TrackableCollection<SESSION> SESSIONs
@@ -383,9 +383,9 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (SALE_ORDER item in e.NewItems)
+                foreach (SaleOrder item in e.NewItems)
                 {
-                    item.USER = this;
+                    item.User = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
@@ -399,11 +399,11 @@ namespace Shopnet.Models
     
             if (e.OldItems != null)
             {
-                foreach (SALE_ORDER item in e.OldItems)
+                foreach (SaleOrder item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.USER, this))
+                    if (ReferenceEquals(item.User, this))
                     {
-                        item.USER = null;
+                        item.User = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {

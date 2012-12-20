@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.PRODUCT
+﻿@model Shopnet.Models.Product
 
 @{
     ViewBag.Title = "Edit";
@@ -12,46 +12,40 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>PRODUCT</legend>
+        <legend>Product</legend>
+
+        @Html.HiddenFor(model => model.ProductID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ID_PRODUCT)
+            @Html.LabelFor(model => model.Code)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ID_PRODUCT)
-            @Html.ValidationMessageFor(model => model.ID_PRODUCT)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CODE_PRODUCT)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CODE_PRODUCT)
-            @Html.ValidationMessageFor(model => model.CODE_PRODUCT)
+            @Html.EditorFor(model => model.Code)
+            @Html.ValidationMessageFor(model => model.Code)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NAME_PRODUCT)
+            @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.NAME_PRODUCT)
-            @Html.ValidationMessageFor(model => model.NAME_PRODUCT)
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.DESC_PRODUCT)
+            @Html.LabelFor(model => model.Descripton)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.DESC_PRODUCT)
-            @Html.ValidationMessageFor(model => model.DESC_PRODUCT)
+            @Html.EditorFor(model => model.Descripton)
+            @Html.ValidationMessageFor(model => model.Descripton)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.MINIMUM_PRODUCT)
+            @Html.LabelFor(model => model.Minimum)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MINIMUM_PRODUCT)
-            @Html.ValidationMessageFor(model => model.MINIMUM_PRODUCT)
+            @Html.EditorFor(model => model.Minimum)
+            @Html.ValidationMessageFor(model => model.Minimum)
         </div>
 
         <p>

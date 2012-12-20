@@ -92,7 +92,7 @@
     <Compile Include="Models\CUSTOMER.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DETAIL_ORDER.cs">
+    <Compile Include="Models\DetailOrder.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ITEM.cs">
@@ -101,7 +101,7 @@
     <Compile Include="Models\PAYMENT.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PRODUCT.cs">
+    <Compile Include="Models\Product.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provider.cs">
@@ -113,7 +113,7 @@
     <Compile Include="Models\ROLE.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SALE_ORDER.cs">
+    <Compile Include="Models\SaleOrder.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SESSION.cs">
