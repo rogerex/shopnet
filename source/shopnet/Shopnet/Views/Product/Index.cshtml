@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Shopnet.Models.PRODUCT>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            ID_PRODUCT
+        </th>
+        <th>
+            CODE_PRODUCT
+        </th>
+        <th>
+            NAME_PRODUCT
+        </th>
+        <th>
+            DESC_PRODUCT
+        </th>
+        <th>
+            MINIMUM_PRODUCT
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_PRODUCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CODE_PRODUCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME_PRODUCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESC_PRODUCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MINIMUM_PRODUCT)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

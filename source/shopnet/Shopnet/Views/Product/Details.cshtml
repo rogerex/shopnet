@@ -1,0 +1,41 @@
+﻿@model Shopnet.Models.PRODUCT
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>PRODUCT</legend>
+
+    <div class="display-label">ID_PRODUCT</div>
+    
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_PRODUCT)
+    </div>
+    
+    <div class="display-label">CODE_PRODUCT</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CODE_PRODUCT)
+    </div>
+
+    <div class="display-label">NAME_PRODUCT</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NAME_PRODUCT)
+    </div>
+
+    <div class="display-label">DESC_PRODUCT</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESC_PRODUCT)
+    </div>
+
+    <div class="display-label">MINIMUM_PRODUCT</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MINIMUM_PRODUCT)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
