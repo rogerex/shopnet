@@ -24,7 +24,7 @@ namespace Shopnet.Models
         #region Primitive Properties
     
         [DataMember]
-        internal int ID_PROVIDER
+        public int ID_PROVIDER
         {
             get { return _iD_PROVIDER; }
             set

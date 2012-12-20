@@ -564,7 +564,7 @@
           <Key>
             <PropertyRef Name="ID_PROVIDER" />
           </Key>
-          <Property Name="ID_PROVIDER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ConcurrencyMode="Fixed" a:GetterAccess="Internal" />
+          <Property Name="ID_PROVIDER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ConcurrencyMode="Fixed" a:GetterAccess="Public" />
           <Property Name="NAME_PROVIDER" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="DESC_PROVIDER" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="CREATION_PROVIDER" Type="DateTime" Nullable="false" />
