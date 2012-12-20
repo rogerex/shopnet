@@ -18,158 +18,158 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(ITEM))]
-    [KnownType(typeof(ROLE))]
-    public partial class ITEM: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Item))]
+    [KnownType(typeof(Role))]
+    public partial class Item: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_ITEM
+        public int ItemID
         {
-            get { return _iD_ITEM; }
+            get { return _itemID; }
             set
             {
-                if (_iD_ITEM != value)
+                if (_itemID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_ITEM' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'ItemID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_ITEM = value;
-                    OnPropertyChanged("ID_ITEM");
+                    _itemID = value;
+                    OnPropertyChanged("ItemID");
                 }
             }
         }
-        private int _iD_ITEM;
+        private int _itemID;
     
         [DataMember]
-        public Nullable<int> ID_PARENT_ITEM
+        public Nullable<int> ParentItemID
         {
-            get { return _iD_PARENT_ITEM; }
+            get { return _parentItemID; }
             set
             {
-                if (_iD_PARENT_ITEM != value)
+                if (_parentItemID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_PARENT_ITEM", _iD_PARENT_ITEM);
+                    ChangeTracker.RecordOriginalValue("ParentItemID", _parentItemID);
                     if (!IsDeserializing)
                     {
-                        if (ITEM2 != null && ITEM2.ID_ITEM != value)
+                        if (ParentItem != null && ParentItem.ItemID != value)
                         {
-                            ITEM2 = null;
+                            ParentItem = null;
                         }
                     }
-                    _iD_PARENT_ITEM = value;
-                    OnPropertyChanged("ID_PARENT_ITEM");
+                    _parentItemID = value;
+                    OnPropertyChanged("ParentItemID");
                 }
             }
         }
-        private Nullable<int> _iD_PARENT_ITEM;
+        private Nullable<int> _parentItemID;
     
         [DataMember]
-        public string DESC_ITEM
+        public string Descripton
         {
-            get { return _dESC_ITEM; }
+            get { return _descripton; }
             set
             {
-                if (_dESC_ITEM != value)
+                if (_descripton != value)
                 {
-                    _dESC_ITEM = value;
-                    OnPropertyChanged("DESC_ITEM");
+                    _descripton = value;
+                    OnPropertyChanged("Descripton");
                 }
             }
         }
-        private string _dESC_ITEM;
+        private string _descripton;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<ITEM> ITEM1
+        public TrackableCollection<Item> ChildItems
         {
             get
             {
-                if (_iTEM1 == null)
+                if (_childItems == null)
                 {
-                    _iTEM1 = new TrackableCollection<ITEM>();
-                    _iTEM1.CollectionChanged += FixupITEM1;
+                    _childItems = new TrackableCollection<Item>();
+                    _childItems.CollectionChanged += FixupChildItems;
                 }
-                return _iTEM1;
+                return _childItems;
             }
             set
             {
-                if (!ReferenceEquals(_iTEM1, value))
+                if (!ReferenceEquals(_childItems, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_iTEM1 != null)
+                    if (_childItems != null)
                     {
-                        _iTEM1.CollectionChanged -= FixupITEM1;
+                        _childItems.CollectionChanged -= FixupChildItems;
                     }
-                    _iTEM1 = value;
-                    if (_iTEM1 != null)
+                    _childItems = value;
+                    if (_childItems != null)
                     {
-                        _iTEM1.CollectionChanged += FixupITEM1;
+                        _childItems.CollectionChanged += FixupChildItems;
                     }
-                    OnNavigationPropertyChanged("ITEM1");
+                    OnNavigationPropertyChanged("ChildItems");
                 }
             }
         }
-        private TrackableCollection<ITEM> _iTEM1;
+        private TrackableCollection<Item> _childItems;
     
         [DataMember]
-        public ITEM ITEM2
+        public Item ParentItem
         {
-            get { return _iTEM2; }
+            get { return _parentItem; }
             set
             {
-                if (!ReferenceEquals(_iTEM2, value))
+                if (!ReferenceEquals(_parentItem, value))
                 {
-                    var previousValue = _iTEM2;
-                    _iTEM2 = value;
-                    FixupITEM2(previousValue);
-                    OnNavigationPropertyChanged("ITEM2");
+                    var previousValue = _parentItem;
+                    _parentItem = value;
+                    FixupParentItem(previousValue);
+                    OnNavigationPropertyChanged("ParentItem");
                 }
             }
         }
-        private ITEM _iTEM2;
+        private Item _parentItem;
     
         [DataMember]
-        public TrackableCollection<ROLE> ROLEs
+        public TrackableCollection<Role> Roles
         {
             get
             {
-                if (_rOLEs == null)
+                if (_roles == null)
                 {
-                    _rOLEs = new TrackableCollection<ROLE>();
-                    _rOLEs.CollectionChanged += FixupROLEs;
+                    _roles = new TrackableCollection<Role>();
+                    _roles.CollectionChanged += FixupRoles;
                 }
-                return _rOLEs;
+                return _roles;
             }
             set
             {
-                if (!ReferenceEquals(_rOLEs, value))
+                if (!ReferenceEquals(_roles, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_rOLEs != null)
+                    if (_roles != null)
                     {
-                        _rOLEs.CollectionChanged -= FixupROLEs;
+                        _roles.CollectionChanged -= FixupRoles;
                     }
-                    _rOLEs = value;
-                    if (_rOLEs != null)
+                    _roles = value;
+                    if (_roles != null)
                     {
-                        _rOLEs.CollectionChanged += FixupROLEs;
+                        _roles.CollectionChanged += FixupRoles;
                     }
-                    OnNavigationPropertyChanged("ROLEs");
+                    OnNavigationPropertyChanged("Roles");
                 }
             }
         }
-        private TrackableCollection<ROLE> _rOLEs;
+        private TrackableCollection<Role> _roles;
 
         #endregion
         #region ChangeTracking
@@ -249,59 +249,59 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            ITEM1.Clear();
-            ITEM2 = null;
-            ROLEs.Clear();
+            ChildItems.Clear();
+            ParentItem = null;
+            Roles.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupITEM2(ITEM previousValue, bool skipKeys = false)
+        private void FixupParentItem(Item previousValue, bool skipKeys = false)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.ITEM1.Contains(this))
+            if (previousValue != null && previousValue.ChildItems.Contains(this))
             {
-                previousValue.ITEM1.Remove(this);
+                previousValue.ChildItems.Remove(this);
             }
     
-            if (ITEM2 != null)
+            if (ParentItem != null)
             {
-                if (!ITEM2.ITEM1.Contains(this))
+                if (!ParentItem.ChildItems.Contains(this))
                 {
-                    ITEM2.ITEM1.Add(this);
+                    ParentItem.ChildItems.Add(this);
                 }
     
-                ID_PARENT_ITEM = ITEM2.ID_ITEM;
+                ParentItemID = ParentItem.ItemID;
             }
             else if (!skipKeys)
             {
-                ID_PARENT_ITEM = null;
+                ParentItemID = null;
             }
     
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("ITEM2")
-                    && (ChangeTracker.OriginalValues["ITEM2"] == ITEM2))
+                if (ChangeTracker.OriginalValues.ContainsKey("ParentItem")
+                    && (ChangeTracker.OriginalValues["ParentItem"] == ParentItem))
                 {
-                    ChangeTracker.OriginalValues.Remove("ITEM2");
+                    ChangeTracker.OriginalValues.Remove("ParentItem");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("ITEM2", previousValue);
+                    ChangeTracker.RecordOriginalValue("ParentItem", previousValue);
                 }
-                if (ITEM2 != null && !ITEM2.ChangeTracker.ChangeTrackingEnabled)
+                if (ParentItem != null && !ParentItem.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    ITEM2.StartTracking();
+                    ParentItem.StartTracking();
                 }
             }
         }
     
-        private void FixupITEM1(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupChildItems(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -310,37 +310,37 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (ITEM item in e.NewItems)
+                foreach (Item item in e.NewItems)
                 {
-                    item.ITEM2 = this;
+                    item.ParentItem = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("ITEM1", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("ChildItems", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (ITEM item in e.OldItems)
+                foreach (Item item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.ITEM2, this))
+                    if (ReferenceEquals(item.ParentItem, this))
                     {
-                        item.ITEM2 = null;
+                        item.ParentItem = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("ITEM1", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("ChildItems", item);
                     }
                 }
             }
         }
     
-        private void FixupROLEs(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupRoles(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -349,11 +349,11 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (ROLE item in e.NewItems)
+                foreach (Role item in e.NewItems)
                 {
-                    if (!item.ITEMs.Contains(this))
+                    if (!item.Items.Contains(this))
                     {
-                        item.ITEMs.Add(this);
+                        item.Items.Add(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
@@ -361,22 +361,22 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("ROLEs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Roles", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (ROLE item in e.OldItems)
+                foreach (Role item in e.OldItems)
                 {
-                    if (item.ITEMs.Contains(this))
+                    if (item.Items.Contains(this))
                     {
-                        item.ITEMs.Remove(this);
+                        item.Items.Remove(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("ROLEs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Roles", item);
                     }
                 }
             }

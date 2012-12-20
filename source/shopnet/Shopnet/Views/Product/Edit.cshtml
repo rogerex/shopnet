@@ -48,6 +48,8 @@
             @Html.ValidationMessageFor(model => model.Minimum)
         </div>
 
+        @Html.HiddenFor(model => model.Creation)
+
         <p>
             <input type="submit" value="Save" />
         </p>

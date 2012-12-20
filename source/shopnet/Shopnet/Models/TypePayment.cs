@@ -18,112 +18,112 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(SaleOrder))]
-    public partial class TYPE_PAYMENT: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Sale))]
+    public partial class TypePayment: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_TYPE_PAYMENT
+        public int TypePaymentID
         {
-            get { return _iD_TYPE_PAYMENT; }
+            get { return _typePaymentID; }
             set
             {
-                if (_iD_TYPE_PAYMENT != value)
+                if (_typePaymentID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_TYPE_PAYMENT' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'TypePaymentID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_TYPE_PAYMENT = value;
-                    OnPropertyChanged("ID_TYPE_PAYMENT");
+                    _typePaymentID = value;
+                    OnPropertyChanged("TypePaymentID");
                 }
             }
         }
-        private int _iD_TYPE_PAYMENT;
+        private int _typePaymentID;
     
         [DataMember]
-        public string DESC_TYPE_PAYMENT
+        public string Description
         {
-            get { return _dESC_TYPE_PAYMENT; }
+            get { return _description; }
             set
             {
-                if (_dESC_TYPE_PAYMENT != value)
+                if (_description != value)
                 {
-                    _dESC_TYPE_PAYMENT = value;
-                    OnPropertyChanged("DESC_TYPE_PAYMENT");
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
-        private string _dESC_TYPE_PAYMENT;
+        private string _description;
     
         [DataMember]
-        public int AMOUNT_TYPE_PAYMENT
+        public int Amount
         {
-            get { return _aMOUNT_TYPE_PAYMENT; }
+            get { return _amount; }
             set
             {
-                if (_aMOUNT_TYPE_PAYMENT != value)
+                if (_amount != value)
                 {
-                    _aMOUNT_TYPE_PAYMENT = value;
-                    OnPropertyChanged("AMOUNT_TYPE_PAYMENT");
+                    _amount = value;
+                    OnPropertyChanged("Amount");
                 }
             }
         }
-        private int _aMOUNT_TYPE_PAYMENT;
+        private int _amount;
     
         [DataMember]
-        public Nullable<decimal> TOTAL_SALE_MINIMUM
+        public Nullable<decimal> TotalNumber
         {
-            get { return _tOTAL_SALE_MINIMUM; }
+            get { return _totalNumber; }
             set
             {
-                if (_tOTAL_SALE_MINIMUM != value)
+                if (_totalNumber != value)
                 {
-                    _tOTAL_SALE_MINIMUM = value;
-                    OnPropertyChanged("TOTAL_SALE_MINIMUM");
+                    _totalNumber = value;
+                    OnPropertyChanged("TotalNumber");
                 }
             }
         }
-        private Nullable<decimal> _tOTAL_SALE_MINIMUM;
+        private Nullable<decimal> _totalNumber;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<SaleOrder> SALE_ORDER
+        public TrackableCollection<Sale> Sales
         {
             get
             {
-                if (_sALE_ORDER == null)
+                if (_sales == null)
                 {
-                    _sALE_ORDER = new TrackableCollection<SaleOrder>();
-                    _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
+                    _sales = new TrackableCollection<Sale>();
+                    _sales.CollectionChanged += FixupSales;
                 }
-                return _sALE_ORDER;
+                return _sales;
             }
             set
             {
-                if (!ReferenceEquals(_sALE_ORDER, value))
+                if (!ReferenceEquals(_sales, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_sALE_ORDER != null)
+                    if (_sales != null)
                     {
-                        _sALE_ORDER.CollectionChanged -= FixupSALE_ORDER;
+                        _sales.CollectionChanged -= FixupSales;
                     }
-                    _sALE_ORDER = value;
-                    if (_sALE_ORDER != null)
+                    _sales = value;
+                    if (_sales != null)
                     {
-                        _sALE_ORDER.CollectionChanged += FixupSALE_ORDER;
+                        _sales.CollectionChanged += FixupSales;
                     }
-                    OnNavigationPropertyChanged("SALE_ORDER");
+                    OnNavigationPropertyChanged("Sales");
                 }
             }
         }
-        private TrackableCollection<SaleOrder> _sALE_ORDER;
+        private TrackableCollection<Sale> _sales;
 
         #endregion
         #region ChangeTracking
@@ -203,13 +203,13 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            SALE_ORDER.Clear();
+            Sales.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupSALE_ORDER(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupSales(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -218,7 +218,7 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (SaleOrder item in e.NewItems)
+                foreach (Sale item in e.NewItems)
                 {
                     item.TypePayment = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
@@ -227,14 +227,14 @@ namespace Shopnet.Models
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("SALE_ORDER", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Sales", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (SaleOrder item in e.OldItems)
+                foreach (Sale item in e.OldItems)
                 {
                     if (ReferenceEquals(item.TypePayment, this))
                     {
@@ -242,7 +242,7 @@ namespace Shopnet.Models
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("SALE_ORDER", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Sales", item);
                     }
                 }
             }

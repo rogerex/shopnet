@@ -18,102 +18,102 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(SaleOrder))]
-    public partial class PAYMENT: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(Sale))]
+    public partial class Payment: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_PAYMENT
+        public int PaymentID
         {
-            get { return _iD_PAYMENT; }
+            get { return _paymentID; }
             set
             {
-                if (_iD_PAYMENT != value)
+                if (_paymentID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PAYMENT' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'PaymentID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _iD_PAYMENT = value;
-                    OnPropertyChanged("ID_PAYMENT");
+                    _paymentID = value;
+                    OnPropertyChanged("PaymentID");
                 }
             }
         }
-        private int _iD_PAYMENT;
+        private int _paymentID;
     
         [DataMember]
-        public int ID_SALE
+        public int SaleID
         {
-            get { return _iD_SALE; }
+            get { return _saleID; }
             set
             {
-                if (_iD_SALE != value)
+                if (_saleID != value)
                 {
-                    ChangeTracker.RecordOriginalValue("ID_SALE", _iD_SALE);
+                    ChangeTracker.RecordOriginalValue("SaleID", _saleID);
                     if (!IsDeserializing)
                     {
-                        if (SALE_ORDER != null && SALE_ORDER.SaleID != value)
+                        if (Sale != null && Sale.SaleID != value)
                         {
-                            SALE_ORDER = null;
+                            Sale = null;
                         }
                     }
-                    _iD_SALE = value;
-                    OnPropertyChanged("ID_SALE");
+                    _saleID = value;
+                    OnPropertyChanged("SaleID");
                 }
             }
         }
-        private int _iD_SALE;
+        private int _saleID;
     
         [DataMember]
-        public decimal MOUNT_PAYMENT
+        public decimal Mount
         {
-            get { return _mOUNT_PAYMENT; }
+            get { return _mount; }
             set
             {
-                if (_mOUNT_PAYMENT != value)
+                if (_mount != value)
                 {
-                    _mOUNT_PAYMENT = value;
-                    OnPropertyChanged("MOUNT_PAYMENT");
+                    _mount = value;
+                    OnPropertyChanged("Mount");
                 }
             }
         }
-        private decimal _mOUNT_PAYMENT;
+        private decimal _mount;
     
         [DataMember]
-        public System.DateTime CREATION_PAYMENT
+        public System.DateTime Creation
         {
-            get { return _cREATION_PAYMENT; }
+            get { return _creation; }
             set
             {
-                if (_cREATION_PAYMENT != value)
+                if (_creation != value)
                 {
-                    _cREATION_PAYMENT = value;
-                    OnPropertyChanged("CREATION_PAYMENT");
+                    _creation = value;
+                    OnPropertyChanged("Creation");
                 }
             }
         }
-        private System.DateTime _cREATION_PAYMENT;
+        private System.DateTime _creation;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public SaleOrder SALE_ORDER
+        public Sale Sale
         {
-            get { return _sALE_ORDER; }
+            get { return _sale; }
             set
             {
-                if (!ReferenceEquals(_sALE_ORDER, value))
+                if (!ReferenceEquals(_sale, value))
                 {
-                    var previousValue = _sALE_ORDER;
-                    _sALE_ORDER = value;
-                    FixupSALE_ORDER(previousValue);
-                    OnNavigationPropertyChanged("SALE_ORDER");
+                    var previousValue = _sale;
+                    _sale = value;
+                    FixupSale(previousValue);
+                    OnNavigationPropertyChanged("Sale");
                 }
             }
         }
-        private SaleOrder _sALE_ORDER;
+        private Sale _sale;
 
         #endregion
         #region ChangeTracking
@@ -193,13 +193,13 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            SALE_ORDER = null;
+            Sale = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupSALE_ORDER(SaleOrder previousValue)
+        private void FixupSale(Sale previousValue)
         {
             if (IsDeserializing)
             {
@@ -211,29 +211,29 @@ namespace Shopnet.Models
                 previousValue.Payments.Remove(this);
             }
     
-            if (SALE_ORDER != null)
+            if (Sale != null)
             {
-                if (!SALE_ORDER.Payments.Contains(this))
+                if (!Sale.Payments.Contains(this))
                 {
-                    SALE_ORDER.Payments.Add(this);
+                    Sale.Payments.Add(this);
                 }
     
-                ID_SALE = SALE_ORDER.SaleID;
+                SaleID = Sale.SaleID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("SALE_ORDER")
-                    && (ChangeTracker.OriginalValues["SALE_ORDER"] == SALE_ORDER))
+                if (ChangeTracker.OriginalValues.ContainsKey("Sale")
+                    && (ChangeTracker.OriginalValues["Sale"] == Sale))
                 {
-                    ChangeTracker.OriginalValues.Remove("SALE_ORDER");
+                    ChangeTracker.OriginalValues.Remove("Sale");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("SALE_ORDER", previousValue);
+                    ChangeTracker.RecordOriginalValue("Sale", previousValue);
                 }
-                if (SALE_ORDER != null && !SALE_ORDER.ChangeTracker.ChangeTrackingEnabled)
+                if (Sale != null && !Sale.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    SALE_ORDER.StartTracking();
+                    Sale.StartTracking();
                 }
             }
         }

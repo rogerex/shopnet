@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(PURCHASE_ORDER))]
+    [KnownType(typeof(Purchase))]
     public partial class Provider: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -121,39 +121,39 @@ namespace Shopnet.Models
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<PURCHASE_ORDER> PurchasesOrders
+        public TrackableCollection<Purchase> Purchases
         {
             get
             {
-                if (_purchasesOrders == null)
+                if (_purchases == null)
                 {
-                    _purchasesOrders = new TrackableCollection<PURCHASE_ORDER>();
-                    _purchasesOrders.CollectionChanged += FixupPurchasesOrders;
+                    _purchases = new TrackableCollection<Purchase>();
+                    _purchases.CollectionChanged += FixupPurchases;
                 }
-                return _purchasesOrders;
+                return _purchases;
             }
             set
             {
-                if (!ReferenceEquals(_purchasesOrders, value))
+                if (!ReferenceEquals(_purchases, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_purchasesOrders != null)
+                    if (_purchases != null)
                     {
-                        _purchasesOrders.CollectionChanged -= FixupPurchasesOrders;
+                        _purchases.CollectionChanged -= FixupPurchases;
                     }
-                    _purchasesOrders = value;
-                    if (_purchasesOrders != null)
+                    _purchases = value;
+                    if (_purchases != null)
                     {
-                        _purchasesOrders.CollectionChanged += FixupPurchasesOrders;
+                        _purchases.CollectionChanged += FixupPurchases;
                     }
-                    OnNavigationPropertyChanged("PurchasesOrders");
+                    OnNavigationPropertyChanged("Purchases");
                 }
             }
         }
-        private TrackableCollection<PURCHASE_ORDER> _purchasesOrders;
+        private TrackableCollection<Purchase> _purchases;
 
         #endregion
         #region ChangeTracking
@@ -233,13 +233,13 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            PurchasesOrders.Clear();
+            Purchases.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupPurchasesOrders(object sender, NotifyCollectionChangedEventArgs e)
+        private void FixupPurchases(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -248,31 +248,31 @@ namespace Shopnet.Models
     
             if (e.NewItems != null)
             {
-                foreach (PURCHASE_ORDER item in e.NewItems)
+                foreach (Purchase item in e.NewItems)
                 {
-                    item.PROVIDER = this;
+                    item.Provider = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("PurchasesOrders", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("Purchases", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (PURCHASE_ORDER item in e.OldItems)
+                foreach (Purchase item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.PROVIDER, this))
+                    if (ReferenceEquals(item.Provider, this))
                     {
-                        item.PROVIDER = null;
+                        item.Provider = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("PurchasesOrders", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Purchases", item);
                     }
                 }
             }

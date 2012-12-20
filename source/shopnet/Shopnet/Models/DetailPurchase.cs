@@ -18,178 +18,178 @@ using System.Runtime.Serialization;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
+    [KnownType(typeof(Purchase))]
     [KnownType(typeof(Product))]
-    [KnownType(typeof(PURCHASE_ORDER))]
-    public partial class STOCK: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class DetailPurchase: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public int ID_PRODUCT
+        public int ProductID
         {
-            get { return _iD_PRODUCT; }
+            get { return _productID; }
             set
             {
-                if (_iD_PRODUCT != value)
+                if (_productID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PRODUCT' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'ProductID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
                     if (!IsDeserializing)
                     {
-                        if (PRODUCT != null && PRODUCT.ProductID != value)
+                        if (Product != null && Product.ProductID != value)
                         {
-                            PRODUCT = null;
+                            Product = null;
                         }
                     }
-                    _iD_PRODUCT = value;
-                    OnPropertyChanged("ID_PRODUCT");
+                    _productID = value;
+                    OnPropertyChanged("ProductID");
                 }
             }
         }
-        private int _iD_PRODUCT;
+        private int _productID;
     
         [DataMember]
-        public int ID_PURCHASE
+        public int PurchaseID
         {
-            get { return _iD_PURCHASE; }
+            get { return _purchaseID; }
             set
             {
-                if (_iD_PURCHASE != value)
+                if (_purchaseID != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'ID_PURCHASE' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'PurchaseID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
                     if (!IsDeserializing)
                     {
-                        if (PURCHASE_ORDER != null && PURCHASE_ORDER.ID_PURCHASE != value)
+                        if (Purchase != null && Purchase.PurchaseID != value)
                         {
-                            PURCHASE_ORDER = null;
+                            Purchase = null;
                         }
                     }
-                    _iD_PURCHASE = value;
-                    OnPropertyChanged("ID_PURCHASE");
+                    _purchaseID = value;
+                    OnPropertyChanged("PurchaseID");
                 }
             }
         }
-        private int _iD_PURCHASE;
+        private int _purchaseID;
     
         [DataMember]
-        public int AMOUNT_STOCK
+        public int CurrentAmount
         {
-            get { return _aMOUNT_STOCK; }
+            get { return _currentAmount; }
             set
             {
-                if (_aMOUNT_STOCK != value)
+                if (_currentAmount != value)
                 {
-                    _aMOUNT_STOCK = value;
-                    OnPropertyChanged("AMOUNT_STOCK");
+                    _currentAmount = value;
+                    OnPropertyChanged("CurrentAmount");
                 }
             }
         }
-        private int _aMOUNT_STOCK;
+        private int _currentAmount;
     
         [DataMember]
-        public decimal COST_STOCK
+        public decimal Cost
         {
-            get { return _cOST_STOCK; }
+            get { return _cost; }
             set
             {
-                if (_cOST_STOCK != value)
+                if (_cost != value)
                 {
-                    _cOST_STOCK = value;
-                    OnPropertyChanged("COST_STOCK");
+                    _cost = value;
+                    OnPropertyChanged("Cost");
                 }
             }
         }
-        private decimal _cOST_STOCK;
+        private decimal _cost;
     
         [DataMember]
-        public decimal PRICE_STOCK
+        public decimal Price
         {
-            get { return _pRICE_STOCK; }
+            get { return _price; }
             set
             {
-                if (_pRICE_STOCK != value)
+                if (_price != value)
                 {
-                    _pRICE_STOCK = value;
-                    OnPropertyChanged("PRICE_STOCK");
+                    _price = value;
+                    OnPropertyChanged("Price");
                 }
             }
         }
-        private decimal _pRICE_STOCK;
+        private decimal _price;
     
         [DataMember]
-        public System.DateTime CREATION_STOCK
+        public int TotalAmount
         {
-            get { return _cREATION_STOCK; }
+            get { return _totalAmount; }
             set
             {
-                if (_cREATION_STOCK != value)
+                if (_totalAmount != value)
                 {
-                    _cREATION_STOCK = value;
-                    OnPropertyChanged("CREATION_STOCK");
+                    _totalAmount = value;
+                    OnPropertyChanged("TotalAmount");
                 }
             }
         }
-        private System.DateTime _cREATION_STOCK;
+        private int _totalAmount;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public Product PRODUCT
+        public Purchase Purchase
         {
-            get { return _pRODUCT; }
+            get { return _purchase; }
             set
             {
-                if (!ReferenceEquals(_pRODUCT, value))
+                if (!ReferenceEquals(_purchase, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
                         // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
                         // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ID_PRODUCT != value.ProductID)
+                        if (PurchaseID != value.PurchaseID)
                         {
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
                     }
-                    var previousValue = _pRODUCT;
-                    _pRODUCT = value;
-                    FixupPRODUCT(previousValue);
-                    OnNavigationPropertyChanged("PRODUCT");
+                    var previousValue = _purchase;
+                    _purchase = value;
+                    FixupPurchase(previousValue);
+                    OnNavigationPropertyChanged("Purchase");
                 }
             }
         }
-        private Product _pRODUCT;
+        private Purchase _purchase;
     
         [DataMember]
-        public PURCHASE_ORDER PURCHASE_ORDER
+        public Product Product
         {
-            get { return _pURCHASE_ORDER; }
+            get { return _product; }
             set
             {
-                if (!ReferenceEquals(_pURCHASE_ORDER, value))
+                if (!ReferenceEquals(_product, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
                         // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
                         // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
-                        if (ID_PURCHASE != value.ID_PURCHASE)
+                        if (ProductID != value.ProductID)
                         {
                             throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
                         }
                     }
-                    var previousValue = _pURCHASE_ORDER;
-                    _pURCHASE_ORDER = value;
-                    FixupPURCHASE_ORDER(previousValue);
-                    OnNavigationPropertyChanged("PURCHASE_ORDER");
+                    var previousValue = _product;
+                    _product = value;
+                    FixupProduct(previousValue);
+                    OnNavigationPropertyChanged("Product");
                 }
             }
         }
-        private PURCHASE_ORDER _pURCHASE_ORDER;
+        private Product _product;
 
         #endregion
         #region ChangeTracking
@@ -279,87 +279,87 @@ namespace Shopnet.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            PRODUCT = null;
-            PURCHASE_ORDER = null;
+            Purchase = null;
+            Product = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void FixupPRODUCT(Product previousValue)
+        private void FixupPurchase(Purchase previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.Stocks.Contains(this))
+            if (previousValue != null && previousValue.Details.Contains(this))
             {
-                previousValue.Stocks.Remove(this);
+                previousValue.Details.Remove(this);
             }
     
-            if (PRODUCT != null)
+            if (Purchase != null)
             {
-                if (!PRODUCT.Stocks.Contains(this))
+                if (!Purchase.Details.Contains(this))
                 {
-                    PRODUCT.Stocks.Add(this);
+                    Purchase.Details.Add(this);
                 }
     
-                ID_PRODUCT = PRODUCT.ProductID;
+                PurchaseID = Purchase.PurchaseID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("PRODUCT")
-                    && (ChangeTracker.OriginalValues["PRODUCT"] == PRODUCT))
+                if (ChangeTracker.OriginalValues.ContainsKey("Purchase")
+                    && (ChangeTracker.OriginalValues["Purchase"] == Purchase))
                 {
-                    ChangeTracker.OriginalValues.Remove("PRODUCT");
+                    ChangeTracker.OriginalValues.Remove("Purchase");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("PRODUCT", previousValue);
+                    ChangeTracker.RecordOriginalValue("Purchase", previousValue);
                 }
-                if (PRODUCT != null && !PRODUCT.ChangeTracker.ChangeTrackingEnabled)
+                if (Purchase != null && !Purchase.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    PRODUCT.StartTracking();
+                    Purchase.StartTracking();
                 }
             }
         }
     
-        private void FixupPURCHASE_ORDER(PURCHASE_ORDER previousValue)
+        private void FixupProduct(Product previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.STOCKs.Contains(this))
+            if (previousValue != null && previousValue.Purchases.Contains(this))
             {
-                previousValue.STOCKs.Remove(this);
+                previousValue.Purchases.Remove(this);
             }
     
-            if (PURCHASE_ORDER != null)
+            if (Product != null)
             {
-                if (!PURCHASE_ORDER.STOCKs.Contains(this))
+                if (!Product.Purchases.Contains(this))
                 {
-                    PURCHASE_ORDER.STOCKs.Add(this);
+                    Product.Purchases.Add(this);
                 }
     
-                ID_PURCHASE = PURCHASE_ORDER.ID_PURCHASE;
+                ProductID = Product.ProductID;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("PURCHASE_ORDER")
-                    && (ChangeTracker.OriginalValues["PURCHASE_ORDER"] == PURCHASE_ORDER))
+                if (ChangeTracker.OriginalValues.ContainsKey("Product")
+                    && (ChangeTracker.OriginalValues["Product"] == Product))
                 {
-                    ChangeTracker.OriginalValues.Remove("PURCHASE_ORDER");
+                    ChangeTracker.OriginalValues.Remove("Product");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("PURCHASE_ORDER", previousValue);
+                    ChangeTracker.RecordOriginalValue("Product", previousValue);
                 }
-                if (PURCHASE_ORDER != null && !PURCHASE_ORDER.ChangeTracker.ChangeTrackingEnabled)
+                if (Product != null && !Product.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    PURCHASE_ORDER.StartTracking();
+                    Product.StartTracking();
                 }
             }
         }

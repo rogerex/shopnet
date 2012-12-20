@@ -89,17 +89,19 @@
     </Compile>
     <Compile Include="Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
-    <Compile Include="Models\CUSTOMER.cs">
+    <Compile Include="Models\Customer.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DetailOrder.cs">
+    <Compile Include="Models\DetailPurchase.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GeneralValidate.cs" />
-    <Compile Include="Models\ITEM.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PAYMENT.cs">
+    <Compile Include="Models\Item.cs">
+      <DependentUpon>Shopnet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
@@ -108,16 +110,16 @@
     <Compile Include="Models\Provider.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PURCHASE_ORDER.cs">
+    <Compile Include="Models\Purchase.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ROLE.cs">
+    <Compile Include="Models\Role.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaleOrder.cs">
+    <Compile Include="Models\Sale.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SESSION.cs">
+    <Compile Include="Models\Session.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shopnet.Context.cs">
@@ -138,13 +140,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Shopnet.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\STOCK.cs">
+    <Compile Include="Models\TypePayment.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TYPE_PAYMENT.cs">
-      <DependentUpon>Shopnet.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\USER.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
