@@ -14,6 +14,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using System.Linq;
 
 namespace Shopnet.Models
 {
@@ -58,7 +61,7 @@ namespace Shopnet.Models
         private string _description;
     
         [DataMember]
-        public int Amount
+        public Nullable<int> Amount
         {
             get { return _amount; }
             set
@@ -70,7 +73,7 @@ namespace Shopnet.Models
                 }
             }
         }
-        private int _amount;
+        private Nullable<int> _amount;
     
         [DataMember]
         public Nullable<decimal> TotalNumber
@@ -86,6 +89,37 @@ namespace Shopnet.Models
             }
         }
         private Nullable<decimal> _totalNumber;
+    
+        [DataMember]
+        [Required(ErrorMessage = "A Type Payment Name is required")]
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
+    
+        [DataMember]
+        public int Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
+        private int _status;
 
         #endregion
         #region Navigation Properties
@@ -245,6 +279,33 @@ namespace Shopnet.Models
                         ChangeTracker.RecordRemovalFromCollectionProperties("Sales", item);
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region Status for Type Payment
+
+        public List<SelectListItem> GetStatus()
+        {
+            List<SelectListItem> connetions = new List<SelectListItem>();
+            connetions.Add(new SelectListItem() { Text = "Active", Value = "1" });
+            connetions.Add(new SelectListItem() { Text = "Inactive", Value = "0" });
+
+            return connetions;
+        }
+
+        public String SelectedStatus
+        {
+            get
+            {
+                var array = this.GetStatus().ToArray();
+                var items = from value in array where value.Value == Status + "" select value;
+                return items.Any() ? items.First<SelectListItem>().Text : "Undefined";
+            }
+            set 
+            {
+                SelectedStatus = value;
             }
         }
 

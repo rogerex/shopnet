@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.TypePayment
+﻿@model Shopnet.Models.Sale
 
 @{
     ViewBag.Title = "Delete";
@@ -6,9 +6,9 @@
 
 <h2>Delete Confirmation</h2>
 
-<h3>Are you sure you want to delete the Type Payment:</h3>
+<h3>Are you sure you want to delete the Sales Order:</h3>
 <p>
-   <strong>@Model.Name</strong>?
+   <strong>@Model.SaleID</strong>?
 </p>
 
 @using (Html.BeginForm()) {

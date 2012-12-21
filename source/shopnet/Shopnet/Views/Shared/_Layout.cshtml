@@ -13,12 +13,24 @@
 <h1>
 Shop Net</h1>
 <ul id="navlist">
-    <li class="first"><a href="/" id="current">Home</a></li>    
-    <li><a href="/Provider/">Provider</a></li>
-    <li><a href="/Product/">Product</a></li>
+    <li class="first"><a href="@Url.Content("~")" id="current">Home</a></li>
+    <li><a href="@Url.Content("~/BasicPage/About")">About</a></li>
+    <li><a href="@Url.Content("~/Provider/")">Provider</a></li>
+    <li><a href="@Url.Content("~/Product/")">Product</a></li>
+    <li><a href="@Url.Content("~/User/")">User</a></li>
+    <li><a href="@Url.Content("~/Sale/")">Sale</a></li>
+    <li><a href="@Url.Content("~/Purchase/")">Purchase</a></li>
+    <li><a href="@Url.Content("~/Payment/")">Payment</a></li>
+    <li><a href="@Url.Content("~/TypePayment/")">Type Payment</a></li>
 </ul>
 </div>
 
-    @RenderBody()
+    <div id="main">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        built and developed for <a href="http://encens.com.bo">ENCENS SRL</a>
+    </div>
 </body>
 </html>

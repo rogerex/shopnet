@@ -17,6 +17,14 @@
         @Html.HiddenFor(model => model.TypePaymentID)
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
@@ -38,6 +46,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.TotalNumber)
             @Html.ValidationMessageFor(model => model.TotalNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.Status, new SelectList(Model.GetStatus(), "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.Status)
         </div>
 
         <p>

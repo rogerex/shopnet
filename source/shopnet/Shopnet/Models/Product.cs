@@ -45,7 +45,7 @@ namespace Shopnet.Models
         private int _productID;
     
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "A Product Code is required")]
         public string Code
         {
             get { return _code; }
@@ -61,7 +61,7 @@ namespace Shopnet.Models
         private string _code;
     
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "A Product Name is required")]
         public string Name
         {
             get { return _name; }
@@ -77,23 +77,21 @@ namespace Shopnet.Models
         private string _name;
     
         [DataMember]
-        [Required]
-        public string Descripton
+        public string Description
         {
-            get { return _descripton; }
+            get { return _description; }
             set
             {
-                if (_descripton != value)
+                if (_description != value)
                 {
-                    _descripton = value;
-                    OnPropertyChanged("Descripton");
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
-        private string _descripton;
+        private string _description;
     
         [DataMember]
-        [Required]
         public Nullable<int> Minimum
         {
             get { return _minimum; }
@@ -109,7 +107,6 @@ namespace Shopnet.Models
         private Nullable<int> _minimum;
     
         [DataMember]
-        [Required]
         public System.DateTime Creation
         {
             get { return _creation; }

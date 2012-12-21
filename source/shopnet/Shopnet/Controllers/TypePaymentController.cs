@@ -35,7 +35,7 @@ namespace Shopnet.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new TypePayment());
         } 
 
         //

@@ -107,9 +107,9 @@
           <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
           <Property Name="ID_PURCHASE" Type="int" Nullable="false" />
           <Property Name="CURRENT_AMOUNT_PURCHASE" Type="int" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT_PURCHASE" Type="int" Nullable="false" />
           <Property Name="COST_PURCHASE" Type="decimal" Nullable="false" />
           <Property Name="PRICE_PURCHASE" Type="decimal" Nullable="false" />
-          <Property Name="TOTAL_AMOUNT_PURCHASE" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DETAIL_SALE">
           <Key>
@@ -128,6 +128,7 @@
           <Property Name="ID_ITEM" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ID_PARENT_ITEM" Type="int" />
           <Property Name="DESC_ITEM" Type="text" Nullable="false" />
+          <Property Name="PATH_ITEM" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="PAYMENT">
           <Key>
@@ -212,8 +213,10 @@
             <PropertyRef Name="ID_TYPE_PAYMENT" />
           </Key>
           <Property Name="ID_TYPE_PAYMENT" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DESC_TYPE_PAYMENT" Type="text" Nullable="false" />
-          <Property Name="AMOUNT_TYPE_PAYMENT" Type="int" Nullable="false" />
+          <Property Name="NAME_TYPE_PAYMENT" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="STATUS_TYPE_PAYMENT" Type="int" Nullable="false" />
+          <Property Name="DESC_TYPE_PAYMENT" Type="text" />
+          <Property Name="AMOUNT_TYPE_PAYMENT" Type="int" />
           <Property Name="TOTAL_SALE_MINIMUM" Type="decimal" />
         </EntityType>
         <EntityType Name="USER">
@@ -525,6 +528,7 @@
           <NavigationProperty Name="ChildItems" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM" ToRole="ITEM1" />
           <NavigationProperty Name="ParentItem" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM1" ToRole="ITEM" />
           <NavigationProperty Name="Roles" Relationship="shopnetModel.PERMISSION" FromRole="ITEM" ToRole="ROLE" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -543,7 +547,7 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="Descripton" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Minimum" Type="Int32" />
           <Property Type="DateTime" Name="Creation" Nullable="false" />
           <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="Product" ToRole="DETAIL_PURCHASE" />
@@ -616,10 +620,12 @@
             <PropertyRef Name="TypePaymentID" />
           </Key>
           <Property Name="TypePaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="TotalNumber" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Amount" Type="Int32" Nullable="true" />
+          <Property Name="TotalNumber" Type="Decimal" Precision="18" Scale="0" Nullable="true" />
           <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" FromRole="TYPE_PAYMENT" ToRole="SALE_ORDER" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -830,7 +836,8 @@
             <ScalarProperty Name="Longitude" ColumnName="LONGITUDE_CUSTOMER" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Items"><EntityTypeMapping TypeName="shopnetModel.Item"><MappingFragment StoreEntitySet="ITEM">
-            <ScalarProperty Name="ItemID" ColumnName="ID_ITEM" />
+            <ScalarProperty Name="Path" ColumnName="PATH_ITEM" />
+                <ScalarProperty Name="ItemID" ColumnName="ID_ITEM" />
             <ScalarProperty Name="ParentItemID" ColumnName="ID_PARENT_ITEM" />
             <ScalarProperty Name="Descripton" ColumnName="DESC_ITEM" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -845,7 +852,7 @@
                 <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
             <ScalarProperty Name="Code" ColumnName="CODE_PRODUCT" />
             <ScalarProperty Name="Name" ColumnName="NAME_PRODUCT" />
-            <ScalarProperty Name="Descripton" ColumnName="DESC_PRODUCT" />
+            <ScalarProperty Name="Description" ColumnName="DESC_PRODUCT" />
             <ScalarProperty Name="Minimum" ColumnName="MINIMUM_PRODUCT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Providers"><EntityTypeMapping TypeName="shopnetModel.Provider"><MappingFragment StoreEntitySet="PROVIDER">
@@ -884,7 +891,9 @@
             <ScalarProperty Name="Status" ColumnName="STATUS_SESSION" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="TypePayments"><EntityTypeMapping TypeName="shopnetModel.TypePayment"><MappingFragment StoreEntitySet="TYPE_PAYMENT">
-            <ScalarProperty Name="TypePaymentID" ColumnName="ID_TYPE_PAYMENT" />
+            <ScalarProperty Name="Status" ColumnName="STATUS_TYPE_PAYMENT" />
+                <ScalarProperty Name="Name" ColumnName="NAME_TYPE_PAYMENT" />
+                <ScalarProperty Name="TypePaymentID" ColumnName="ID_TYPE_PAYMENT" />
             <ScalarProperty Name="Description" ColumnName="DESC_TYPE_PAYMENT" />
             <ScalarProperty Name="Amount" ColumnName="AMOUNT_TYPE_PAYMENT" />
             <ScalarProperty Name="TotalNumber" ColumnName="TOTAL_SALE_MINIMUM" />
@@ -955,7 +964,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Shopnet" ZoomLevel="93">
+      <Diagram Name="Shopnet" ZoomLevel="78">
         <EntityTypeShape EntityType="shopnetModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" Height="2.41404296875" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4.25" Height="1.9210009765624996" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Payment" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
