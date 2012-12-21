@@ -35,7 +35,8 @@ namespace Shopnet.Controllers
 
         public ActionResult Create()
         {
-            return View(new TypePayment());
+            ViewBag.Status = new SelectList(TypePayment.GetStatus(), "Value", "Text");
+            return View();
         } 
 
         //
@@ -50,6 +51,7 @@ namespace Shopnet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
+            ViewBag.Status = new SelectList(TypePayment.GetStatus(), "Value", "Text", typepayment.Status);
 
             return View(typepayment);
         }
@@ -60,6 +62,7 @@ namespace Shopnet.Controllers
         public ActionResult Edit(int id)
         {
             TypePayment typepayment = db.TypePayments.Single(t => t.TypePaymentID == id);
+            ViewBag.Status = new SelectList(TypePayment.GetStatus(), "Value", "Text", typepayment.Status);
             return View(typepayment);
         }
 
@@ -76,6 +79,7 @@ namespace Shopnet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Status = new SelectList(TypePayment.GetStatus(), "Value", "Text", typepayment.Status);
             return View(typepayment);
         }
 

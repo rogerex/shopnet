@@ -286,26 +286,22 @@ namespace Shopnet.Models
 
         #region Status for Type Payment
 
-        public List<SelectListItem> GetStatus()
+        public static List<SelectListItem> GetStatus()
         {
-            List<SelectListItem> connetions = new List<SelectListItem>();
-            connetions.Add(new SelectListItem() { Text = "Active", Value = "1" });
-            connetions.Add(new SelectListItem() { Text = "Inactive", Value = "0" });
+            List<SelectListItem> status = new List<SelectListItem>();
+            status.Add(new SelectListItem() { Text = "Active", Value = "1" });
+            status.Add(new SelectListItem() { Text = "Inactive", Value = "0" });
 
-            return connetions;
+            return status;
         }
 
         public String SelectedStatus
         {
             get
             {
-                var array = this.GetStatus().ToArray();
+                var array = GetStatus().ToArray();
                 var items = from value in array where value.Value == Status + "" select value;
                 return items.Any() ? items.First<SelectListItem>().Text : "Undefined";
-            }
-            set 
-            {
-                SelectedStatus = value;
             }
         }
 
