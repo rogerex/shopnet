@@ -284,6 +284,8 @@ namespace Shopnet.Models
 
         #endregion
 
+        #region Status for Type Payment
+
         public List<SelectListItem> GetStatus()
         {
             List<SelectListItem> connetions = new List<SelectListItem>();
@@ -298,13 +300,15 @@ namespace Shopnet.Models
             get
             {
                 var array = this.GetStatus().ToArray();
-                var item = from value in array where value.Value == Status + "" select value;
-                return item.First<SelectListItem>().Text;
+                var items = from value in array where value.Value == Status + "" select value;
+                return items.Any() ? items.First<SelectListItem>().Text : "Undefined";
             }
             set 
             {
                 SelectedStatus = value;
             }
         }
+
+        #endregion
     }
 }
