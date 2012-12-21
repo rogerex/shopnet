@@ -82,8 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BasicPageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\TypePaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -263,11 +265,21 @@
     <Content Include="Views\Provider\Create.cshtml" />
     <Content Include="Views\Provider\Edit.cshtml" />
     <Content Include="Views\Provider\Delete.cshtml" />
-    <Content Include="Views\TypePayment\Create.cshtml" />
-    <Content Include="Views\TypePayment\Delete.cshtml" />
-    <Content Include="Views\TypePayment\Details.cshtml" />
-    <Content Include="Views\TypePayment\Edit.cshtml" />
+    <Content Include="Views\Sale\Index.cshtml" />
+    <Content Include="Views\Sale\Details.cshtml" />
+    <Content Include="Views\Sale\Create.cshtml" />
+    <Content Include="Views\Sale\Edit.cshtml" />
+    <Content Include="Views\Sale\Delete.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Payment\Details.cshtml" />
+    <Content Include="Views\Payment\Create.cshtml" />
+    <Content Include="Views\Payment\Edit.cshtml" />
+    <Content Include="Views\Payment\Delete.cshtml" />
     <Content Include="Views\TypePayment\Index.cshtml" />
+    <Content Include="Views\TypePayment\Details.cshtml" />
+    <Content Include="Views\TypePayment\Create.cshtml" />
+    <Content Include="Views\TypePayment\Edit.cshtml" />
+    <Content Include="Views\TypePayment\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

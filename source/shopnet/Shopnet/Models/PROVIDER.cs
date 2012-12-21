@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.Models
 {
@@ -43,6 +44,7 @@ namespace Shopnet.Models
         private int _providerID;
     
         [DataMember]
+        [Required(ErrorMessage = "A Provider Name is required")]
         public string Name
         {
             get { return _name; }

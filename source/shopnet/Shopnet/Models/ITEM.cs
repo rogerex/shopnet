@@ -80,6 +80,21 @@ namespace Shopnet.Models
             }
         }
         private string _descripton;
+    
+        [DataMember]
+        public string Path
+        {
+            get { return _path; }
+            set
+            {
+                if (_path != value)
+                {
+                    _path = value;
+                    OnPropertyChanged("Path");
+                }
+            }
+        }
+        private string _path;
 
         #endregion
         #region Navigation Properties

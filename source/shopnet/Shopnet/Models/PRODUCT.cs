@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.Models
 {
@@ -44,6 +45,7 @@ namespace Shopnet.Models
         private int _productID;
     
         [DataMember]
+        [Required(ErrorMessage = "A Product Code is required")]
         public string Code
         {
             get { return _code; }
@@ -59,6 +61,7 @@ namespace Shopnet.Models
         private string _code;
     
         [DataMember]
+        [Required(ErrorMessage = "A Product Name is required")]
         public string Name
         {
             get { return _name; }
@@ -74,19 +77,19 @@ namespace Shopnet.Models
         private string _name;
     
         [DataMember]
-        public string Descripton
+        public string Description
         {
-            get { return _descripton; }
+            get { return _description; }
             set
             {
-                if (_descripton != value)
+                if (_description != value)
                 {
-                    _descripton = value;
-                    OnPropertyChanged("Descripton");
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
-        private string _descripton;
+        private string _description;
     
         [DataMember]
         public Nullable<int> Minimum
