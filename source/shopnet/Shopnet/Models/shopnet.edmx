@@ -228,6 +228,7 @@
           <Property Name="PASSWORD_USER" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="CREATION_USER" Type="datetime" Nullable="false" />
           <Property Name="STATUS_USER" Type="int" Nullable="false" />
+          <Property Name="EMAIL_USER" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="USER_ROLE">
           <Key>
@@ -640,6 +641,7 @@
           <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_SALES_USE_USER" FromRole="USER" ToRole="SALE_ORDER" />
           <NavigationProperty Name="Sessions" Relationship="shopnetModel.FK_SESSION_SESSIONS__USER" FromRole="USER" ToRole="SESSION" />
           <NavigationProperty Name="Roles" Relationship="shopnetModel.USER_ROLE" FromRole="USER" ToRole="ROLE" />
+          <Property Type="String" Name="Email" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER">
           <End Role="CUSTOMER" Type="shopnetModel.Customer" Multiplicity="1" />
@@ -899,7 +901,8 @@
             <ScalarProperty Name="TotalNumber" ColumnName="TOTAL_SALE_MINIMUM" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="shopnetModel.User"><MappingFragment StoreEntitySet="USER">
-            <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            <ScalarProperty Name="Email" ColumnName="EMAIL_USER" />
+                <ScalarProperty Name="UserID" ColumnName="ID_USER" />
             <ScalarProperty Name="Name" ColumnName="NAME_USER" />
             <ScalarProperty Name="Password" ColumnName="PASSWORD_USER" />
             <ScalarProperty Name="Creation" ColumnName="CREATION_USER" />
@@ -975,17 +978,17 @@
         <EntityTypeShape EntityType="shopnetModel.Sale" Width="1.5" PointX="6" PointY="5.875" Height="2.7427376302083335" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Session" Width="1.5" PointX="3.125" PointY="13.125" Height="1.9210009765625031" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.TypePayment" Width="1.5" PointX="3.75" PointY="10.875" Height="1.7566536458333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.4140429687500022" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.4140429687499996" IsExpanded="true" />
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" ManuallyRouted="false">
           <ConnectorPoint PointX="4.90625" PointY="3.16404296875" />
           <ConnectorPoint PointX="4.90625" PointY="6.628326822916665" />
           <ConnectorPoint PointX="6" PointY="6.628326822916665" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_ITEM_PARENT_ITEM" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.2819230769230767" PointY="6.1710009765625" />
-          <ConnectorPoint PointX="1.2819230769230767" PointY="6.4210009765625" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="6.4210009765625" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="6.1710009765625" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.3353483072916665" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.5853483072916674" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.5853483072916674" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.3353483072916665" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="8.6177376302083335" />
@@ -995,28 +998,30 @@
         <AssociationConnector Association="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="10.46875" />
           <ConnectorPoint PointX="2.5416666666666665" PointY="10.46875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="10.46875" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="10.46875" />
           <ConnectorPoint PointX="2.7083333333333335" PointY="10.46875" />
           <ConnectorPoint PointX="3.34375" PointY="10.46875" />
-          <ConnectorPoint PointX="3.34375" PointY="9.53904296875" />
+          <ConnectorPoint PointX="3.34375" PointY="9.3746956380208317" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_PURCHASE_PURCHASES_USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.238268984375" />
-          <ConnectorPoint PointX="3" PointY="8.238268984375" />
+          <ConnectorPoint PointX="2.25" PointY="8.2498478190104159" />
+          <ConnectorPoint PointX="3" PointY="8.2498478190104159" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" ManuallyRouted="false">
           <ConnectorPoint PointX="5.078125" PointY="10.875" />
-          <ConnectorPoint PointX="5.078125" PointY="6.8766659114583319" />
-          <ConnectorPoint PointX="6" PointY="6.8766659114583319" />
+          <ConnectorPoint PointX="5.078125" PointY="6.8766659114583337" />
+          <ConnectorPoint PointX="6" PointY="6.8766659114583337" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_USE_USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.0312499999999991" />
-          <ConnectorPoint PointX="4.994791666666667" PointY="7.0312499999999982" />
-          <ConnectorPoint PointX="5.161458333333333" PointY="7.0312499999999991" />
-          <ConnectorPoint PointX="6" PointY="7.0312499999999991" />
+          <ConnectorPoint PointX="2.25" PointY="7.03125" />
+          <ConnectorPoint PointX="4.994791666666667" PointY="7.0312499999999991" />
+          <ConnectorPoint PointX="5.161458333333333" PointY="7.03125" />
+          <ConnectorPoint PointX="6" PointY="7.03125" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SESSION_SESSIONS__USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2499999999999987" PointY="9.4140429687500031" />
-          <ConnectorPoint PointX="2.625" PointY="9.7890429687500031" />
+          <ConnectorPoint PointX="2.2499999999999996" PointY="9.41404296875" />
+          <ConnectorPoint PointX="2.625" PointY="9.78904296875" />
           <ConnectorPoint PointX="2.625" PointY="14.085500488281252" />
           <ConnectorPoint PointX="3.125" PointY="14.085500488281252" />
         </AssociationConnector>
@@ -1025,7 +1030,7 @@
           <ConnectorPoint PointX="3" PointY="5.2533268229166659" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.USER_ROLE" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2500000000000009" PointY="7" />
+          <ConnectorPoint PointX="2.25" PointY="7" />
           <ConnectorPoint PointX="2.625" PointY="6.625" />
           <ConnectorPoint PointX="2.625" PointY="5.7237422343749991" />
           <ConnectorPoint PointX="3" PointY="5.7237422343749991" />
