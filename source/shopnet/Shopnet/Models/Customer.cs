@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.Models
 {
@@ -43,6 +44,7 @@ namespace Shopnet.Models
         private int _customerID;
     
         [DataMember]
+        [Required]
         public string Name
         {
             get { return _name; }
@@ -73,6 +75,7 @@ namespace Shopnet.Models
         private System.DateTime _creation;
     
         [DataMember]
+        [Required]
         public string Phone
         {
             get { return _phone; }
@@ -88,6 +91,7 @@ namespace Shopnet.Models
         private string _phone;
     
         [DataMember]
+        [Required]
         public string Address
         {
             get { return _address; }
@@ -103,6 +107,7 @@ namespace Shopnet.Models
         private string _address;
     
         [DataMember]
+        [Required]
         public string Email
         {
             get { return _email; }
@@ -118,6 +123,7 @@ namespace Shopnet.Models
         private string _email;
     
         [DataMember]
+
         public Nullable<decimal> Latitude
         {
             get { return _latitude; }

@@ -1,0 +1,25 @@
+﻿@model Shopnet.Models.Role
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Role</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Creation</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Creation)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RoleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
