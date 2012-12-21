@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.Models
 {
@@ -44,6 +45,7 @@ namespace Shopnet.Models
         private int _productID;
     
         [DataMember]
+        [Required]
         public string Code
         {
             get { return _code; }
@@ -59,6 +61,7 @@ namespace Shopnet.Models
         private string _code;
     
         [DataMember]
+        [Required]
         public string Name
         {
             get { return _name; }
@@ -74,6 +77,7 @@ namespace Shopnet.Models
         private string _name;
     
         [DataMember]
+        [Required]
         public string Descripton
         {
             get { return _descripton; }
@@ -89,6 +93,7 @@ namespace Shopnet.Models
         private string _descripton;
     
         [DataMember]
+        [Required]
         public Nullable<int> Minimum
         {
             get { return _minimum; }
@@ -104,6 +109,7 @@ namespace Shopnet.Models
         private Nullable<int> _minimum;
     
         [DataMember]
+        [Required]
         public System.DateTime Creation
         {
             get { return _creation; }

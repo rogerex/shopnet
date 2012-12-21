@@ -14,7 +14,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
@@ -25,7 +26,23 @@ namespace Shopnet.Models
     public partial class User: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
-    
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; }
+
+        [Required]        
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("Password", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+
         [DataMember]
         public int UserID
         {

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Shopnet.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Creation
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Latitude
+        </th>
+        <th>
+            Longitude
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Longitude)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -41,5 +41,5 @@ namespace Shopnet.Models
                     };
             }
         }
-
+    
 }//end namespace
