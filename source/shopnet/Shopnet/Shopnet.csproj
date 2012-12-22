@@ -109,6 +109,16 @@
     <Compile Include="Models\Item.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaDatas\ProductMetaData.cs" />
+    <Compile Include="Models\MetaDatas\CustomerMetaData.cs" />
+    <Compile Include="Models\MetaDatas\ProviderMetaData.cs" />
+    <Compile Include="Models\MetaDatas\TypePaymentMetaData.cs" />
+    <Compile Include="Models\MetaDatas\UserMetaData.cs" />
+    <Compile Include="Models\Partials\TypePaymentPartial.cs" />
+    <Compile Include="Models\Partials\ProductPartial.cs" />
+    <Compile Include="Models\Partials\CustomerPartial.cs" />
+    <Compile Include="Models\Partials\ProviderPartial.cs" />
+    <Compile Include="Models\Partials\UserPartial.cs" />
     <Compile Include="Models\Payment.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
@@ -148,7 +158,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Shopnet.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\StatusUser.cs" />
     <Compile Include="Models\TypePayment.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
@@ -157,6 +166,9 @@
     </Compile>
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ViewStatus.cs" />
+    <Compile Include="ViewModels\ViewTypePayment.cs" />
+    <Compile Include="ViewModels\ViewUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\home-showcase.png" />
@@ -199,6 +211,7 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\location.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Web.config">

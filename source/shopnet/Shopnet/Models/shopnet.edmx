@@ -96,8 +96,8 @@
           <Property Name="PHONE_CUSTOMER" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="ADDRESS_CUSTOMER" Type="text" Nullable="false" />
           <Property Name="EMAIL_CUSTOMER" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="LATITUDE_CUSTOMER" Type="decimal" />
-          <Property Name="LONGITUDE_CUSTOMER" Type="decimal" />
+          <Property Name="LATITUDE_CUSTOMER" Type="decimal" Scale="10" />
+          <Property Name="LONGITUDE_CUSTOMER" Type="decimal" Scale="10" />
         </EntityType>
         <EntityType Name="DETAIL_PURCHASE">
           <Key>
@@ -108,8 +108,8 @@
           <Property Name="ID_PURCHASE" Type="int" Nullable="false" />
           <Property Name="CURRENT_AMOUNT_PURCHASE" Type="int" Nullable="false" />
           <Property Name="TOTAL_AMOUNT_PURCHASE" Type="int" Nullable="false" />
-          <Property Name="COST_PURCHASE" Type="decimal" Nullable="false" />
-          <Property Name="PRICE_PURCHASE" Type="decimal" Nullable="false" />
+          <Property Name="COST_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="PRICE_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
         </EntityType>
         <EntityType Name="DETAIL_SALE">
           <Key>
@@ -118,7 +118,7 @@
           </Key>
           <Property Name="ID_SALE" Type="int" Nullable="false" />
           <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
-          <Property Name="PRICE_SALE" Type="decimal" Nullable="false" />
+          <Property Name="PRICE_SALE" Type="decimal" Nullable="false" Scale="10" />
           <Property Name="AMOUNT_SALE" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ITEM">
@@ -127,7 +127,8 @@
           </Key>
           <Property Name="ID_ITEM" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ID_PARENT_ITEM" Type="int" />
-          <Property Name="DESC_ITEM" Type="text" Nullable="false" />
+          <Property Name="NAME_ITEM" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="DESC_ITEM" Type="text" />
           <Property Name="PATH_ITEM" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="PAYMENT">
@@ -136,7 +137,7 @@
           </Key>
           <Property Name="ID_PAYMENT" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ID_SALE" Type="int" Nullable="false" />
-          <Property Name="MOUNT_PAYMENT" Type="decimal" Nullable="false" />
+          <Property Name="MOUNT_PAYMENT" Type="decimal" Nullable="false" Scale="10" />
           <Property Name="CREATION_PAYMENT" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PERMISSION">
@@ -176,7 +177,7 @@
           <Property Name="ID_PURCHASE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ID_PROVIDER" Type="int" Nullable="false" />
           <Property Name="ID_USER" Type="int" Nullable="false" />
-          <Property Name="TOTAL_PURCHASE" Type="decimal" Nullable="false" />
+          <Property Name="TOTAL_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
           <Property Name="CREATION_PURCHASE" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ROLE">
@@ -196,7 +197,7 @@
           <Property Name="ID_TYPE_PAYMENT" Type="int" Nullable="false" />
           <Property Name="ID_USER" Type="int" Nullable="false" />
           <Property Name="CREATION_SALE" Type="datetime" Nullable="false" />
-          <Property Name="TOTAL_SALE" Type="decimal" Nullable="false" />
+          <Property Name="TOTAL_SALE" Type="decimal" Nullable="false" Scale="10" />
         </EntityType>
         <EntityType Name="SESSION">
           <Key>
@@ -217,7 +218,7 @@
           <Property Name="STATUS_TYPE_PAYMENT" Type="int" Nullable="false" />
           <Property Name="DESC_TYPE_PAYMENT" Type="text" />
           <Property Name="AMOUNT_TYPE_PAYMENT" Type="int" />
-          <Property Name="TOTAL_SALE_MINIMUM" Type="decimal" />
+          <Property Name="TOTAL_SALE_MINIMUM" Type="decimal" Scale="10" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -226,9 +227,9 @@
           <Property Name="ID_USER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME_USER" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="PASSWORD_USER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="EMAIL_USER" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="CREATION_USER" Type="datetime" Nullable="false" />
           <Property Name="STATUS_USER" Type="int" Nullable="false" />
-          <Property Name="EMAIL_USER" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="USER_ROLE">
           <Key>
@@ -515,8 +516,8 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Latitude" Type="Decimal" />
+          <Property Name="Longitude" Type="Decimal" />
           <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" FromRole="CUSTOMER" ToRole="SALE_ORDER" />
         </EntityType>
         <EntityType Name="Item">
@@ -525,10 +526,11 @@
           </Key>
           <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
           <Property Name="ParentItemID" Type="Int32" />
-          <Property Name="Descripton" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="ChildItems" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM" ToRole="ITEM1" />
           <NavigationProperty Name="ParentItem" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM1" ToRole="ITEM" />
           <NavigationProperty Name="Roles" Relationship="shopnetModel.PERMISSION" FromRole="ITEM" ToRole="ROLE" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Path" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Payment">
@@ -641,7 +643,7 @@
           <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_SALES_USE_USER" FromRole="USER" ToRole="SALE_ORDER" />
           <NavigationProperty Name="Sessions" Relationship="shopnetModel.FK_SESSION_SESSIONS__USER" FromRole="USER" ToRole="SESSION" />
           <NavigationProperty Name="Roles" Relationship="shopnetModel.USER_ROLE" FromRole="USER" ToRole="ROLE" />
-          <Property Type="String" Name="Email" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER">
           <End Role="CUSTOMER" Type="shopnetModel.Customer" Multiplicity="1" />
@@ -838,10 +840,11 @@
             <ScalarProperty Name="Longitude" ColumnName="LONGITUDE_CUSTOMER" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Items"><EntityTypeMapping TypeName="shopnetModel.Item"><MappingFragment StoreEntitySet="ITEM">
-            <ScalarProperty Name="Path" ColumnName="PATH_ITEM" />
+                <ScalarProperty Name="Path" ColumnName="PATH_ITEM" />
+                <ScalarProperty Name="Name" ColumnName="NAME_ITEM" />
                 <ScalarProperty Name="ItemID" ColumnName="ID_ITEM" />
             <ScalarProperty Name="ParentItemID" ColumnName="ID_PARENT_ITEM" />
-            <ScalarProperty Name="Descripton" ColumnName="DESC_ITEM" />
+            <ScalarProperty Name="Description" ColumnName="DESC_ITEM" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Payments"><EntityTypeMapping TypeName="shopnetModel.Payment"><MappingFragment StoreEntitySet="PAYMENT">
             <ScalarProperty Name="PaymentID" ColumnName="ID_PAYMENT" />
@@ -893,7 +896,7 @@
             <ScalarProperty Name="Status" ColumnName="STATUS_SESSION" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="TypePayments"><EntityTypeMapping TypeName="shopnetModel.TypePayment"><MappingFragment StoreEntitySet="TYPE_PAYMENT">
-            <ScalarProperty Name="Status" ColumnName="STATUS_TYPE_PAYMENT" />
+                <ScalarProperty Name="Status" ColumnName="STATUS_TYPE_PAYMENT" />
                 <ScalarProperty Name="Name" ColumnName="NAME_TYPE_PAYMENT" />
                 <ScalarProperty Name="TypePaymentID" ColumnName="ID_TYPE_PAYMENT" />
             <ScalarProperty Name="Description" ColumnName="DESC_TYPE_PAYMENT" />
@@ -901,7 +904,7 @@
             <ScalarProperty Name="TotalNumber" ColumnName="TOTAL_SALE_MINIMUM" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="shopnetModel.User"><MappingFragment StoreEntitySet="USER">
-            <ScalarProperty Name="Email" ColumnName="EMAIL_USER" />
+                <ScalarProperty Name="Email" ColumnName="EMAIL_USER" />
                 <ScalarProperty Name="UserID" ColumnName="ID_USER" />
             <ScalarProperty Name="Name" ColumnName="NAME_USER" />
             <ScalarProperty Name="Password" ColumnName="PASSWORD_USER" />
@@ -969,7 +972,7 @@
     <Diagrams>
       <Diagram Name="Shopnet" ZoomLevel="78">
         <EntityTypeShape EntityType="shopnetModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" Height="2.41404296875" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4.25" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4" Height="2.2496956380208326" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Payment" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Product" Width="1.5" PointX="6" PointY="3.125" Height="2.0853483072916656" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Provider" Width="1.5" PointX="0.75" PointY="10.125" Height="2.0853483072916674" IsExpanded="true" />
@@ -977,29 +980,27 @@
         <EntityTypeShape EntityType="shopnetModel.Role" Width="1.5" PointX="3" PointY="4.375" Height="1.7566536458333317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Sale" Width="1.5" PointX="6" PointY="5.875" Height="2.7427376302083335" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Session" Width="1.5" PointX="3.125" PointY="13.125" Height="1.9210009765625031" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.TypePayment" Width="1.5" PointX="3.75" PointY="10.875" Height="1.7566536458333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.TypePayment" Width="2" PointX="4.625" PointY="10.75" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.5783902994791656" IsExpanded="true" />
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" ManuallyRouted="false">
           <ConnectorPoint PointX="4.90625" PointY="3.16404296875" />
           <ConnectorPoint PointX="4.90625" PointY="6.628326822916665" />
           <ConnectorPoint PointX="6" PointY="6.628326822916665" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_ITEM_PARENT_ITEM" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.2819230769230767" PointY="6.3353483072916665" />
-          <ConnectorPoint PointX="1.2819230769230767" PointY="6.5853483072916674" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="6.5853483072916674" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="6.3353483072916665" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.2496956380208326" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.4996956380208317" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.4996956380208317" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.2496956380208326" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="8.6177376302083335" />
-          <ConnectorPoint PointX="6.75" PointY="10.878326822916666" />
-          <ConnectorPoint PointX="8.25" PointY="10.878326822916666" />
+          <ConnectorPoint PointX="7.09375" PointY="8.6177376302083335" />
+          <ConnectorPoint PointX="7.09375" PointY="10.34375" />
+          <ConnectorPoint PointX="8.25" PointY="10.34375" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="10.46875" />
           <ConnectorPoint PointX="2.5416666666666665" PointY="10.46875" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="10.46875" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="10.46875" />
           <ConnectorPoint PointX="2.7083333333333335" PointY="10.46875" />
           <ConnectorPoint PointX="3.34375" PointY="10.46875" />
           <ConnectorPoint PointX="3.34375" PointY="9.3746956380208317" />
@@ -1009,19 +1010,16 @@
           <ConnectorPoint PointX="3" PointY="8.2498478190104159" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.078125" PointY="10.875" />
-          <ConnectorPoint PointX="5.078125" PointY="6.8766659114583337" />
-          <ConnectorPoint PointX="6" PointY="6.8766659114583337" />
+          <ConnectorPoint PointX="6.3125" PointY="10.75" />
+          <ConnectorPoint PointX="6.3125" PointY="8.6177376302083335" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_USE_USER" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.03125" />
-          <ConnectorPoint PointX="4.994791666666667" PointY="7.0312499999999991" />
-          <ConnectorPoint PointX="5.161458333333333" PointY="7.03125" />
           <ConnectorPoint PointX="6" PointY="7.03125" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_SESSION_SESSIONS__USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2499999999999996" PointY="9.41404296875" />
-          <ConnectorPoint PointX="2.625" PointY="9.78904296875" />
+          <ConnectorPoint PointX="2.2499999999999978" PointY="9.5783902994791656" />
+          <ConnectorPoint PointX="2.625" PointY="9.9533902994791674" />
           <ConnectorPoint PointX="2.625" PointY="14.085500488281252" />
           <ConnectorPoint PointX="3.125" PointY="14.085500488281252" />
         </AssociationConnector>
@@ -1039,10 +1037,10 @@
         <EntityTypeShape EntityType="shopnetModel.DetailSale" Width="1.5" PointX="8.375" PointY="5.625" Height="1.921000976562496" />
         <AssociationConnector Association="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" >
           <ConnectorPoint PointX="4.5" PointY="9.0274666341145835" />
-          <ConnectorPoint PointX="4.994791666666667" PointY="9.0274666341145835" />
-          <ConnectorPoint PointX="5.161458333333333" PointY="9.0274666341145835" />
-          <ConnectorPoint PointX="6.666666666666667" PointY="9.0274666341145835" />
-          <ConnectorPoint PointX="6.833333333333333" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="6.229166666666667" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="6.395833333333333" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="7.010416666666667" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="7.177083333333333" PointY="9.0274666341145835" />
           <ConnectorPoint PointX="11.4375" PointY="9.0274666341145835" />
           <ConnectorPoint PointX="11.4375" PointY="6.2496956380208326" />
         </AssociationConnector>

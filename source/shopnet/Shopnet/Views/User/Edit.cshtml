@@ -15,6 +15,7 @@
         <legend>User</legend>
 
         @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.Creation)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -32,27 +33,38 @@
             @Html.ValidationMessageFor(model => model.Email)
         </div>
 
+        <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OldPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OldPassword)
+            @Html.ValidationMessageFor(model => model.OldPassword)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Password)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
+             @Html.PasswordFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Creation)
+            @Html.LabelFor(model => model.ConfirmPassword)
         </div>
+
         <div class="editor-field">
-            @Html.EditorFor(model => model.Creation)
-            @Html.ValidationMessageFor(model => model.Creation)
+            @Html.PasswordFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>
+        </fieldset>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Status)
+            @Html.DropDownList("Status", String.Empty)
             @Html.ValidationMessageFor(model => model.Status)
         </div>        
 

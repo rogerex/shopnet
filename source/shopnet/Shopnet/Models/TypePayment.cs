@@ -14,9 +14,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using System.Linq;
 
 namespace Shopnet.Models
 {
@@ -91,7 +88,6 @@ namespace Shopnet.Models
         private Nullable<decimal> _totalNumber;
     
         [DataMember]
-        [Required(ErrorMessage = "A Type Payment Name is required")]
         public string Name
         {
             get { return _name; }
@@ -279,29 +275,6 @@ namespace Shopnet.Models
                         ChangeTracker.RecordRemovalFromCollectionProperties("Sales", item);
                     }
                 }
-            }
-        }
-
-        #endregion
-
-        #region Status for Type Payment
-
-        public static List<SelectListItem> GetStatus()
-        {
-            List<SelectListItem> status = new List<SelectListItem>();
-            status.Add(new SelectListItem() { Text = "Active", Value = "1" });
-            status.Add(new SelectListItem() { Text = "Inactive", Value = "0" });
-
-            return status;
-        }
-
-        public String SelectedStatus
-        {
-            get
-            {
-                var array = GetStatus().ToArray();
-                var items = from value in array where value.Value == Status + "" select value;
-                return items.Any() ? items.First<SelectListItem>().Text : "Undefined";
             }
         }
 

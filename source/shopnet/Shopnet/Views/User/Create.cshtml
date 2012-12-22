@@ -39,13 +39,21 @@
         </div>
         
         <div class="editor-label">
-            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.LabelFor(model => model.ConfirmPassword)
         </div>
 
         <div class="editor-field">
-            @Html.PasswordFor(m => m.ConfirmPassword)
-            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>       
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Status", String.Empty)
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
 
         <p>
             <input type="submit" value="Create" />

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shopnet.Models.TypePayment>
+﻿@model IEnumerable<Shopnet.ViewModels.ViewTypePayment>
 
 @{
     ViewBag.Title = "Index";
@@ -32,24 +32,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.TypePayment.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.TypePayment.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Amount)
+            @Html.DisplayFor(modelItem => item.TypePayment.Amount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TotalNumber)
+            @Html.DisplayFor(modelItem => item.TypePayment.TotalNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SelectedStatus)
+            @Html.DisplayFor(modelItem => item.StatusName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TypePaymentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TypePaymentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TypePaymentID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.TypePayment.TypePaymentID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TypePayment.TypePaymentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TypePayment.TypePaymentID })
         </td>
     </tr>
 }
