@@ -13,6 +13,7 @@ namespace Shopnet.ViewModels
 
         public ViewTypePayment(TypePayment typePayment)
         {
+            this.TypePayment = typePayment;
             this.Status = typePayment.Status;
         }
 
