@@ -67,19 +67,34 @@ namespace Shopnet.Models
         private Nullable<int> _parentItemID;
     
         [DataMember]
-        public string Descripton
+        public string Description
         {
-            get { return _descripton; }
+            get { return _description; }
             set
             {
-                if (_descripton != value)
+                if (_description != value)
                 {
-                    _descripton = value;
-                    OnPropertyChanged("Descripton");
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
-        private string _descripton;
+        private string _description;
+    
+        [DataMember]
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        private string _name;
     
         [DataMember]
         public string Path

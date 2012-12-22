@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shopnet.Models.User>
+﻿@model IEnumerable<Shopnet.ViewModels.ViewUser>
 
 @{
     ViewBag.Title = "Index";
@@ -15,9 +15,6 @@
             Name
         </th>
         <th>
-            Password
-        </th>
-        <th>
             Email
         </th>
         <th>
@@ -32,24 +29,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.User.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @Html.DisplayFor(modelItem => item.User.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.User.Creation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Creation)
+            @Html.DisplayFor(modelItem => item.StatusName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.User.UserID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.User.UserID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.User.UserID })
         </td>
     </tr>
 }

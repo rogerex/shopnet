@@ -14,7 +14,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.Models
 {
@@ -45,7 +44,6 @@ namespace Shopnet.Models
         private int _productID;
     
         [DataMember]
-        [Required(ErrorMessage = "A Product Code is required")]
         public string Code
         {
             get { return _code; }
@@ -61,7 +59,6 @@ namespace Shopnet.Models
         private string _code;
     
         [DataMember]
-        [Required(ErrorMessage = "A Product Name is required")]
         public string Name
         {
             get { return _name; }

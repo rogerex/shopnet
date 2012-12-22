@@ -14,8 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+
 namespace Shopnet.Models
 {
     [DataContract(IsReference = true)]
@@ -23,26 +22,10 @@ namespace Shopnet.Models
     [KnownType(typeof(Sale))]
     [KnownType(typeof(Session))]
     [KnownType(typeof(Role))]
-    public partial class User : IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class User: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
-        public string OldPassword { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("Password", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-
+    
         [DataMember]
         public int UserID
         {
@@ -61,7 +44,7 @@ namespace Shopnet.Models
             }
         }
         private int _userID;
-
+    
         [DataMember]
         public string Name
         {
@@ -76,7 +59,7 @@ namespace Shopnet.Models
             }
         }
         private string _name;
-
+    
         [DataMember]
         public string Password
         {
@@ -91,7 +74,7 @@ namespace Shopnet.Models
             }
         }
         private string _password;
-
+    
         [DataMember]
         public System.DateTime Creation
         {
@@ -106,7 +89,7 @@ namespace Shopnet.Models
             }
         }
         private System.DateTime _creation;
-
+    
         [DataMember]
         public int Status
         {
@@ -121,7 +104,7 @@ namespace Shopnet.Models
             }
         }
         private int _status;
-
+    
         [DataMember]
         public string Email
         {
@@ -137,11 +120,9 @@ namespace Shopnet.Models
         }
         private string _email;
 
-
-
         #endregion
         #region Navigation Properties
-
+    
         [DataMember]
         public TrackableCollection<Purchase> Purchases
         {
@@ -176,7 +157,7 @@ namespace Shopnet.Models
             }
         }
         private TrackableCollection<Purchase> _purchases;
-
+    
         [DataMember]
         public TrackableCollection<Sale> Sales
         {
@@ -211,7 +192,7 @@ namespace Shopnet.Models
             }
         }
         private TrackableCollection<Sale> _sales;
-
+    
         [DataMember]
         public TrackableCollection<Session> Sessions
         {
@@ -246,7 +227,7 @@ namespace Shopnet.Models
             }
         }
         private TrackableCollection<Session> _sessions;
-
+    
         [DataMember]
         public TrackableCollection<Role> Roles
         {
@@ -284,7 +265,7 @@ namespace Shopnet.Models
 
         #endregion
         #region ChangeTracking
-
+    
         protected virtual void OnPropertyChanged(String propertyName)
         {
             if (ChangeTracker.State != ObjectState.Added && ChangeTracker.State != ObjectState.Deleted)
@@ -296,7 +277,7 @@ namespace Shopnet.Models
                 _propertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
+    
         protected virtual void OnNavigationPropertyChanged(String propertyName)
         {
             if (_propertyChanged != null)
@@ -304,11 +285,11 @@ namespace Shopnet.Models
                 _propertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged { add { _propertyChanged += value; } remove { _propertyChanged -= value; } }
+    
+        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged{ add { _propertyChanged += value; } remove { _propertyChanged -= value; } }
         private event PropertyChangedEventHandler _propertyChanged;
         private ObjectChangeTracker _changeTracker;
-
+    
         [DataMember]
         public ObjectChangeTracker ChangeTracker
         {
@@ -323,18 +304,18 @@ namespace Shopnet.Models
             }
             set
             {
-                if (_changeTracker != null)
+                if(_changeTracker != null)
                 {
                     _changeTracker.ObjectStateChanging -= HandleObjectStateChanging;
                 }
                 _changeTracker = value;
-                if (_changeTracker != null)
+                if(_changeTracker != null)
                 {
                     _changeTracker.ObjectStateChanging += HandleObjectStateChanging;
                 }
             }
         }
-
+    
         private void HandleObjectStateChanging(object sender, ObjectStateChangingEventArgs e)
         {
             if (e.NewState == ObjectState.Deleted)
@@ -342,22 +323,22 @@ namespace Shopnet.Models
                 ClearNavigationProperties();
             }
         }
-
+    
         protected bool IsDeserializing { get; private set; }
-
+    
         [OnDeserializing]
         public void OnDeserializingMethod(StreamingContext context)
         {
             IsDeserializing = true;
         }
-
+    
         [OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context)
         {
             IsDeserializing = false;
             ChangeTracker.ChangeTrackingEnabled = true;
         }
-
+    
         protected virtual void ClearNavigationProperties()
         {
             Purchases.Clear();
@@ -368,14 +349,14 @@ namespace Shopnet.Models
 
         #endregion
         #region Association Fixup
-
+    
         private void FixupPurchases(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
                 return;
             }
-
+    
             if (e.NewItems != null)
             {
                 foreach (Purchase item in e.NewItems)
@@ -391,7 +372,7 @@ namespace Shopnet.Models
                     }
                 }
             }
-
+    
             if (e.OldItems != null)
             {
                 foreach (Purchase item in e.OldItems)
@@ -407,14 +388,14 @@ namespace Shopnet.Models
                 }
             }
         }
-
+    
         private void FixupSales(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
                 return;
             }
-
+    
             if (e.NewItems != null)
             {
                 foreach (Sale item in e.NewItems)
@@ -430,7 +411,7 @@ namespace Shopnet.Models
                     }
                 }
             }
-
+    
             if (e.OldItems != null)
             {
                 foreach (Sale item in e.OldItems)
@@ -446,14 +427,14 @@ namespace Shopnet.Models
                 }
             }
         }
-
+    
         private void FixupSessions(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
                 return;
             }
-
+    
             if (e.NewItems != null)
             {
                 foreach (Session item in e.NewItems)
@@ -469,7 +450,7 @@ namespace Shopnet.Models
                     }
                 }
             }
-
+    
             if (e.OldItems != null)
             {
                 foreach (Session item in e.OldItems)
@@ -485,14 +466,14 @@ namespace Shopnet.Models
                 }
             }
         }
-
+    
         private void FixupRoles(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
                 return;
             }
-
+    
             if (e.NewItems != null)
             {
                 foreach (Role item in e.NewItems)
@@ -511,7 +492,7 @@ namespace Shopnet.Models
                     }
                 }
             }
-
+    
             if (e.OldItems != null)
             {
                 foreach (Role item in e.OldItems)

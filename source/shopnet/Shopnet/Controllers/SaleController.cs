@@ -37,7 +37,7 @@ namespace Shopnet.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name");
-            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Description");
+            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Name");
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name");
             return View();
         } 
@@ -57,7 +57,7 @@ namespace Shopnet.Controllers
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", sale.CustomerID);
-            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Description", sale.TypePaymentID);
+            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Name", sale.TypePaymentID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name", sale.UserID);
             return View(sale);
         }
@@ -69,7 +69,7 @@ namespace Shopnet.Controllers
         {
             Sale sale = db.Sales.Single(s => s.SaleID == id);
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", sale.CustomerID);
-            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Description", sale.TypePaymentID);
+            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Name", sale.TypePaymentID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name", sale.UserID);
             return View(sale);
         }
@@ -88,7 +88,7 @@ namespace Shopnet.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Name", sale.CustomerID);
-            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Description", sale.TypePaymentID);
+            ViewBag.TypePaymentID = new SelectList(db.TypePayments, "TypePaymentID", "Name", sale.TypePaymentID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name", sale.UserID);
             return View(sale);
         }

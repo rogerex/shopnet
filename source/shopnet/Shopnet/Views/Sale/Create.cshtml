@@ -15,7 +15,7 @@
         <legend>Sale</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CustomerID, "Customer")
+            @Html.LabelFor(model => model.CustomerID)
         </div>
         <div class="editor-field">
             @Html.DropDownList("CustomerID", String.Empty)
@@ -23,7 +23,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.TypePaymentID, "TypePayment")
+            @Html.LabelFor(model => model.TypePaymentID, "Type Payment")
         </div>
         <div class="editor-field">
             @Html.DropDownList("TypePaymentID", String.Empty)
@@ -31,7 +31,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.UserID, "User")
+            @Html.LabelFor(model => model.UserID)
         </div>
         <div class="editor-field">
             @Html.DropDownList("UserID", String.Empty)

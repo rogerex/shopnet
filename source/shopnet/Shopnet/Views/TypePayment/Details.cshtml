@@ -1,4 +1,4 @@
-﻿@model Shopnet.Models.TypePayment
+﻿@model Shopnet.ViewModels.ViewTypePayment
 
 @{
     ViewBag.Title = "Details";
@@ -9,32 +9,32 @@
 <fieldset>
     <legend>TypePayment</legend>
 
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypePayment.Name)
+    </div>
+
     <div class="display-label">Description</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
+        @Html.DisplayFor(model => model.TypePayment.Description)
     </div>
 
     <div class="display-label">Amount</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Amount)
+        @Html.DisplayFor(model => model.TypePayment.Amount)
     </div>
 
     <div class="display-label">TotalNumber</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.TotalNumber)
-    </div>
-
-    <div class="display-label">Name</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.TypePayment.TotalNumber)
     </div>
 
     <div class="display-label">Status</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Status)
+        @Html.DisplayFor(model => model.StatusName)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.TypePaymentID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TypePayment.TypePaymentID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
