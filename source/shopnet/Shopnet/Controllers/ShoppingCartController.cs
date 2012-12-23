@@ -60,11 +60,10 @@ namespace Shopnet.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Get the name of the product to display confirmation
-            CartItem cartItem = storeDB.CartItems
+            CartItem cartItem = storeDB.CartItems.Include("Product")
                 .Single(item => item.CartItemID == id);
 
-            //storeDB.LoadProperty(cartItem);
-            string productName = "";
+            string productName = cartItem.Product.Name;
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);

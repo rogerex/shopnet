@@ -101,7 +101,7 @@ namespace Shopnet.Models.Domain
 
         public List<CartItem> GetCartItems()
         {
-            return db.CartItems.Where(cartItem => cartItem.CartID == ShoppingCartId).ToList();
+            return db.CartItems.Include("Product").Where(cartItem => cartItem.CartID == ShoppingCartId).ToList();
         }
 
         public int GetCount()

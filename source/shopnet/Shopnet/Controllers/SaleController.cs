@@ -27,7 +27,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Details(int id)
         {
-            Sale sale = db.Sales.Single(s => s.SaleID == id);
+            Sale sale = db.Sales.Include("Customer").Include("TypePayment").Include("User").Single(s => s.SaleID == id);
             return View(sale);
         }
 
