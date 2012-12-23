@@ -101,8 +101,6 @@
     <Compile Include="Models\CartItem.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Domain\ShoppingCart.cs" />
-    <Compile Include="Models\GeneralValidate.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
@@ -112,6 +110,8 @@
     <Compile Include="Models\DetailSale.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Domain\ShoppingCart.cs" />
+    <Compile Include="Models\GeneralValidate.cs" />
     <Compile Include="Models\Item.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>

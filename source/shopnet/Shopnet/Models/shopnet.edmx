@@ -709,7 +709,6 @@
         </Association>
         <Association Name="FK_PAYMENT_PAYMENTS__SALE_ORD">
           <End Role="SALE_ORDER" Type="shopnetModel.Sale" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
           </End>
           <End Role="PAYMENT" Type="shopnetModel.Payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -855,9 +854,9 @@
         </Association>
         <Association Name="FK_DETAIL_S_DETAILS_S_SALE_ORD">
           <End Type="shopnetModel.Sale" Role="SALE_ORDER" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
           </End>
-          <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" />
+          <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="SALE_ORDER">
               <PropertyRef Name="SaleID" />
@@ -1052,7 +1051,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Shopnet" ZoomLevel="78">
+      <Diagram Name="Shopnet" ZoomLevel="89">
         <EntityTypeShape EntityType="shopnetModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" Height="2.41404296875" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4" Height="2.2496956380208326" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Payment" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
