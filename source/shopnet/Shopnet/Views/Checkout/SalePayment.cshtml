@@ -13,7 +13,36 @@
     <fieldset>
         <legend>Sale Information</legend>
 
-        @Html.EditorForModel()
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomerID, "Customer")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CustomerID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CustomerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TypePaymentID, "Type Payment")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TypePaymentID", String.Empty)
+            @Html.ValidationMessageFor(model => model.TypePaymentID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserID, "User")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserID", String.Empty)
+            @Html.ValidationMessageFor(model => model.UserID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Total)
+        </div>
+        <div class="editor-field">
+            @String.Format("{0:F}", ViewBag.Total)
+        </div>
     </fieldset>
     
     <input type="submit" value="Submit Order" />

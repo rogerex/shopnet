@@ -20,9 +20,9 @@
                         // Successful requests get here
                         // Update the page elements
                         if (data.ItemCount == 0) {
-                            $('#row-' + data.DeleteId).fadeOut('slow');
+                            $('#row-' + data.DeleteID).fadeOut('slow');
                         } else {
-                            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                            $('#item-count-' + data.DeleteID).text(data.ItemCount);
                         }
 
                         $('#cart-total').text(data.CartTotal);
@@ -42,9 +42,9 @@
 
         // Update the page elements
         if (data.ItemCount == 0) {
-            $('#row-' + data.DeleteId).fadeOut('slow');
+            $('#row-' + data.DeleteID).fadeOut('slow');
         } else {
-            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+            $('#item-count-' + data.DeleteID).text(data.ItemCount);
         }
 
         $('#cart-total').text(data.CartTotal);
@@ -71,6 +71,9 @@
         <th>
             Quantity
         </th>
+        <th>
+            Subtotal
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model.CartItems)
@@ -80,10 +83,13 @@
                
             </td>
             <td>
-                @item.Price
+                @String.Format("{0:F}", item.Price)
             </td>
             <td id="item-count-@item.CartItemID">
                 @item.Amount
+            </td>
+            <td>
+                @String.Format("{0:F}", item.Amount * item.Price)
             </td>
             <td>
                 <a href="#" class="RemoveLink" data-id="@item.CartItemID">Remove from cart</a>
@@ -98,8 +104,10 @@
         </td>
         <td>
         </td>
+        <td>
+        </td>
         <td id="cart-total">
-            @Model.CartTotal
+            @String.Format("{0:F}", Model.CartTotal)
         </td>
     </tr>
 </table>

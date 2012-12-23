@@ -520,19 +520,19 @@
           <EntitySet Name="DetailPurchases" EntityType="shopnetModel.DetailPurchase" />
           <EntitySet Name="DetailSales" EntityType="shopnetModel.DetailSale" />
           <AssociationSet Name="FK_DETAIL_P_PRODUCTS__PURCHASE" Association="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE">
-            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="PURCHASE_ORDER" EntitySet="Purchases" />
             <End Role="DETAIL_PURCHASE" EntitySet="DetailPurchases" />
           </AssociationSet>
           <AssociationSet Name="FK_DETAIL_P_STOCKS_PR_PRODUCT" Association="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT">
             <End Role="Product" EntitySet="Products" />
-            <End Role="DETAIL_PURCHASE" EntitySet="DetailPurchases" />
+            <End Role="DetailPurchase" EntitySet="DetailPurchases" />
           </AssociationSet>
           <AssociationSet Name="FK_DETAIL_S_DETAILS_P_PRODUCT" Association="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT">
             <End Role="Product" EntitySet="Products" />
-            <End Role="DETAIL_SALE" EntitySet="DetailSales" />
+            <End Role="DetailSale" EntitySet="DetailSales" />
           </AssociationSet>
           <AssociationSet Name="FK_DETAIL_S_DETAILS_S_SALE_ORD" Association="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD">
-            <End Role="Sale" EntitySet="Sales" />
+            <End Role="SALE_ORDER" EntitySet="Sales" />
             <End Role="DETAIL_SALE" EntitySet="DetailSales" />
           </AssociationSet>
           <EntitySet Name="CartItems" EntityType="shopnetModel.CartItem" />
@@ -588,8 +588,8 @@
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Minimum" Type="Int32" />
           <Property Type="DateTime" Name="Creation" Nullable="false" />
-          <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="Product" ToRole="DETAIL_PURCHASE" />
-          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="Product" ToRole="DETAIL_SALE" />
+          <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="Product" ToRole="DetailPurchase" />
+          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="Product" ToRole="DetailSale" />
           <Property Type="Decimal" Name="Price" Precision="18" Scale="10" Nullable="false" />
           <NavigationProperty Name="CartItems" Relationship="shopnetModel.FK_PRODUCT_ID_CART_ITEM" FromRole="Product" ToRole="CartItem" />
           <Property Type="String" Name="ImageURL" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -617,7 +617,7 @@
           <Property Name="Creation" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Provider" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" FromRole="PURCHASE_ORDER" ToRole="PROVIDER" />
           <NavigationProperty Name="User" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_USER" FromRole="PURCHASE_ORDER" ToRole="USER" />
-          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="Purchase" ToRole="DETAIL_PURCHASE" />
+          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="PURCHASE_ORDER" ToRole="DETAIL_PURCHASE" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -643,7 +643,7 @@
           <NavigationProperty Name="Payments" Relationship="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" FromRole="SALE_ORDER" ToRole="PAYMENT" />
           <NavigationProperty Name="TypePayment" Relationship="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" FromRole="SALE_ORDER" ToRole="TYPE_PAYMENT" />
           <NavigationProperty Name="User" Relationship="shopnetModel.FK_SALE_ORD_SALES_USE_USER" FromRole="SALE_ORDER" ToRole="USER" />
-          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="Sale" ToRole="DETAIL_SALE" />
+          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="SALE_ORDER" ToRole="DETAIL_SALE" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -798,8 +798,8 @@
           <Property Type="Decimal" Name="Cost" Nullable="false" Precision="18" Scale="10" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="10" />
           <Property Type="Int32" Name="TotalAmount" Nullable="false" />
-          <NavigationProperty Name="Purchase" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="DETAIL_PURCHASE" ToRole="Purchase" />
-          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="DETAIL_PURCHASE" ToRole="Product" />
+          <NavigationProperty Name="Purchase" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="DETAIL_PURCHASE" ToRole="PURCHASE_ORDER" />
+          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="DetailPurchase" ToRole="Product" />
         </EntityType>
         <EntityType Name="DetailSale">
           <Key>
@@ -810,14 +810,14 @@
           <Property Type="Int32" Name="ProductID" Nullable="false" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="10" />
           <Property Type="Int32" Name="Amount" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="DETAIL_SALE" ToRole="Product" />
-          <NavigationProperty Name="Sale" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="DETAIL_SALE" ToRole="Sale" />
+          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="DetailSale" ToRole="Product" />
+          <NavigationProperty Name="Sale" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="DETAIL_SALE" ToRole="SALE_ORDER" />
         </EntityType>
         <Association Name="FK_DETAIL_P_PRODUCTS__PURCHASE">
-          <End Type="shopnetModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="shopnetModel.Purchase" Role="PURCHASE_ORDER" Multiplicity="1" />
           <End Type="shopnetModel.DetailPurchase" Role="DETAIL_PURCHASE" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Purchase">
+            <Principal Role="PURCHASE_ORDER">
               <PropertyRef Name="PurchaseID" />
             </Principal>
             <Dependent Role="DETAIL_PURCHASE">
@@ -827,33 +827,33 @@
         </Association>
         <Association Name="FK_DETAIL_P_STOCKS_PR_PRODUCT">
           <End Type="shopnetModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="shopnetModel.DetailPurchase" Role="DETAIL_PURCHASE" Multiplicity="*" />
+          <End Type="shopnetModel.DetailPurchase" Role="DetailPurchase" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="DETAIL_PURCHASE">
+            <Dependent Role="DetailPurchase">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DETAIL_S_DETAILS_P_PRODUCT">
           <End Type="shopnetModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" />
+          <End Type="shopnetModel.DetailSale" Role="DetailSale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="DETAIL_SALE">
+            <Dependent Role="DetailSale">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DETAIL_S_DETAILS_S_SALE_ORD">
-          <End Type="shopnetModel.Sale" Role="Sale" Multiplicity="1" />
+          <End Type="shopnetModel.Sale" Role="SALE_ORDER" Multiplicity="1" />
           <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sale">
+            <Principal Role="SALE_ORDER">
               <PropertyRef Name="SaleID" />
             </Principal>
             <Dependent Role="DETAIL_SALE">
@@ -861,7 +861,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CartItem">
+        <EntityType Name="CartItem" Abstract="false">
           <Key>
             <PropertyRef Name="CartItemID" />
           </Key>
@@ -1121,8 +1121,8 @@
           <ConnectorPoint PointX="11.4375" PointY="6.2496956380208326" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" >
-          <ConnectorPoint PointX="7.5" PointY="4.6920475260416659" />
-          <ConnectorPoint PointX="10.5" PointY="4.6920475260416659" />
+          <ConnectorPoint PointX="7.5" PointY="4.47216189453125" />
+          <ConnectorPoint PointX="10.5" PointY="4.47216189453125" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" >
           <ConnectorPoint PointX="7.5" PointY="5.0693237890625" />
@@ -1133,7 +1133,7 @@
           <ConnectorPoint PointX="7.5" PointY="6.710500488281248" />
           <ConnectorPoint PointX="8.375" PointY="6.710500488281248" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="shopnetModel.CartItem" Width="1.5" PointX="8.625" PointY="1.625" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="shopnetModel.CartItem" Width="1.5" PointX="8.625" PointY="1.625" Height="2.364889322916667" />
         <AssociationConnector Association="shopnetModel.FK_PRODUCT_ID_CART_ITEM" >
           <ConnectorPoint PointX="7.5" PointY="3.1199446614583337" />
           <ConnectorPoint PointX="8.625" PointY="3.1199446614583337" />

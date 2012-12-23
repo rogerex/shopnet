@@ -11,7 +11,7 @@ namespace Shopnet.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        ShopnetEntities storeDB = new ShopnetEntities();
+        private ShopnetEntities storeDB = new ShopnetEntities();
 
         //
         // GET: /ShoppingCart/
@@ -60,8 +60,11 @@ namespace Shopnet.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Get the name of the product to display confirmation
-            string productName = storeDB.CartItems
-                .Single(item => item.CartItemID == id).Product.Name;
+            CartItem cartItem = storeDB.CartItems
+                .Single(item => item.CartItemID == id);
+
+            //storeDB.LoadProperty(cartItem);
+            string productName = "";
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
@@ -69,8 +72,7 @@ namespace Shopnet.Controllers
             // Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
-                Message = Server.HtmlEncode(productName) +
-                    " has been removed from your shopping cart.",
+                Message = Server.HtmlEncode(productName) + " has been removed from your shopping cart.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
                 ItemCount = itemCount,

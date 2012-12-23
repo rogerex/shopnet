@@ -8,7 +8,7 @@ namespace Shopnet.Models.Domain
 {
     public class ShoppingCart
     {
-        ShopnetEntities storeDB = new ShopnetEntities();
+        ShopnetEntities db = new ShopnetEntities();
 
         string ShoppingCartId { get; set; }
 
@@ -30,7 +30,7 @@ namespace Shopnet.Models.Domain
         public void AddToCart(Product product, decimal price)
         {
             // Get the matching cart and product instances
-            var cartItem = storeDB.CartItems.SingleOrDefault(
+            var cartItem = db.CartItems.SingleOrDefault(
                 c => c.CartID == ShoppingCartId
                 && c.ProductID == product.ProductID);
             
@@ -46,7 +46,7 @@ namespace Shopnet.Models.Domain
                     Creation = DateTime.Now
                 };
 
-                storeDB.CartItems.AddObject(cartItem);
+                db.CartItems.AddObject(cartItem);
             }
             else
             {
@@ -55,13 +55,13 @@ namespace Shopnet.Models.Domain
             }
 
             // Save changes
-            storeDB.SaveChanges();
+            db.SaveChanges();
         }
 
         public int RemoveFromCart(int id)
         {
             // Get the cart
-            var cartItem = storeDB.CartItems.Single(
+            var cartItem = db.CartItems.Single(
                 cart => cart.CartID == ShoppingCartId
                 && cart.CartItemID == id);
 
@@ -76,11 +76,11 @@ namespace Shopnet.Models.Domain
                 }
                 else
                 {
-                    storeDB.CartItems.DeleteObject(cartItem);
+                    db.CartItems.DeleteObject(cartItem);
                 }
 
                 // Save changes
-                storeDB.SaveChanges();
+                db.SaveChanges();
             }
 
             return itemCount;
@@ -88,26 +88,26 @@ namespace Shopnet.Models.Domain
 
         public void EmptyCart()
         {
-            var cartItems = storeDB.CartItems.Where(cart => cart.CartID == ShoppingCartId);
+            var cartItems = db.CartItems.Where(cart => cart.CartID == ShoppingCartId);
 
             foreach (var cartItem in cartItems)
             {
-                storeDB.CartItems.DeleteObject(cartItem);
+                db.CartItems.DeleteObject(cartItem);
             }
 
             // Save changes
-            storeDB.SaveChanges();
+            db.SaveChanges();
         }
 
         public List<CartItem> GetCartItems()
         {
-            return storeDB.CartItems.Where(cartItem => cartItem.CartID == ShoppingCartId).ToList();
+            return db.CartItems.Where(cartItem => cartItem.CartID == ShoppingCartId).ToList();
         }
 
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
-            int? count = (from cartItems in storeDB.CartItems
+            int? count = (from cartItems in db.CartItems
                           where cartItems.CartID == ShoppingCartId
                           select (int?)cartItems.Amount).Sum();
 
@@ -120,7 +120,7 @@ namespace Shopnet.Models.Domain
             // Multiply product price by count of that product to get 
             // the current price for each of those products in the cart
             // sum all product price totals to get the cart total
-            decimal? total = (from cartItems in storeDB.CartItems
+            decimal? total = (from cartItems in db.CartItems
                               where cartItems.CartID == ShoppingCartId
                               select (int?)cartItems.Amount * cartItems.Price).Sum();
             return total ?? decimal.Zero;
@@ -146,7 +146,7 @@ namespace Shopnet.Models.Domain
                 // Set the order total of the shopping cart
                 orderTotal += (item.Amount * item.Price);
 
-                storeDB.DetailSales.AddObject(orderDetail);
+                db.DetailSales.AddObject(orderDetail);
 
             }
 
@@ -156,7 +156,7 @@ namespace Shopnet.Models.Domain
             order.Total = orderTotal;
 
             // Save the order
-            storeDB.SaveChanges();
+            db.SaveChanges();
 
             // Empty the shopping cart
             EmptyCart();
@@ -191,13 +191,13 @@ namespace Shopnet.Models.Domain
         // be associated with their username
         public void MigrateCart(string userName)
         {
-            var shoppingCart = storeDB.CartItems.Where(c => c.CartID == ShoppingCartId);
+            var shoppingCart = db.CartItems.Where(c => c.CartID == ShoppingCartId);
 
             foreach (CartItem item in shoppingCart)
             {
                 item.CartID = userName;
             }
-            storeDB.SaveChanges();
+            db.SaveChanges();
         }
     }
 }
