@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="shopnetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="shopnetModelStoreContainer">
+          <EntitySet Name="CART_ITEM" EntityType="shopnetModel.Store.CART_ITEM" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CUSTOMER" EntityType="shopnetModel.Store.CUSTOMER" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DETAIL_PURCHASE" EntityType="shopnetModel.Store.DETAIL_PURCHASE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DETAIL_SALE" EntityType="shopnetModel.Store.DETAIL_SALE" store:Type="Tables" Schema="dbo" />
@@ -36,6 +37,10 @@
           <AssociationSet Name="FK_DETAIL_S_DETAILS_S_SALE_ORD" Association="shopnetModel.Store.FK_DETAIL_S_DETAILS_S_SALE_ORD">
             <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
             <End Role="DETAIL_SALE" EntitySet="DETAIL_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_PRODUCT_CART_ITEM" Association="shopnetModel.Store.FK_ID_PRODUCT_CART_ITEM">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="CART_ITEM" EntitySet="CART_ITEM" />
           </AssociationSet>
           <AssociationSet Name="FK_ITEM_PARENT_ITEM" Association="shopnetModel.Store.FK_ITEM_PARENT_ITEM">
             <End Role="ITEM" EntitySet="ITEM" />
@@ -86,6 +91,17 @@
             <End Role="USER_ROLE" EntitySet="USER_ROLE" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CART_ITEM">
+          <Key>
+            <PropertyRef Name="ID_CART_ITEM" />
+          </Key>
+          <Property Name="ID_CART_ITEM" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
+          <Property Name="ID_CART" Type="varchar" Nullable="false" MaxLength="63" />
+          <Property Name="AMOUNT_CART_ITEM" Type="int" Nullable="false" />
+          <Property Name="PRICE_CART_ITEM" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="CREATION_CART_ITEM" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
             <PropertyRef Name="ID_CUSTOMER" />
@@ -158,6 +174,8 @@
           <Property Name="DESC_PRODUCT" Type="text" />
           <Property Name="MINIMUM_PRODUCT" Type="int" />
           <Property Name="CREATION_PRODUCT" Type="datetime" Nullable="false" />
+          <Property Name="PRICE_PRODUCT" Type="decimal" Scale="10" />
+          <Property Name="IMAGE_URL_PRODUCT" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="PROVIDER">
           <Key>
@@ -284,6 +302,18 @@
             </Principal>
             <Dependent Role="DETAIL_SALE">
               <PropertyRef Name="ID_SALE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_PRODUCT_CART_ITEM">
+          <End Role="PRODUCT" Type="shopnetModel.Store.PRODUCT" Multiplicity="1" />
+          <End Role="CART_ITEM" Type="shopnetModel.Store.CART_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Principal>
+            <Dependent Role="CART_ITEM">
+              <PropertyRef Name="ID_PRODUCT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -505,6 +535,11 @@
             <End Role="Sale" EntitySet="Sales" />
             <End Role="DETAIL_SALE" EntitySet="DetailSales" />
           </AssociationSet>
+          <EntitySet Name="CartItems" EntityType="shopnetModel.CartItem" />
+          <AssociationSet Name="FK_PRODUCT_ID_CART_ITEM" Association="shopnetModel.FK_PRODUCT_ID_CART_ITEM">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CartItem" EntitySet="CartItems" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -555,6 +590,9 @@
           <Property Type="DateTime" Name="Creation" Nullable="false" />
           <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="Product" ToRole="DETAIL_PURCHASE" />
           <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="Product" ToRole="DETAIL_SALE" />
+          <Property Type="Decimal" Name="Price" Precision="18" Scale="10" Nullable="false" />
+          <NavigationProperty Name="CartItems" Relationship="shopnetModel.FK_PRODUCT_ID_CART_ITEM" FromRole="Product" ToRole="CartItem" />
+          <Property Type="String" Name="ImageURL" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Provider">
           <Key>
@@ -823,6 +861,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CartItem">
+          <Key>
+            <PropertyRef Name="CartItemID" />
+          </Key>
+          <Property Type="Int32" Name="CartItemID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="CartID" Nullable="false" MaxLength="63" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <Property Type="DateTime" Name="Creation" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_PRODUCT_ID_CART_ITEM" FromRole="CartItem" ToRole="Product" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="10" />
+        </EntityType>
+        <Association Name="FK_PRODUCT_ID_CART_ITEM">
+          <End Type="shopnetModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="shopnetModel.CartItem" Role="CartItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="CartItem">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -853,7 +915,9 @@
             <ScalarProperty Name="Creation" ColumnName="CREATION_PAYMENT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="shopnetModel.Product"><MappingFragment StoreEntitySet="PRODUCT">
-            <ScalarProperty Name="Creation" ColumnName="CREATION_PRODUCT" />
+            <ScalarProperty Name="ImageURL" ColumnName="IMAGE_URL_PRODUCT" />
+                <ScalarProperty Name="Price" ColumnName="PRICE_PRODUCT" />
+                <ScalarProperty Name="Creation" ColumnName="CREATION_PRODUCT" />
                 <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
             <ScalarProperty Name="Code" ColumnName="CODE_PRODUCT" />
             <ScalarProperty Name="Name" ColumnName="NAME_PRODUCT" />
@@ -949,6 +1013,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CartItems">
+            <EntityTypeMapping TypeName="shopnetModel.CartItem">
+              <MappingFragment StoreEntitySet="CART_ITEM">
+                <ScalarProperty Name="Price" ColumnName="PRICE_CART_ITEM" />
+                <ScalarProperty Name="Creation" ColumnName="CREATION_CART_ITEM" />
+                <ScalarProperty Name="Amount" ColumnName="AMOUNT_CART_ITEM" />
+                <ScalarProperty Name="CartID" ColumnName="ID_CART" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
+                <ScalarProperty Name="CartItemID" ColumnName="ID_CART_ITEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -974,7 +1050,7 @@
         <EntityTypeShape EntityType="shopnetModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" Height="2.41404296875" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4" Height="2.2496956380208326" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Payment" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="shopnetModel.Product" Width="1.5" PointX="6" PointY="3.125" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Product" Width="1.5" PointX="6" PointY="2.25" Height="3.1340950520833326" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Provider" Width="1.5" PointX="0.75" PointY="10.125" Height="2.0853483072916674" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Purchase" Width="1.5" PointX="3" PointY="7.125" Height="2.2496956380208317" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.Role" Width="1.5" PointX="3" PointY="4.375" Height="1.7566536458333317" IsExpanded="true" />
@@ -983,9 +1059,9 @@
         <EntityTypeShape EntityType="shopnetModel.TypePayment" Width="2" PointX="4.625" PointY="10.75" Height="2.0853483072916656" IsExpanded="true" />
         <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.5783902994791656" IsExpanded="true" />
         <AssociationConnector Association="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="3.16404296875" />
-          <ConnectorPoint PointX="4.90625" PointY="6.628326822916665" />
-          <ConnectorPoint PointX="6" PointY="6.628326822916665" />
+          <ConnectorPoint PointX="4.90625" PointY="3.4994921874999996" />
+          <ConnectorPoint PointX="4.90625" PointY="6.6932657291666651" />
+          <ConnectorPoint PointX="6" PointY="6.6932657291666651" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_ITEM_PARENT_ITEM" ManuallyRouted="false">
           <ConnectorPoint PointX="1.2819230769230767" PointY="6.2496956380208326" />
@@ -1045,19 +1121,22 @@
           <ConnectorPoint PointX="11.4375" PointY="6.2496956380208326" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" >
-          <ConnectorPoint PointX="7.5" PointY="4.6873478190104159" />
-          <ConnectorPoint PointX="9.0416666666666661" PointY="4.687347819010415" />
-          <ConnectorPoint PointX="9.2083333333333339" PointY="4.6873478190104159" />
-          <ConnectorPoint PointX="10.5" PointY="4.6873478190104159" />
+          <ConnectorPoint PointX="7.5" PointY="4.6920475260416659" />
+          <ConnectorPoint PointX="10.5" PointY="4.6920475260416659" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" >
-          <ConnectorPoint PointX="7.5" PointY="3.874921409505208" />
-          <ConnectorPoint PointX="9.125" PointY="3.874921409505208" />
-          <ConnectorPoint PointX="9.125" PointY="5.625" />
+          <ConnectorPoint PointX="7.5" PointY="5.0693237890625" />
+          <ConnectorPoint PointX="8.46875" PointY="5.0693237890625" />
+          <ConnectorPoint PointX="8.46875" PointY="5.625" />
         </AssociationConnector>
         <AssociationConnector Association="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" >
           <ConnectorPoint PointX="7.5" PointY="6.710500488281248" />
           <ConnectorPoint PointX="8.375" PointY="6.710500488281248" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="shopnetModel.CartItem" Width="1.5" PointX="8.625" PointY="1.625" Height="2.1725878906250031" />
+        <AssociationConnector Association="shopnetModel.FK_PRODUCT_ID_CART_ITEM" >
+          <ConnectorPoint PointX="7.5" PointY="3.1199446614583337" />
+          <ConnectorPoint PointX="8.625" PointY="3.1199446614583337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

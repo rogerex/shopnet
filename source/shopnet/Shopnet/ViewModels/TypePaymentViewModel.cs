@@ -7,17 +7,17 @@ using Shopnet.Models;
 
 namespace Shopnet.ViewModels
 {
-    public class ViewTypePayment : ViewStatus
+    public class TypePaymentViewModel : StatusViewModel
     {
         public TypePayment TypePayment { get; set; }
 
-        public ViewTypePayment(TypePayment typePayment)
+        public TypePaymentViewModel(TypePayment typePayment)
         {
             this.TypePayment = typePayment;
             this.Status = typePayment.Status;
         }
 
-        public ViewTypePayment() {}
+        public TypePaymentViewModel() {}
 
     }
 }

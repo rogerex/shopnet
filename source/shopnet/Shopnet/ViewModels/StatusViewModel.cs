@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Shopnet.ViewModels
 {
-    public class ViewStatus
+    public class StatusViewModel
     {
         public int Status { get; set; }
  
