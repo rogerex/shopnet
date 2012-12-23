@@ -1,0 +1,1065 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="shopnetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="shopnetModelStoreContainer">
+          <EntitySet Name="CUSTOMER" EntityType="shopnetModel.Store.CUSTOMER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DETAIL_PURCHASE" EntityType="shopnetModel.Store.DETAIL_PURCHASE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DETAIL_SALE" EntityType="shopnetModel.Store.DETAIL_SALE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ITEM" EntityType="shopnetModel.Store.ITEM" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PAYMENT" EntityType="shopnetModel.Store.PAYMENT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PERMISSION" EntityType="shopnetModel.Store.PERMISSION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PRODUCT" EntityType="shopnetModel.Store.PRODUCT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PROVIDER" EntityType="shopnetModel.Store.PROVIDER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PURCHASE_ORDER" EntityType="shopnetModel.Store.PURCHASE_ORDER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ROLE" EntityType="shopnetModel.Store.ROLE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SALE_ORDER" EntityType="shopnetModel.Store.SALE_ORDER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SESSION" EntityType="shopnetModel.Store.SESSION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TYPE_PAYMENT" EntityType="shopnetModel.Store.TYPE_PAYMENT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USER" EntityType="shopnetModel.Store.USER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USER_ROLE" EntityType="shopnetModel.Store.USER_ROLE" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_DETAIL_P_PRODUCTS__PURCHASE" Association="shopnetModel.Store.FK_DETAIL_P_PRODUCTS__PURCHASE">
+            <End Role="PURCHASE_ORDER" EntitySet="PURCHASE_ORDER" />
+            <End Role="DETAIL_PURCHASE" EntitySet="DETAIL_PURCHASE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_P_STOCKS_PR_PRODUCT" Association="shopnetModel.Store.FK_DETAIL_P_STOCKS_PR_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="DETAIL_PURCHASE" EntitySet="DETAIL_PURCHASE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_S_DETAILS_P_PRODUCT" Association="shopnetModel.Store.FK_DETAIL_S_DETAILS_P_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="DETAIL_SALE" EntitySet="DETAIL_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_S_DETAILS_S_SALE_ORD" Association="shopnetModel.Store.FK_DETAIL_S_DETAILS_S_SALE_ORD">
+            <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
+            <End Role="DETAIL_SALE" EntitySet="DETAIL_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEM_PARENT_ITEM" Association="shopnetModel.Store.FK_ITEM_PARENT_ITEM">
+            <End Role="ITEM" EntitySet="ITEM" />
+            <End Role="ITEM1" EntitySet="ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENTS__SALE_ORD" Association="shopnetModel.Store.FK_PAYMENT_PAYMENTS__SALE_ORD">
+            <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERMISSI_PERMISSIO_ITEM" Association="shopnetModel.Store.FK_PERMISSI_PERMISSIO_ITEM">
+            <End Role="ITEM" EntitySet="ITEM" />
+            <End Role="PERMISSION" EntitySet="PERMISSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERMISSI_PERMISSIO_ROLE" Association="shopnetModel.Store.FK_PERMISSI_PERMISSIO_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="PERMISSION" EntitySet="PERMISSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASE_PURCHASES_PROVIDER" Association="shopnetModel.Store.FK_PURCHASE_PURCHASES_PROVIDER">
+            <End Role="PROVIDER" EntitySet="PROVIDER" />
+            <End Role="PURCHASE_ORDER" EntitySet="PURCHASE_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASE_PURCHASES_USER" Association="shopnetModel.Store.FK_PURCHASE_PURCHASES_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="PURCHASE_ORDER" EntitySet="PURCHASE_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER" Association="shopnetModel.Store.FK_SALE_ORD_ORDERS_CU_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALE_ORD_SALES_TYP_TYPE_PAY" Association="shopnetModel.Store.FK_SALE_ORD_SALES_TYP_TYPE_PAY">
+            <End Role="TYPE_PAYMENT" EntitySet="TYPE_PAYMENT" />
+            <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALE_ORD_SALES_USE_USER" Association="shopnetModel.Store.FK_SALE_ORD_SALES_USE_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="SALE_ORDER" EntitySet="SALE_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SESSION_SESSIONS__USER" Association="shopnetModel.Store.FK_SESSION_SESSIONS__USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="SESSION" EntitySet="SESSION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROL_ROLES_USE_USER" Association="shopnetModel.Store.FK_USER_ROL_ROLES_USE_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROL_USERS_ROL_ROLE" Association="shopnetModel.Store.FK_USER_ROL_USERS_ROL_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="ID_CUSTOMER" />
+          </Key>
+          <Property Name="ID_CUSTOMER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_CUSTOMER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="CREATION_CUSTOMER" Type="datetime" Nullable="false" />
+          <Property Name="PHONE_CUSTOMER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ADDRESS_CUSTOMER" Type="text" Nullable="false" />
+          <Property Name="EMAIL_CUSTOMER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="LATITUDE_CUSTOMER" Type="decimal" Scale="10" />
+          <Property Name="LONGITUDE_CUSTOMER" Type="decimal" Scale="10" />
+        </EntityType>
+        <EntityType Name="DETAIL_PURCHASE">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT" />
+            <PropertyRef Name="ID_PURCHASE" />
+          </Key>
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
+          <Property Name="ID_PURCHASE" Type="int" Nullable="false" />
+          <Property Name="CURRENT_AMOUNT_PURCHASE" Type="int" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT_PURCHASE" Type="int" Nullable="false" />
+          <Property Name="COST_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="PRICE_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
+        </EntityType>
+        <EntityType Name="DETAIL_SALE">
+          <Key>
+            <PropertyRef Name="ID_SALE" />
+            <PropertyRef Name="ID_PRODUCT" />
+          </Key>
+          <Property Name="ID_SALE" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
+          <Property Name="PRICE_SALE" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="AMOUNT_SALE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ITEM">
+          <Key>
+            <PropertyRef Name="ID_ITEM" />
+          </Key>
+          <Property Name="ID_ITEM" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PARENT_ITEM" Type="int" />
+          <Property Name="NAME_ITEM" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="DESC_ITEM" Type="text" />
+          <Property Name="PATH_ITEM" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PAYMENT">
+          <Key>
+            <PropertyRef Name="ID_PAYMENT" />
+          </Key>
+          <Property Name="ID_PAYMENT" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SALE" Type="int" Nullable="false" />
+          <Property Name="MOUNT_PAYMENT" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="CREATION_PAYMENT" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERMISSION">
+          <Key>
+            <PropertyRef Name="ID_ITEM" />
+            <PropertyRef Name="ID_ROLE" />
+          </Key>
+          <Property Name="ID_ITEM" Type="int" Nullable="false" />
+          <Property Name="ID_ROLE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="ID_PRODUCT" />
+          </Key>
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CODE_PRODUCT" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="NAME_PRODUCT" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="DESC_PRODUCT" Type="text" />
+          <Property Name="MINIMUM_PRODUCT" Type="int" />
+          <Property Name="CREATION_PRODUCT" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROVIDER">
+          <Key>
+            <PropertyRef Name="ID_PROVIDER" />
+          </Key>
+          <Property Name="ID_PROVIDER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_PROVIDER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="DESC_PROVIDER" Type="text" />
+          <Property Name="CREATION_PROVIDER" Type="datetime" Nullable="false" />
+          <Property Name="ADDRESS_PROVIDER" Type="varchar" MaxLength="255" />
+          <Property Name="PHONE_PROVIDER" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PURCHASE_ORDER">
+          <Key>
+            <PropertyRef Name="ID_PURCHASE" />
+          </Key>
+          <Property Name="ID_PURCHASE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROVIDER" Type="int" Nullable="false" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+          <Property Name="TOTAL_PURCHASE" Type="decimal" Nullable="false" Scale="10" />
+          <Property Name="CREATION_PURCHASE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID_ROLE" />
+          </Key>
+          <Property Name="ID_ROLE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_ROLE" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="CREATION_ROLE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SALE_ORDER">
+          <Key>
+            <PropertyRef Name="ID_SALE" />
+          </Key>
+          <Property Name="ID_SALE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CUSTOMER" Type="int" Nullable="false" />
+          <Property Name="ID_TYPE_PAYMENT" Type="int" Nullable="false" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+          <Property Name="CREATION_SALE" Type="datetime" Nullable="false" />
+          <Property Name="TOTAL_SALE" Type="decimal" Nullable="false" Scale="10" />
+        </EntityType>
+        <EntityType Name="SESSION">
+          <Key>
+            <PropertyRef Name="ID_SESSION" />
+          </Key>
+          <Property Name="ID_SESSION" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+          <Property Name="INIT_SESSION" Type="datetime" Nullable="false" />
+          <Property Name="END_SESSION" Type="datetime" />
+          <Property Name="STATUS_SESSION" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TYPE_PAYMENT">
+          <Key>
+            <PropertyRef Name="ID_TYPE_PAYMENT" />
+          </Key>
+          <Property Name="ID_TYPE_PAYMENT" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_TYPE_PAYMENT" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="STATUS_TYPE_PAYMENT" Type="int" Nullable="false" />
+          <Property Name="DESC_TYPE_PAYMENT" Type="text" />
+          <Property Name="AMOUNT_TYPE_PAYMENT" Type="int" />
+          <Property Name="TOTAL_SALE_MINIMUM" Type="decimal" Scale="10" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_USER" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_USER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="PASSWORD_USER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="EMAIL_USER" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="CREATION_USER" Type="datetime" Nullable="false" />
+          <Property Name="STATUS_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_ROLE">
+          <Key>
+            <PropertyRef Name="ID_ROLE" />
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_ROLE" Type="int" Nullable="false" />
+          <Property Name="ID_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DETAIL_P_PRODUCTS__PURCHASE">
+          <End Role="PURCHASE_ORDER" Type="shopnetModel.Store.PURCHASE_ORDER" Multiplicity="1" />
+          <End Role="DETAIL_PURCHASE" Type="shopnetModel.Store.DETAIL_PURCHASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PURCHASE_ORDER">
+              <PropertyRef Name="ID_PURCHASE" />
+            </Principal>
+            <Dependent Role="DETAIL_PURCHASE">
+              <PropertyRef Name="ID_PURCHASE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_P_STOCKS_PR_PRODUCT">
+          <End Role="PRODUCT" Type="shopnetModel.Store.PRODUCT" Multiplicity="1" />
+          <End Role="DETAIL_PURCHASE" Type="shopnetModel.Store.DETAIL_PURCHASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Principal>
+            <Dependent Role="DETAIL_PURCHASE">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_S_DETAILS_P_PRODUCT">
+          <End Role="PRODUCT" Type="shopnetModel.Store.PRODUCT" Multiplicity="1" />
+          <End Role="DETAIL_SALE" Type="shopnetModel.Store.DETAIL_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Principal>
+            <Dependent Role="DETAIL_SALE">
+              <PropertyRef Name="ID_PRODUCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_S_DETAILS_S_SALE_ORD">
+          <End Role="SALE_ORDER" Type="shopnetModel.Store.SALE_ORDER" Multiplicity="1" />
+          <End Role="DETAIL_SALE" Type="shopnetModel.Store.DETAIL_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALE_ORDER">
+              <PropertyRef Name="ID_SALE" />
+            </Principal>
+            <Dependent Role="DETAIL_SALE">
+              <PropertyRef Name="ID_SALE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEM_PARENT_ITEM">
+          <End Role="ITEM" Type="shopnetModel.Store.ITEM" Multiplicity="0..1" />
+          <End Role="ITEM1" Type="shopnetModel.Store.ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEM">
+              <PropertyRef Name="ID_ITEM" />
+            </Principal>
+            <Dependent Role="ITEM1">
+              <PropertyRef Name="ID_PARENT_ITEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENTS__SALE_ORD">
+          <End Role="SALE_ORDER" Type="shopnetModel.Store.SALE_ORDER" Multiplicity="1" />
+          <End Role="PAYMENT" Type="shopnetModel.Store.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALE_ORDER">
+              <PropertyRef Name="ID_SALE" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="ID_SALE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERMISSI_PERMISSIO_ITEM">
+          <End Role="ITEM" Type="shopnetModel.Store.ITEM" Multiplicity="1" />
+          <End Role="PERMISSION" Type="shopnetModel.Store.PERMISSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEM">
+              <PropertyRef Name="ID_ITEM" />
+            </Principal>
+            <Dependent Role="PERMISSION">
+              <PropertyRef Name="ID_ITEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERMISSI_PERMISSIO_ROLE">
+          <End Role="ROLE" Type="shopnetModel.Store.ROLE" Multiplicity="1" />
+          <End Role="PERMISSION" Type="shopnetModel.Store.PERMISSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID_ROLE" />
+            </Principal>
+            <Dependent Role="PERMISSION">
+              <PropertyRef Name="ID_ROLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASE_PURCHASES_PROVIDER">
+          <End Role="PROVIDER" Type="shopnetModel.Store.PROVIDER" Multiplicity="1" />
+          <End Role="PURCHASE_ORDER" Type="shopnetModel.Store.PURCHASE_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVIDER">
+              <PropertyRef Name="ID_PROVIDER" />
+            </Principal>
+            <Dependent Role="PURCHASE_ORDER">
+              <PropertyRef Name="ID_PROVIDER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASE_PURCHASES_USER">
+          <End Role="USER" Type="shopnetModel.Store.USER" Multiplicity="1" />
+          <End Role="PURCHASE_ORDER" Type="shopnetModel.Store.PURCHASE_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="PURCHASE_ORDER">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER">
+          <End Role="CUSTOMER" Type="shopnetModel.Store.CUSTOMER" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Store.SALE_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="ID_CUSTOMER" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="ID_CUSTOMER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALE_ORD_SALES_TYP_TYPE_PAY">
+          <End Role="TYPE_PAYMENT" Type="shopnetModel.Store.TYPE_PAYMENT" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Store.SALE_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE_PAYMENT">
+              <PropertyRef Name="ID_TYPE_PAYMENT" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="ID_TYPE_PAYMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALE_ORD_SALES_USE_USER">
+          <End Role="USER" Type="shopnetModel.Store.USER" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Store.SALE_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SESSION_SESSIONS__USER">
+          <End Role="USER" Type="shopnetModel.Store.USER" Multiplicity="1" />
+          <End Role="SESSION" Type="shopnetModel.Store.SESSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="SESSION">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROL_ROLES_USE_USER">
+          <End Role="USER" Type="shopnetModel.Store.USER" Multiplicity="1" />
+          <End Role="USER_ROLE" Type="shopnetModel.Store.USER_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="USER_ROLE">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROL_USERS_ROL_ROLE">
+          <End Role="ROLE" Type="shopnetModel.Store.ROLE" Multiplicity="1" />
+          <End Role="USER_ROLE" Type="shopnetModel.Store.USER_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID_ROLE" />
+            </Principal>
+            <Dependent Role="USER_ROLE">
+              <PropertyRef Name="ID_ROLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="shopnetModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ShopnetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="shopnetModel.Customer" />
+          <EntitySet Name="Items" EntityType="shopnetModel.Item" />
+          <EntitySet Name="Payments" EntityType="shopnetModel.Payment" />
+          <EntitySet Name="Products" EntityType="shopnetModel.Product" />
+          <EntitySet Name="Providers" EntityType="shopnetModel.Provider" />
+          <EntitySet Name="Purchases" EntityType="shopnetModel.Purchase" />
+          <EntitySet Name="Roles" EntityType="shopnetModel.Role" />
+          <EntitySet Name="Sales" EntityType="shopnetModel.Sale" />
+          <EntitySet Name="Sessions" EntityType="shopnetModel.Session" />
+          <EntitySet Name="TypePayments" EntityType="shopnetModel.TypePayment" />
+          <EntitySet Name="Users" EntityType="shopnetModel.User" />
+          <AssociationSet Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER" Association="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER">
+            <End Role="CUSTOMER" EntitySet="Customers" />
+            <End Role="SALE_ORDER" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEM_PARENT_ITEM" Association="shopnetModel.FK_ITEM_PARENT_ITEM">
+            <End Role="ITEM" EntitySet="Items" />
+            <End Role="ITEM1" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENTS__SALE_ORD" Association="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD">
+            <End Role="SALE_ORDER" EntitySet="Sales" />
+            <End Role="PAYMENT" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASE_PURCHASES_PROVIDER" Association="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER">
+            <End Role="PROVIDER" EntitySet="Providers" />
+            <End Role="PURCHASE_ORDER" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASE_PURCHASES_USER" Association="shopnetModel.FK_PURCHASE_PURCHASES_USER">
+            <End Role="USER" EntitySet="Users" />
+            <End Role="PURCHASE_ORDER" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALE_ORD_SALES_TYP_TYPE_PAY" Association="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY">
+            <End Role="TYPE_PAYMENT" EntitySet="TypePayments" />
+            <End Role="SALE_ORDER" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALE_ORD_SALES_USE_USER" Association="shopnetModel.FK_SALE_ORD_SALES_USE_USER">
+            <End Role="USER" EntitySet="Users" />
+            <End Role="SALE_ORDER" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SESSION_SESSIONS__USER" Association="shopnetModel.FK_SESSION_SESSIONS__USER">
+            <End Role="USER" EntitySet="Users" />
+            <End Role="SESSION" EntitySet="Sessions" />
+          </AssociationSet>
+          <AssociationSet Name="PERMISSION" Association="shopnetModel.PERMISSION">
+            <End Role="ITEM" EntitySet="Items" />
+            <End Role="ROLE" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="USER_ROLE" Association="shopnetModel.USER_ROLE">
+            <End Role="USER" EntitySet="Users" />
+            <End Role="ROLE" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="DetailPurchases" EntityType="shopnetModel.DetailPurchase" />
+          <EntitySet Name="DetailSales" EntityType="shopnetModel.DetailSale" />
+          <AssociationSet Name="FK_DETAIL_P_PRODUCTS__PURCHASE" Association="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE">
+            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="DETAIL_PURCHASE" EntitySet="DetailPurchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_P_STOCKS_PR_PRODUCT" Association="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="DETAIL_PURCHASE" EntitySet="DetailPurchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_S_DETAILS_P_PRODUCT" Association="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="DETAIL_SALE" EntitySet="DetailSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETAIL_S_DETAILS_S_SALE_ORD" Association="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="DETAIL_SALE" EntitySet="DetailSales" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="10" />
+          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" FromRole="CUSTOMER" ToRole="SALE_ORDER" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="ParentItemID" Type="Int32" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ChildItems" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM" ToRole="ITEM1" />
+          <NavigationProperty Name="ParentItem" Relationship="shopnetModel.FK_ITEM_PARENT_ITEM" FromRole="ITEM1" ToRole="ITEM" />
+          <NavigationProperty Name="Roles" Relationship="shopnetModel.PERMISSION" FromRole="ITEM" ToRole="ROLE" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="SaleID" Type="Int32" Nullable="false" />
+          <Property Name="Mount" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Sale" Relationship="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" FromRole="PAYMENT" ToRole="SALE_ORDER" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Minimum" Type="Int32" />
+          <Property Type="DateTime" Name="Creation" Nullable="false" />
+          <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="Product" ToRole="DETAIL_PURCHASE" />
+          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="Product" ToRole="DETAIL_SALE" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderID" />
+          </Key>
+          <Property Name="ProviderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ConcurrencyMode="Fixed" a:GetterAccess="Public" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" ConcurrencyMode="None" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Public" />
+          <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" FromRole="PROVIDER" ToRole="PURCHASE_ORDER" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="ProviderID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Provider" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" FromRole="PURCHASE_ORDER" ToRole="PROVIDER" />
+          <NavigationProperty Name="User" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_USER" FromRole="PURCHASE_ORDER" ToRole="USER" />
+          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="Purchase" ToRole="DETAIL_PURCHASE" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="shopnetModel.PERMISSION" FromRole="ROLE" ToRole="ITEM" />
+          <NavigationProperty Name="Usuarios" Relationship="shopnetModel.USER_ROLE" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="TypePaymentID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+          <NavigationProperty Name="Customer" Relationship="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" FromRole="SALE_ORDER" ToRole="CUSTOMER" />
+          <NavigationProperty Name="Payments" Relationship="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" FromRole="SALE_ORDER" ToRole="PAYMENT" />
+          <NavigationProperty Name="TypePayment" Relationship="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" FromRole="SALE_ORDER" ToRole="TYPE_PAYMENT" />
+          <NavigationProperty Name="User" Relationship="shopnetModel.FK_SALE_ORD_SALES_USE_USER" FromRole="SALE_ORDER" ToRole="USER" />
+          <NavigationProperty Name="Details" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="Sale" ToRole="DETAIL_SALE" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Init" Type="DateTime" Nullable="false" />
+          <Property Name="End" Type="DateTime" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="shopnetModel.FK_SESSION_SESSIONS__USER" FromRole="SESSION" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="TypePayment">
+          <Key>
+            <PropertyRef Name="TypePaymentID" />
+          </Key>
+          <Property Name="TypePaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Amount" Type="Int32" Nullable="true" />
+          <Property Name="TotalNumber" Type="Decimal" Precision="18" Scale="0" Nullable="true" />
+          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" FromRole="TYPE_PAYMENT" ToRole="SALE_ORDER" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Purchases" Relationship="shopnetModel.FK_PURCHASE_PURCHASES_USER" FromRole="USER" ToRole="PURCHASE_ORDER" />
+          <NavigationProperty Name="Sales" Relationship="shopnetModel.FK_SALE_ORD_SALES_USE_USER" FromRole="USER" ToRole="SALE_ORDER" />
+          <NavigationProperty Name="Sessions" Relationship="shopnetModel.FK_SESSION_SESSIONS__USER" FromRole="USER" ToRole="SESSION" />
+          <NavigationProperty Name="Roles" Relationship="shopnetModel.USER_ROLE" FromRole="USER" ToRole="ROLE" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_SALE_ORD_ORDERS_CU_CUSTOMER">
+          <End Role="CUSTOMER" Type="shopnetModel.Customer" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEM_PARENT_ITEM">
+          <End Role="ITEM" Type="shopnetModel.Item" Multiplicity="0..1" />
+          <End Role="ITEM1" Type="shopnetModel.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEM">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="ITEM1">
+              <PropertyRef Name="ParentItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENTS__SALE_ORD">
+          <End Role="SALE_ORDER" Type="shopnetModel.Sale" Multiplicity="1" />
+          <End Role="PAYMENT" Type="shopnetModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALE_ORDER">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASE_PURCHASES_PROVIDER">
+          <End Role="PROVIDER" Type="shopnetModel.Provider" Multiplicity="1" />
+          <End Role="PURCHASE_ORDER" Type="shopnetModel.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVIDER">
+              <PropertyRef Name="ProviderID" />
+            </Principal>
+            <Dependent Role="PURCHASE_ORDER">
+              <PropertyRef Name="ProviderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASE_PURCHASES_USER">
+          <End Role="USER" Type="shopnetModel.User" Multiplicity="1" />
+          <End Role="PURCHASE_ORDER" Type="shopnetModel.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="PURCHASE_ORDER">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALE_ORD_SALES_TYP_TYPE_PAY">
+          <End Role="TYPE_PAYMENT" Type="shopnetModel.TypePayment" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE_PAYMENT">
+              <PropertyRef Name="TypePaymentID" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="TypePaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALE_ORD_SALES_USE_USER">
+          <End Role="USER" Type="shopnetModel.User" Multiplicity="1" />
+          <End Role="SALE_ORDER" Type="shopnetModel.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SALE_ORDER">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SESSION_SESSIONS__USER">
+          <End Role="USER" Type="shopnetModel.User" Multiplicity="1" />
+          <End Role="SESSION" Type="shopnetModel.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SESSION">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PERMISSION">
+          <End Role="ITEM" Type="shopnetModel.Item" Multiplicity="*" />
+          <End Role="ROLE" Type="shopnetModel.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="USER_ROLE">
+          <End Role="USER" Type="shopnetModel.User" Multiplicity="*" />
+          <End Role="ROLE" Type="shopnetModel.Role" Multiplicity="*" />
+        </Association>
+        <EntityType Name="DetailPurchase">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="PurchaseID" Nullable="false" />
+          <Property Type="Int32" Name="CurrentAmount" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="18" Scale="10" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="10" />
+          <Property Type="Int32" Name="TotalAmount" Nullable="false" />
+          <NavigationProperty Name="Purchase" Relationship="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" FromRole="DETAIL_PURCHASE" ToRole="Purchase" />
+          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" FromRole="DETAIL_PURCHASE" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="DetailSale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Type="Int32" Name="SaleID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="10" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" FromRole="DETAIL_SALE" ToRole="Product" />
+          <NavigationProperty Name="Sale" Relationship="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" FromRole="DETAIL_SALE" ToRole="Sale" />
+        </EntityType>
+        <Association Name="FK_DETAIL_P_PRODUCTS__PURCHASE">
+          <End Type="shopnetModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="shopnetModel.DetailPurchase" Role="DETAIL_PURCHASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="PurchaseID" />
+            </Principal>
+            <Dependent Role="DETAIL_PURCHASE">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_P_STOCKS_PR_PRODUCT">
+          <End Type="shopnetModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="shopnetModel.DetailPurchase" Role="DETAIL_PURCHASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="DETAIL_PURCHASE">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_S_DETAILS_P_PRODUCT">
+          <End Type="shopnetModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="DETAIL_SALE">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETAIL_S_DETAILS_S_SALE_ORD">
+          <End Type="shopnetModel.Sale" Role="Sale" Multiplicity="1" />
+          <End Type="shopnetModel.DetailSale" Role="DETAIL_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="DETAIL_SALE">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="shopnetModelStoreContainer" CdmEntityContainer="ShopnetEntities">
+          <EntitySetMapping Name="Customers"><EntityTypeMapping TypeName="shopnetModel.Customer"><MappingFragment StoreEntitySet="CUSTOMER">
+            <ScalarProperty Name="CustomerID" ColumnName="ID_CUSTOMER" />
+            <ScalarProperty Name="Name" ColumnName="NAME_CUSTOMER" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_CUSTOMER" />
+            <ScalarProperty Name="Phone" ColumnName="PHONE_CUSTOMER" />
+            <ScalarProperty Name="Address" ColumnName="ADDRESS_CUSTOMER" />
+            <ScalarProperty Name="Email" ColumnName="EMAIL_CUSTOMER" />
+            <ScalarProperty Name="Latitude" ColumnName="LATITUDE_CUSTOMER" />
+            <ScalarProperty Name="Longitude" ColumnName="LONGITUDE_CUSTOMER" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Items"><EntityTypeMapping TypeName="shopnetModel.Item"><MappingFragment StoreEntitySet="ITEM">
+                <ScalarProperty Name="Path" ColumnName="PATH_ITEM" />
+                <ScalarProperty Name="Name" ColumnName="NAME_ITEM" />
+                <ScalarProperty Name="ItemID" ColumnName="ID_ITEM" />
+            <ScalarProperty Name="ParentItemID" ColumnName="ID_PARENT_ITEM" />
+            <ScalarProperty Name="Description" ColumnName="DESC_ITEM" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Payments"><EntityTypeMapping TypeName="shopnetModel.Payment"><MappingFragment StoreEntitySet="PAYMENT">
+            <ScalarProperty Name="PaymentID" ColumnName="ID_PAYMENT" />
+            <ScalarProperty Name="SaleID" ColumnName="ID_SALE" />
+            <ScalarProperty Name="Mount" ColumnName="MOUNT_PAYMENT" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_PAYMENT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="shopnetModel.Product"><MappingFragment StoreEntitySet="PRODUCT">
+            <ScalarProperty Name="Creation" ColumnName="CREATION_PRODUCT" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
+            <ScalarProperty Name="Code" ColumnName="CODE_PRODUCT" />
+            <ScalarProperty Name="Name" ColumnName="NAME_PRODUCT" />
+            <ScalarProperty Name="Description" ColumnName="DESC_PRODUCT" />
+            <ScalarProperty Name="Minimum" ColumnName="MINIMUM_PRODUCT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Providers"><EntityTypeMapping TypeName="shopnetModel.Provider"><MappingFragment StoreEntitySet="PROVIDER">
+            <ScalarProperty Name="ProviderID" ColumnName="ID_PROVIDER" />
+            <ScalarProperty Name="Name" ColumnName="NAME_PROVIDER" />
+            <ScalarProperty Name="Description" ColumnName="DESC_PROVIDER" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_PROVIDER" />
+            <ScalarProperty Name="Address" ColumnName="ADDRESS_PROVIDER" />
+            <ScalarProperty Name="Phone" ColumnName="PHONE_PROVIDER" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Purchases"><EntityTypeMapping TypeName="shopnetModel.Purchase"><MappingFragment StoreEntitySet="PURCHASE_ORDER">
+            <ScalarProperty Name="PurchaseID" ColumnName="ID_PURCHASE" />
+            <ScalarProperty Name="ProviderID" ColumnName="ID_PROVIDER" />
+            <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            <ScalarProperty Name="Total" ColumnName="TOTAL_PURCHASE" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_PURCHASE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="shopnetModel.Role"><MappingFragment StoreEntitySet="ROLE">
+            <ScalarProperty Name="RoleID" ColumnName="ID_ROLE" />
+            <ScalarProperty Name="Name" ColumnName="NAME_ROLE" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_ROLE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Sales"><EntityTypeMapping TypeName="shopnetModel.Sale"><MappingFragment StoreEntitySet="SALE_ORDER">
+            <ScalarProperty Name="SaleID" ColumnName="ID_SALE" />
+            <ScalarProperty Name="CustomerID" ColumnName="ID_CUSTOMER" />
+            <ScalarProperty Name="TypePaymentID" ColumnName="ID_TYPE_PAYMENT" />
+            <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_SALE" />
+            <ScalarProperty Name="Total" ColumnName="TOTAL_SALE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Sessions"><EntityTypeMapping TypeName="shopnetModel.Session"><MappingFragment StoreEntitySet="SESSION">
+            <ScalarProperty Name="SessionID" ColumnName="ID_SESSION" />
+            <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            <ScalarProperty Name="Init" ColumnName="INIT_SESSION" />
+            <ScalarProperty Name="End" ColumnName="END_SESSION" />
+            <ScalarProperty Name="Status" ColumnName="STATUS_SESSION" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TypePayments"><EntityTypeMapping TypeName="shopnetModel.TypePayment"><MappingFragment StoreEntitySet="TYPE_PAYMENT">
+                <ScalarProperty Name="Status" ColumnName="STATUS_TYPE_PAYMENT" />
+                <ScalarProperty Name="Name" ColumnName="NAME_TYPE_PAYMENT" />
+                <ScalarProperty Name="TypePaymentID" ColumnName="ID_TYPE_PAYMENT" />
+            <ScalarProperty Name="Description" ColumnName="DESC_TYPE_PAYMENT" />
+            <ScalarProperty Name="Amount" ColumnName="AMOUNT_TYPE_PAYMENT" />
+            <ScalarProperty Name="TotalNumber" ColumnName="TOTAL_SALE_MINIMUM" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="shopnetModel.User"><MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="Email" ColumnName="EMAIL_USER" />
+                <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            <ScalarProperty Name="Name" ColumnName="NAME_USER" />
+            <ScalarProperty Name="Password" ColumnName="PASSWORD_USER" />
+            <ScalarProperty Name="Creation" ColumnName="CREATION_USER" />
+            <ScalarProperty Name="Status" ColumnName="STATUS_USER" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="PERMISSION" TypeName="shopnetModel.PERMISSION" StoreEntitySet="PERMISSION">
+            <EndProperty Name="ITEM">
+              <ScalarProperty Name="ItemID" ColumnName="ID_ITEM" />
+            </EndProperty>
+            <EndProperty Name="ROLE">
+              <ScalarProperty Name="RoleID" ColumnName="ID_ROLE" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="USER_ROLE" TypeName="shopnetModel.USER_ROLE" StoreEntitySet="USER_ROLE">
+            <EndProperty Name="USER">
+              <ScalarProperty Name="UserID" ColumnName="ID_USER" />
+            </EndProperty>
+            <EndProperty Name="ROLE">
+              <ScalarProperty Name="RoleID" ColumnName="ID_ROLE" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="DetailPurchases">
+            <EntityTypeMapping TypeName="shopnetModel.DetailPurchase">
+              <MappingFragment StoreEntitySet="DETAIL_PURCHASE">
+                <ScalarProperty Name="TotalAmount" ColumnName="TOTAL_AMOUNT_PURCHASE" />
+                <ScalarProperty Name="Price" ColumnName="PRICE_PURCHASE" />
+                <ScalarProperty Name="Cost" ColumnName="COST_PURCHASE" />
+                <ScalarProperty Name="CurrentAmount" ColumnName="CURRENT_AMOUNT_PURCHASE" />
+                <ScalarProperty Name="PurchaseID" ColumnName="ID_PURCHASE" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailSales">
+            <EntityTypeMapping TypeName="shopnetModel.DetailSale">
+              <MappingFragment StoreEntitySet="DETAIL_SALE">
+                <ScalarProperty Name="Amount" ColumnName="AMOUNT_SALE" />
+                <ScalarProperty Name="Price" ColumnName="PRICE_SALE" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_PRODUCT" />
+                <ScalarProperty Name="SaleID" ColumnName="ID_SALE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Shopnet" ZoomLevel="78">
+        <EntityTypeShape EntityType="shopnetModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" Height="2.41404296875" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Item" Width="1.5" PointX="0.75" PointY="4" Height="2.2496956380208326" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Payment" Width="1.5" PointX="8.25" PointY="10" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Product" Width="1.5" PointX="6" PointY="3.125" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Provider" Width="1.5" PointX="0.75" PointY="10.125" Height="2.0853483072916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Purchase" Width="1.5" PointX="3" PointY="7.125" Height="2.2496956380208317" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Role" Width="1.5" PointX="3" PointY="4.375" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Sale" Width="1.5" PointX="6" PointY="5.875" Height="2.7427376302083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.Session" Width="1.5" PointX="3.125" PointY="13.125" Height="1.9210009765625031" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.TypePayment" Width="2" PointX="4.625" PointY="10.75" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopnetModel.User" Width="1.5" PointX="0.75" PointY="7" Height="2.5783902994791656" IsExpanded="true" />
+        <AssociationConnector Association="shopnetModel.FK_SALE_ORD_ORDERS_CU_CUSTOMER" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.90625" PointY="3.16404296875" />
+          <ConnectorPoint PointX="4.90625" PointY="6.628326822916665" />
+          <ConnectorPoint PointX="6" PointY="6.628326822916665" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_ITEM_PARENT_ITEM" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.2496956380208326" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.4996956380208317" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.4996956380208317" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.2496956380208326" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_PAYMENT_PAYMENTS__SALE_ORD" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.09375" PointY="8.6177376302083335" />
+          <ConnectorPoint PointX="7.09375" PointY="10.34375" />
+          <ConnectorPoint PointX="8.25" PointY="10.34375" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_PURCHASE_PURCHASES_PROVIDER" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="10.46875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="10.46875" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="10.46875" />
+          <ConnectorPoint PointX="3.34375" PointY="10.46875" />
+          <ConnectorPoint PointX="3.34375" PointY="9.3746956380208317" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_PURCHASE_PURCHASES_USER" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.2498478190104159" />
+          <ConnectorPoint PointX="3" PointY="8.2498478190104159" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_TYP_TYPE_PAY" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.3125" PointY="10.75" />
+          <ConnectorPoint PointX="6.3125" PointY="8.6177376302083335" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_SALE_ORD_SALES_USE_USER" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.03125" />
+          <ConnectorPoint PointX="6" PointY="7.03125" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_SESSION_SESSIONS__USER" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2499999999999978" PointY="9.5783902994791656" />
+          <ConnectorPoint PointX="2.625" PointY="9.9533902994791674" />
+          <ConnectorPoint PointX="2.625" PointY="14.085500488281252" />
+          <ConnectorPoint PointX="3.125" PointY="14.085500488281252" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.PERMISSION" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.2533268229166659" />
+          <ConnectorPoint PointX="3" PointY="5.2533268229166659" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.USER_ROLE" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7" />
+          <ConnectorPoint PointX="2.625" PointY="6.625" />
+          <ConnectorPoint PointX="2.625" PointY="5.7237422343749991" />
+          <ConnectorPoint PointX="3" PointY="5.7237422343749991" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="shopnetModel.DetailPurchase" Width="1.875" PointX="10.5" PointY="4" Height="2.2496956380208326" />
+        <EntityTypeShape EntityType="shopnetModel.DetailSale" Width="1.5" PointX="8.375" PointY="5.625" Height="1.921000976562496" />
+        <AssociationConnector Association="shopnetModel.FK_DETAIL_P_PRODUCTS__PURCHASE" >
+          <ConnectorPoint PointX="4.5" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="6.229166666666667" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="6.395833333333333" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="7.010416666666667" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="7.177083333333333" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="11.4375" PointY="9.0274666341145835" />
+          <ConnectorPoint PointX="11.4375" PointY="6.2496956380208326" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_DETAIL_P_STOCKS_PR_PRODUCT" >
+          <ConnectorPoint PointX="7.5" PointY="4.6873478190104159" />
+          <ConnectorPoint PointX="9.0416666666666661" PointY="4.687347819010415" />
+          <ConnectorPoint PointX="9.2083333333333339" PointY="4.6873478190104159" />
+          <ConnectorPoint PointX="10.5" PointY="4.6873478190104159" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_DETAIL_S_DETAILS_P_PRODUCT" >
+          <ConnectorPoint PointX="7.5" PointY="3.874921409505208" />
+          <ConnectorPoint PointX="9.125" PointY="3.874921409505208" />
+          <ConnectorPoint PointX="9.125" PointY="5.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="shopnetModel.FK_DETAIL_S_DETAILS_S_SALE_ORD" >
+          <ConnectorPoint PointX="7.5" PointY="6.710500488281248" />
+          <ConnectorPoint PointX="8.375" PointY="6.710500488281248" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,30 @@
+﻿@model Shopnet.Models.Payment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Payment</legend>
+
+    <div class="display-label">Sale</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sale.SaleID)
+    </div>
+
+    <div class="display-label">Mount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mount)
+    </div>
+
+    <div class="display-label">Creation</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Creation)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PaymentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

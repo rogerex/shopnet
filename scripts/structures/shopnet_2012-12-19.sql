@@ -369,7 +369,7 @@ go
 /* Table: CUSTOMER                                              */
 /*==============================================================*/
 create table CUSTOMER (
-   ID_CUSTOMER          numeric              identity,
+   ID_CUSTOMER          int              identity,
    NAME_CUSTOMER        varchar(255)         not null,
    CREATION_CUSTOMER    datetime             not null,
    PHONE_CUSTOMER       varchar(255)         not null,
@@ -385,8 +385,8 @@ go
 /* Table: DETAIL_ORDER                                          */
 /*==============================================================*/
 create table DETAIL_ORDER (
-   ID_SALE              numeric              not null,
-   ID_PRODUCT           numeric              not null,
+   ID_SALE              int              not null,
+   ID_PRODUCT           int              not null,
    PRICE_PRODUCT        decimal              not null,
    AMOUNT_PRODUCT       int                  not null,
    constraint PK_DETAIL_ORDER primary key (ID_SALE, ID_PRODUCT)
@@ -413,8 +413,8 @@ go
 /* Table: ITEM                                                  */
 /*==============================================================*/
 create table ITEM (
-   ID_ITEM              numeric              identity,
-   ID_PARENT_ITEM       numeric              null,
+   ID_ITEM              int              identity,
+   ID_PARENT_ITEM       int              null,
    DESC_ITEM            text                 not null,
    constraint PK_ITEM primary key nonclustered (ID_ITEM)
 )
@@ -432,8 +432,8 @@ go
 /* Table: PAYMENT                                               */
 /*==============================================================*/
 create table PAYMENT (
-   ID_PAYMENT           numeric              identity,
-   ID_SALE              numeric              not null,
+   ID_PAYMENT           int              identity,
+   ID_SALE              int              not null,
    MOUNT_PAYMENT        decimal              not null,
    CREATION_PAYMENT     datetime             not null,
    constraint PK_PAYMENT primary key nonclustered (ID_PAYMENT)
@@ -452,8 +452,8 @@ go
 /* Table: PERMISSION                                            */
 /*==============================================================*/
 create table PERMISSION (
-   ID_ITEM              numeric              not null,
-   ID_ROLE              numeric              not null,
+   ID_ITEM              int              not null,
+   ID_ROLE              int              not null,
    constraint PK_PERMISSION primary key (ID_ITEM, ID_ROLE)
 )
 go
@@ -478,7 +478,7 @@ go
 /* Table: PRODUCT                                               */
 /*==============================================================*/
 create table PRODUCT (
-   ID_PRODUCT           numeric              identity,
+   ID_PRODUCT           int              identity,
    CODE_PRODUCT         varchar(255)         not null,
    NAME_PRODUCT         varchar(255)         not null,
    DESC_PRODUCT         text                 null,
@@ -491,7 +491,7 @@ go
 /* Table: PROVIDER                                              */
 /*==============================================================*/
 create table PROVIDER (
-   ID_PROVIDER          numeric              identity,
+   ID_PROVIDER          int              identity,
    NAME_PROVIDER        varchar(255)         not null,
    DESC_PROVIDER        text                 null,
    CREATION_PROVIDER    datetime             not null,
@@ -505,9 +505,9 @@ go
 /* Table: PURCHASE_ORDER                                        */
 /*==============================================================*/
 create table PURCHASE_ORDER (
-   ID_PURCHASE          numeric              identity,
-   ID_PROVIDER          numeric              not null,
-   ID_USER              numeric              not null,
+   ID_PURCHASE          int              identity,
+   ID_PROVIDER          int              not null,
+   ID_USER              int              not null,
    TOTAL_PURCHASE       decimal              not null,
    CREATION_PURCHASE    datetime             not null,
    constraint PK_PURCHASE_ORDER primary key nonclustered (ID_PURCHASE)
@@ -534,7 +534,7 @@ go
 /* Table: ROLE                                                  */
 /*==============================================================*/
 create table ROLE (
-   ID_ROLE              numeric              identity,
+   ID_ROLE              int              identity,
    NAME_ROLE            varchar(255)         not null,
    CREATION_ROLE        datetime             not null,
    constraint PK_ROLE primary key nonclustered (ID_ROLE)
@@ -545,10 +545,10 @@ go
 /* Table: SALE_ORDER                                            */
 /*==============================================================*/
 create table SALE_ORDER (
-   ID_SALE              numeric              identity,
-   ID_CUSTOMER          numeric              not null,
-   ID_TYPE_PAYMENT      numeric              not null,
-   ID_USER              numeric              not null,
+   ID_SALE              int              identity,
+   ID_CUSTOMER          int              not null,
+   ID_TYPE_PAYMENT      int              not null,
+   ID_USER              int              not null,
    CREATION_SALE        datetime             not null,
    TOTAL_SALE           decimal              not null,
    constraint PK_SALE_ORDER primary key nonclustered (ID_SALE)
@@ -583,8 +583,8 @@ go
 /* Table: SESSION                                               */
 /*==============================================================*/
 create table SESSION (
-   ID_SESSION           numeric              identity,
-   ID_USER              numeric              not null,
+   ID_SESSION           int              identity,
+   ID_USER              int              not null,
    INIT_SESSION         datetime             not null,
    END_SESSION          datetime             null,
    STATUS_SESSION       int                  not null,
@@ -604,8 +604,8 @@ go
 /* Table: STOCK                                                 */
 /*==============================================================*/
 create table STOCK (
-   ID_PRODUCT           numeric              not null,
-   ID_PURCHASE          numeric              not null,
+   ID_PRODUCT           int              not null,
+   ID_PURCHASE          int              not null,
    AMOUNT_STOCK         int                  not null,
    COST_STOCK           decimal              not null,
    PRICE_STOCK          decimal              not null,
@@ -634,7 +634,7 @@ go
 /* Table: TYPE_PAYMENT                                          */
 /*==============================================================*/
 create table TYPE_PAYMENT (
-   ID_TYPE_PAYMENT      numeric              identity,
+   ID_TYPE_PAYMENT      int              identity,
    DESC_TYPE_PAYMENT    text                 not null,
    AMOUNT_TYPE_PAYMENT  int                  not null,
    TOTAL_SALE_MINIMUM   decimal              null,
@@ -646,7 +646,7 @@ go
 /* Table: "USER"                                                */
 /*==============================================================*/
 create table "USER" (
-   ID_USER              numeric              identity,
+   ID_USER              int              identity,
    NAME_USER            varchar(255)         not null,
    PASSWORD_USER        varchar(255)         not null,
    CREATION_USER        datetime             not null,
@@ -659,8 +659,8 @@ go
 /* Table: USER_ROLE                                             */
 /*==============================================================*/
 create table USER_ROLE (
-   ID_ROLE              numeric              not null,
-   ID_USER              numeric              not null,
+   ID_ROLE              int              not null,
+   ID_USER              int              not null,
    constraint PK_USER_ROLE primary key (ID_ROLE, ID_USER)
 )
 go

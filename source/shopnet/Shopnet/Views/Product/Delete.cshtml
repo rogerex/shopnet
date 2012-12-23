@@ -1,0 +1,21 @@
+﻿@model Shopnet.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Confirmation</h2>
+
+<h3>Are you sure you want to delete the Poduct:</h3>
+<p>
+   <strong>@Model.Name</strong>?
+</p>
+
+@using (Html.BeginForm()) {
+<p>
+<input type="submit" value="Delete" />
+</p>
+<p>
+@Html.ActionLink("Back to List", "Index")
+</p>
+}
