@@ -20,6 +20,7 @@ namespace Shopnet.Models
     [DataContract(IsReference = true)]
     [KnownType(typeof(DetailPurchase))]
     [KnownType(typeof(DetailSale))]
+    [KnownType(typeof(CartItem))]
     public partial class Product: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -117,6 +118,36 @@ namespace Shopnet.Models
             }
         }
         private System.DateTime _creation;
+    
+        [DataMember]
+        public decimal Price
+        {
+            get { return _price; }
+            set
+            {
+                if (_price != value)
+                {
+                    _price = value;
+                    OnPropertyChanged("Price");
+                }
+            }
+        }
+        private decimal _price;
+    
+        [DataMember]
+        public string ImageURL
+        {
+            get { return _imageURL; }
+            set
+            {
+                if (_imageURL != value)
+                {
+                    _imageURL = value;
+                    OnPropertyChanged("ImageURL");
+                }
+            }
+        }
+        private string _imageURL;
 
         #endregion
         #region Navigation Properties
@@ -214,6 +245,41 @@ namespace Shopnet.Models
             }
         }
         private TrackableCollection<DetailSale> _sales;
+    
+        [DataMember]
+        public TrackableCollection<CartItem> CartItems
+        {
+            get
+            {
+                if (_cartItems == null)
+                {
+                    _cartItems = new TrackableCollection<CartItem>();
+                    _cartItems.CollectionChanged += FixupCartItems;
+                }
+                return _cartItems;
+            }
+            set
+            {
+                if (!ReferenceEquals(_cartItems, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_cartItems != null)
+                    {
+                        _cartItems.CollectionChanged -= FixupCartItems;
+                    }
+                    _cartItems = value;
+                    if (_cartItems != null)
+                    {
+                        _cartItems.CollectionChanged += FixupCartItems;
+                    }
+                    OnNavigationPropertyChanged("CartItems");
+                }
+            }
+        }
+        private TrackableCollection<CartItem> _cartItems;
 
         #endregion
         #region ChangeTracking
@@ -295,6 +361,7 @@ namespace Shopnet.Models
         {
             Purchases.Clear();
             Sales.Clear();
+            CartItems.Clear();
         }
 
         #endregion
@@ -398,6 +465,45 @@ namespace Shopnet.Models
                     // This is the principal end in an association that performs cascade deletes.
                     // Remove the previous dependent from the event listener.
                     ChangeTracker.ObjectStateChanging -= item.HandleCascadeDelete;
+                }
+            }
+        }
+    
+        private void FixupCartItems(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (CartItem item in e.NewItems)
+                {
+                    item.Product = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("CartItems", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (CartItem item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.Product, this))
+                    {
+                        item.Product = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("CartItems", item);
+                    }
                 }
             }
         }

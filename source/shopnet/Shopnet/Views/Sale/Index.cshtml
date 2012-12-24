@@ -15,7 +15,7 @@
             Customer
         </th>
         <th>
-            TypePayment
+            Type Payment
         </th>
         <th>
             User
@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.Customer.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TypePayment.Description)
+            @Html.DisplayFor(modelItem => item.TypePayment.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.Name)
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Creation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Total)
+            @String.Format("{0:F}", item.Total)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SaleID }) |

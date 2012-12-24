@@ -27,7 +27,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Details(int id)
         {
-            Sale sale = db.Sales.Single(s => s.SaleID == id);
+            Sale sale = db.Sales.Include("Customer").Include("TypePayment").Include("User").Single(s => s.SaleID == id);
             return View(sale);
         }
 
@@ -108,7 +108,12 @@ namespace Shopnet.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            Sale sale = db.Sales.Single(s => s.SaleID == id);
+            Sale sale = db.Sales.Include("Details").Single(s => s.SaleID == id);
+            DetailSale[] details = sale.Details.ToArray();
+            foreach (DetailSale detail in details)
+            {
+                db.DetailSales.DeleteObject(detail);
+            }
             db.Sales.DeleteObject(sale);
             db.SaveChanges();
             return RedirectToAction("Index");

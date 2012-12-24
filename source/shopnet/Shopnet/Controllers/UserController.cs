@@ -21,11 +21,11 @@ namespace Shopnet.Controllers
 
         public ViewResult Index()
         {
-            List<ViewUser> views = new List<ViewUser>();
+            List<UserViewModel> views = new List<UserViewModel>();
             foreach (User user in db.Users.ToList())
             {
                 views.Add(
-                    new ViewUser(user)
+                    new UserViewModel(user)
                 );
             }
             return View(views);
@@ -37,7 +37,7 @@ namespace Shopnet.Controllers
         public ViewResult Details(int id)
         {
             User user = db.Users.Single(u => u.UserID == id);
-            return View(new ViewUser(user));
+            return View(new UserViewModel(user));
         }
 
         //
@@ -45,7 +45,7 @@ namespace Shopnet.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text");
+            ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text");
             return View();
         } 
 
@@ -71,12 +71,12 @@ namespace Shopnet.Controllers
                     }
                     else
                     {
-                        ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+                        ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
                         return View(user);
                     }
                 }
             }
-            ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+            ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
             return View(user);
         }
         
@@ -86,7 +86,7 @@ namespace Shopnet.Controllers
         public ActionResult Edit(int id)
         {
             User user = db.Users.Single(u => u.UserID == id);
-            ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+            ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
             user.Password = String.Empty;
             return View(user);
         }
@@ -125,24 +125,24 @@ namespace Shopnet.Controllers
                             }
                             else
                             {
-                                ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+                                ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
                                 return View(user);
                             }
                         }
                         else
                         {
-                            ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+                            ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
                             return View(user);
                         }
                     }
                     else
                     {
-                        ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+                        ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
                         return View(user);
                     }
                 }
             }
-            ViewBag.Status = new SelectList((new ViewUser()).GetStatus(), "Value", "Text", user.Status);
+            ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text", user.Status);
             return View(user);
         }
 
