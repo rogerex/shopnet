@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shopnet.Models;
+using Shopnet.ViewModels;
 
 namespace Shopnet.Controllers
 { 
@@ -28,7 +29,13 @@ namespace Shopnet.Controllers
         public ViewResult Details(int id)
         {
             Sale sale = db.Sales.Include("Customer").Include("TypePayment").Include("User").Single(s => s.SaleID == id);
-            return View(sale);
+            List<DetailSale> details = db.DetailSales.Include("Product").Where(d => d.SaleID == sale.SaleID).ToList();
+            SaleViewModel view = new SaleViewModel()
+            {
+                Sale = sale,
+                Details = details
+            };
+            return View(view);
         }
 
         //
