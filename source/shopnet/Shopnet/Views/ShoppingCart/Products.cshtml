@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Shopnet.Models.Product>
+
+@{
+    Layout = null;
+}
+
+<div id="update-message-product">
+</div>
+    <table>
+        <tr>
+            <th>
+                Code
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)<br />
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td colspan="2">
+                <div class="product-left">
+                    <input type="text" id="price-product-@item.ProductID" value="@String.Format("{0:F}", item.Price)"/>
+                </div>
+                
+                <div class="product-right">
+                    <a href="#" class="Link" data-id="@item.ProductID">Add to cart</a>
+                </div>
+            </td>
+        </tr>
+    }
+   
+    </table>
+
+<script type="text/javascript">
+    $(function () {
+        // Document.ready -> link up remove event handler
+        $(".Link").click(function () {
+            // Get the id from the link
+            productID = $(this).attr("data-id");
+            price = $("#price-product-" + productID).val();
+
+            if (productID != '') {
+                window.location = "/ShoppingCart/AddToCart/" + productID + "?price=" + (price+ "").replace(",", ".");
+            }
+        });
+
+    });
+</script>
+

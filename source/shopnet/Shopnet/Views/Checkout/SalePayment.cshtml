@@ -1,20 +1,17 @@
 ﻿@model Shopnet.Models.Sale
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sale Payment";
 }
-
-<h2>Edit</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+    
+    <h2>Sale Payment</h2>
     <fieldset>
-        <legend>Sale</legend>
-
-        @Html.HiddenFor(model => model.SaleID)
+        <legend>Sale Information</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.CustomerID, "Customer")
@@ -40,22 +37,13 @@
             @Html.ValidationMessageFor(model => model.UserID)
         </div>
 
-        @Html.HiddenFor(model => model.Creation)
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Total)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Total)
-            @Html.ValidationMessageFor(model => model.Total)
+            @String.Format("{0:F}", ViewBag.Total)
         </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
     </fieldset>
+    
+    <input type="submit" value="Submit Order" />
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

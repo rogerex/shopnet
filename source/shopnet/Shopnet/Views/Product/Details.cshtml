@@ -9,25 +9,44 @@
 <fieldset>
     <legend>Product</legend>
 
-    <div class="display-label">Code</div>
+    <div id="product-details">
+
+    <div class="left">
+    <div class="display-label"><p><em>Code<em></p></div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Code)
+        <p>@Html.DisplayFor(model => model.Code)</p>
     </div>
 
-    <div class="display-label">Name</div>
+    <div class="display-label"><p><em>Name<em></p></div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        <p>@Html.DisplayFor(model => model.Name)</p>
     </div>
 
-    <div class="display-label">Descripton</div>
+    <div class="display-label"><p><em>Descripton<em></p></div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
+        <p>@Html.DisplayFor(model => model.Description)</p>
     </div>
 
-    <div class="display-label">Minimum</div>
+    <div class="display-label"><p><em>Price<em></p></div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Minimum)
+        <p>@String.Format("{0:F}", Model.Price)</p>
     </div>
+    
+    <div class="display-label"><p><em>Minimum<em></p></div>
+    <div class="display-field">
+        <p>@Html.DisplayFor(model => model.Minimum)</p>
+    </div>
+    </div>
+
+    <div class="right">
+        <img alt="@Model.Name" src="@Model.ImageURL" />
+    </div>
+
+    </div>
+
+    <p class="button"> @Html.ActionLink("Add to cart", "AddToCart",
+        "ShoppingCart", new { id = Model.ProductID, price = Model.Price }, "")
+    </p>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ProductID }) |
