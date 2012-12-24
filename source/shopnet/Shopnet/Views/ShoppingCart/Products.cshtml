@@ -26,6 +26,7 @@
             <td colspan="2">
                 <div class="product-left">
                     <input type="text" id="price-product-@item.ProductID" value="@String.Format("{0:F}", item.Price)"/>
+                    <input type="hidden" id="current-price-product-@item.ProductID" value="@String.Format("{0:F}", item.Price)"/>
                 </div>
                 
                 <div class="product-right">
@@ -43,10 +44,23 @@
         $(".Link").click(function () {
             // Get the id from the link
             productID = $(this).attr("data-id");
-            price = $("#price-product-" + productID).val();
+            price = $("#price-product-" + productID).val().replace(",", ".");
+            currentPrice = $("#current-price-product-" + productID).val().replace(",", ".");
 
             if (productID != '') {
-                window.location = "/ShoppingCart/AddToCart/" + productID + "?price=" + (price+ "").replace(",", ".");
+                price = parseFloat(price);
+                currentPrice = parseFloat(currentPrice);
+                if (!isNaN(price) && isFinite(price) && !isNaN(currentPrice) && isFinite(currentPrice)) {
+                    if (price >= currentPrice) {
+                        window.location = "/ShoppingCart/AddToCart/" + productID + "?price=" + price;
+                    } else {
+                        $('#update-message').text('The price must be a greater or equal to current price');
+                    }
+                } else {
+                    $('#update-message').text('The product price must be a number');
+                }
+            } else {
+                $('#update-message').text('The product value is not valid');
             }
         });
 
