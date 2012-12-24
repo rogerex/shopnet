@@ -8,16 +8,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shopnet.ViewModels
 {
-    public class ViewUser : ViewStatus
+    public class UserViewModel : StatusViewModel
     {
         public User User { get; set; }
 
-        public ViewUser() 
+        public UserViewModel() 
         {
             this.User = new User();
         }
 
-        public ViewUser(User user)
+        public UserViewModel(User user)
         {
             this.User = user;
             this.Status = user.Status;

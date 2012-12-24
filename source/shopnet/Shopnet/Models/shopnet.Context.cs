@@ -154,6 +154,12 @@ namespace Shopnet.Models
             get { return _detailSales  ?? (_detailSales = CreateObjectSet<DetailSale>("DetailSales")); }
         }
         private ObjectSet<DetailSale> _detailSales;
+    
+        public ObjectSet<CartItem> CartItems
+        {
+            get { return _cartItems  ?? (_cartItems = CreateObjectSet<CartItem>("CartItems")); }
+        }
+        private ObjectSet<CartItem> _cartItems;
 
         #endregion
     }

@@ -13,5 +13,8 @@ namespace Shopnet.Models.MetaDatas
 
         [Required]
         public string Name;
+
+        [Required]
+        public decimal Price;
     }
 }
