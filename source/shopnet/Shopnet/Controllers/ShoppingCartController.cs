@@ -11,7 +11,7 @@ namespace Shopnet.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private ShopnetEntities storeDB = new ShopnetEntities();
+        private ShopnetEntities db = new ShopnetEntities();
 
         //
         // GET: /ShoppingCart/
@@ -36,16 +36,16 @@ namespace Shopnet.Controllers
 
         public ActionResult AddToCart(int id, decimal price)
         {
-
             // Retrieve the product from the database
-            var addedProduct = storeDB.Products
+            Product addedProduct = db.Products
                 .Single(product => product.ProductID == id);
 
-            // Add it to the shopping cart
-            var cart = ShoppingCart.GetCart(this.HttpContext);
-
-            cart.AddToCart(addedProduct, price);
-
+            if (addedProduct.Price <= price)
+            {
+                // Add it to the shopping cart
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                cart.AddToCart(addedProduct, price);
+            }
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
@@ -60,7 +60,7 @@ namespace Shopnet.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Get the name of the product to display confirmation
-            CartItem cartItem = storeDB.CartItems.Include("Product")
+            CartItem cartItem = db.CartItems.Include("Product")
                 .Single(item => item.CartItemID == id);
 
             string productName = cartItem.Product.Name;
@@ -92,6 +92,18 @@ namespace Shopnet.Controllers
             ViewData["CartCount"] = cart.GetCount();
 
             return PartialView("CartSummary");
+        }
+
+        //
+        // AJAX: /ShoppingCart/Products/Code
+
+        [HttpPost]
+        public ActionResult Products(string key)
+        {
+            if (String.IsNullOrEmpty(key))
+                return RedirectToAction("Index");
+            List<Product> products = db.Products.Where(product => product.Code.Contains(key)).Take(5).ToList();
+            return View(products);
         }
 
     }

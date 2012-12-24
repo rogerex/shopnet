@@ -337,3 +337,20 @@ tr:hover
     float: left;
     width: 60%;    
 }
+
+.product-left
+{
+    float: left;
+    width: 70%;    
+}
+
+.product-right
+{
+    float: left;
+    width: 30%;    
+}
+
+.product-left input
+{
+    width: 100px;    
+}
