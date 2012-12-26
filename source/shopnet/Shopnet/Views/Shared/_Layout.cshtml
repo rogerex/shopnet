@@ -25,6 +25,7 @@ Shop Net</h1>
     <li><a href="@Url.Content("~/Purchase/")">Purchase</a></li>
     <li><a href="@Url.Content("~/Payment/")">Payment</a></li>
     <li><a href="@Url.Content("~/TypePayment/")">Type Payment</a></li>
+    @{Html.RenderAction("AccountSummary", "Account");}
 </ul>
 </div>
 
