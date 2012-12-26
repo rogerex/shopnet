@@ -22,7 +22,14 @@ namespace Shopnet.Controllers
 
         public ActionResult LogOn()
         {
-            return View();
+            LogOnModel model = new LogOnModel();
+            if (Request.Cookies["Name"] != null)
+                 model.UserName = Request.Cookies["Name"].Value;
+            if (Request.Cookies["Password"] != null)
+                model.Password = Request.Cookies["Password"].Value;
+            if (Request.Cookies["Name"] != null && Request.Cookies["Password"] != null)
+                model.RememberMe = true; 
+            return View(model);
         }
 
         //
@@ -36,7 +43,7 @@ namespace Shopnet.Controllers
                 User user = ValidateUser(model.UserName, model.Password);
                 if (user != null)
                 {
-                    // MigrateShoppingCart(model.UserName);
+                    MigrateShoppingCart(model.UserName);
 
                     Session session = new Session()
                     {
@@ -49,6 +56,19 @@ namespace Shopnet.Controllers
 
                     Session["User"] = user;
                     Session["Session"] = session;
+
+                    if (model.RememberMe)
+                    {
+                        Response.Cookies["Name"].Value = model.UserName;
+                        Response.Cookies["Password"].Value = model.Password;
+                        Response.Cookies["Name"].Expires = DateTime.Now.AddMonths(2);
+                        Response.Cookies["Password"].Expires = DateTime.Now.AddMonths(2);
+                    }
+                    else
+                    {
+                        Response.Cookies["Name"].Expires = DateTime.Now.AddMonths(-1);
+                        Response.Cookies["Password"].Expires = DateTime.Now.AddMonths(-1);
+                    } 
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -347,6 +367,15 @@ namespace Shopnet.Controllers
             db.ObjectStateManager.ChangeObjectState(oldUser, EntityState.Modified);
             db.SaveChanges();
             return MembershipCreateStatus.Success;
+        }
+
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            cart.MigrateCart(UserName);
+            Session[ShoppingCart.CartSessionKey] = UserName;
         }
 
         #region Status Codes
