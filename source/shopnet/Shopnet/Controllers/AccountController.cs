@@ -270,8 +270,80 @@ namespace Shopnet.Controllers
         public ActionResult AccountSummary()
         {
             ViewData["Session"] = Session["Session"] != null;
-            ViewData["UserID"] = ((User)Session["User"]).UserID;
+            if (Session["User"] != null) 
+            {
+                ViewData["UserID"] = ((User)Session["User"]).UserID;
+            }
             return PartialView("AccountSummary");
+        }
+
+        //
+        // GET: /Account/Register
+
+        public ActionResult Edit()
+        {
+            string name = ((User)Session["User"]).Name;
+            string email = ((User)Session["User"]).Email;
+            return View(new EditModel() { UserName = name, Email = email});
+        }
+
+        //
+        // POST: /Account/Edit
+
+        [HttpPost]
+        public ActionResult Edit(EditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Attempt to register the user
+                MembershipCreateStatus editStatus = EditUser(model);
+
+                if (editStatus == MembershipCreateStatus.Success)
+                {
+                    return RedirectToAction("Index", "BasicPage");
+                }
+                else
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(editStatus));
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        private MembershipCreateStatus EditUser(EditModel model)
+        {
+            int id = ((Session)Session["Session"]).UserID;
+            User oldUser = db.Users.Single(u => u.UserID == id);
+            if (oldUser.Name != model.UserName)
+            {
+                if (!db.Users.Where(u => u.UserID != id && u.Name == model.UserName).Any())
+                {
+                    oldUser.Name = model.UserName;
+                }
+                else
+                {
+                    return MembershipCreateStatus.DuplicateUserName;
+                }
+            }
+
+            if (oldUser.Email != model.Email)
+            {
+                if (!db.Users.Where(u => u.UserID != id && u.Email == model.Email).Any())
+                {
+                    oldUser.Email = model.Email;
+                }
+                else
+                {
+                    return MembershipCreateStatus.DuplicateEmail;
+                }
+            }
+
+            db.Users.Attach(oldUser);
+            db.ObjectStateManager.ChangeObjectState(oldUser, EntityState.Modified);
+            db.SaveChanges();
+            return MembershipCreateStatus.Success;
         }
 
         #region Password Encriptation
