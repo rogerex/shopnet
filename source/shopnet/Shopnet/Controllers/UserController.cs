@@ -9,6 +9,7 @@ using Shopnet.Models;
 using Shopnet.ViewModels;
 using System.Security.Cryptography;
 using System.Text;
+using Shopnet.Models.Domain;
 
 namespace Shopnet.Controllers
 { 
@@ -61,8 +62,9 @@ namespace Shopnet.Controllers
                 string source = user.Password;
                 using (MD5 md5Hash = MD5.Create())
                 {
-                    string hash = GetMd5Hash(md5Hash, source);
-                    if (VerifyMd5Hash(md5Hash, source, hash))
+                    Encryptor enc = new Encryptor();
+                    string hash = enc.GetMd5Hash(md5Hash, source);
+                    if (enc.VerifyMd5Hash(md5Hash, source, hash))
                     {
                         user.Password = hash;
                         db.Users.AddObject(user);
@@ -104,15 +106,16 @@ namespace Shopnet.Controllers
                 string source = user.OldPassword;
                 using (MD5 md5Hash = MD5.Create())
                 {
-                    string hash = GetMd5Hash(md5Hash, source);
-                    if (VerifyMd5Hash(md5Hash, source, hash))
+                    Encryptor enc = new Encryptor();
+                    string hash = enc.GetMd5Hash(md5Hash, source);
+                    if (enc.VerifyMd5Hash(md5Hash, source, hash))
                     {
                         if (hash == oldUser.Password)
                         {
                             source = user.Password;
-                            hash = GetMd5Hash(md5Hash, source);
+                            hash = enc.GetMd5Hash(md5Hash, source);
                             user.Password = hash;
-                            if (VerifyMd5Hash(md5Hash, source, hash))
+                            if (enc.VerifyMd5Hash(md5Hash, source, hash))
                             {
                                 oldUser.Name = user.Name;
                                 oldUser.Email = user.Email;
@@ -172,40 +175,5 @@ namespace Shopnet.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
-        private string GetMd5Hash(MD5 md5Hash, string input)
-        {
-
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Loop through each byte of the hashed data 
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
-
-        // Verify a hash against a string.
-        private bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            // Hash the input.
-            string hashOfInput = GetMd5Hash(md5Hash, input);
-
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            return 0 == comparer.Compare(hashOfInput, hash);
-            
-        }
-
     }
 }

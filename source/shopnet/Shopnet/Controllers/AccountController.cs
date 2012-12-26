@@ -76,8 +76,9 @@ namespace Shopnet.Controllers
             string source = password;
             using (MD5 md5Hash = MD5.Create())
             {
-                string hash = GetMd5Hash(md5Hash, source);
-                if (VerifyMd5Hash(md5Hash, source, hash))
+                Encryptor enc = new Encryptor();
+                string hash = enc.GetMd5Hash(md5Hash, source);
+                if (enc.VerifyMd5Hash(md5Hash, source, hash))
                 {
                     IQueryable<User> users = db.Users.Where(u => u.Name == userName && u.Password == hash && u.Status == 1);
                     if (users.Count() == 1)
@@ -151,8 +152,9 @@ namespace Shopnet.Controllers
                     string source = model.Password;
                     using (MD5 md5Hash = MD5.Create())
                     {
-                        string hash = GetMd5Hash(md5Hash, source);
-                        if (VerifyMd5Hash(md5Hash, source, hash))
+                        Encryptor enc = new Encryptor();
+                        string hash = enc.GetMd5Hash(md5Hash, source);
+                        if (enc.VerifyMd5Hash(md5Hash, source, hash))
                         {
                             user.Name = model.UserName;
                             user.Email = model.Email;
@@ -206,14 +208,15 @@ namespace Shopnet.Controllers
                         string source = model.OldPassword;
                         using (MD5 md5Hash = MD5.Create())
                         {
-                            string hash = GetMd5Hash(md5Hash, source);
-                            if (VerifyMd5Hash(md5Hash, source, hash))
+                            Encryptor enc = new Encryptor();
+                            string hash = enc.GetMd5Hash(md5Hash, source);
+                            if (enc.VerifyMd5Hash(md5Hash, source, hash))
                             {
                                 if (hash == oldUser.Password)
                                 {
                                     source = model.NewPassword;
-                                    hash = GetMd5Hash(md5Hash, source);
-                                    if (VerifyMd5Hash(md5Hash, source, hash))
+                                    hash = enc.GetMd5Hash(md5Hash, source);
+                                    if (enc.VerifyMd5Hash(md5Hash, source, hash))
                                     {
                                         oldUser.Password = hash;
                                         db.Users.Attach(oldUser);
@@ -345,44 +348,6 @@ namespace Shopnet.Controllers
             db.SaveChanges();
             return MembershipCreateStatus.Success;
         }
-
-        #region Password Encriptation
-
-        private string GetMd5Hash(MD5 md5Hash, string input)
-        {
-
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Loop through each byte of the hashed data 
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
-
-        // Verify a hash against a string.
-        private bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            // Hash the input.
-            string hashOfInput = GetMd5Hash(md5Hash, input);
-
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            return 0 == comparer.Compare(hashOfInput, hash);
-
-        }
-
-        #endregion
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)

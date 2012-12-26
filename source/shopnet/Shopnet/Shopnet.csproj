@@ -112,6 +112,7 @@
       <DependentUpon>Shopnet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domain\AccountModels.cs" />
+    <Compile Include="Models\Domain\Encryptor.cs" />
     <Compile Include="Models\Domain\ShoppingCart.cs" />
     <Compile Include="Models\GeneralValidate.cs" />
     <Compile Include="Models\Item.cs">
