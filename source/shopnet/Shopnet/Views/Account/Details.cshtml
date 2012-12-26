@@ -1,0 +1,35 @@
+﻿@model Shopnet.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>User</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Name)
+    </div>
+
+     <div class="display-label">Mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Email)
+    </div>
+
+    <div class="display-label">Creation</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Creation)
+    </div>
+
+    <div class="display-label">Status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StatusName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Change Password", "ChangePassword") |
+    @Html.ActionLink("Edit", "Edit")
+</p>
