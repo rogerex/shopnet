@@ -1,0 +1,10 @@
+﻿@if (Convert.ToBoolean(ViewData["Session"]))
+{
+    <li>@Html.ActionLink("My Account", "Details", "Account")</li>
+    <li>@Html.ActionLink("Log Out", "LogOff", "Account")</li>
+}
+else
+{ 
+    <li>@Html.ActionLink("Sign In", "LogOn", "Account")</li>
+}
+
