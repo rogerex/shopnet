@@ -378,6 +378,16 @@ namespace Shopnet.Controllers
             Session[ShoppingCart.CartSessionKey] = UserName;
         }
 
+        public bool IsLogOn()
+        {
+            bool res = false;
+            if (Session["Session"] != null)
+            {
+                res = true;
+            }
+            return res;
+        }
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
