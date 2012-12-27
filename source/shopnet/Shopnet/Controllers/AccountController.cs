@@ -10,16 +10,19 @@ using System.Text;
 using Shopnet.Models;
 using System.Data;
 using Shopnet.ViewModels;
+using Shopnet.Controllers.Attributes;
 
 namespace Shopnet.Controllers
 {
+    [Permission(Title = "Account", Description = "Account Controller")]
     public class AccountController : Controller
     {
         private ShopnetEntities db = new ShopnetEntities();
 
         //
         // GET: /Account/LogOn
-
+        
+        [LogOn(Status = false)]
         public ActionResult LogOn()
         {
             LogOnModel model = new LogOnModel();
@@ -111,25 +114,25 @@ namespace Shopnet.Controllers
         //
         // GET: /Account/LogOff
 
+        [LogOn(Status = true)]
         public ActionResult LogOff()
         {
-            if (HttpContext.Session["Session"] != null)
-            {
-                Session session = (Session)Session["Session"];
-                session.End = DateTime.Now;
-                session.Status = 0;
-                db.Sessions.Attach(session);
-                db.ObjectStateManager.ChangeObjectState(session, EntityState.Modified);
-                db.SaveChanges();
-                HttpContext.Session["Session"] = null;
-                HttpContext.Session["User"] = null;
-            }
+            Session session = (Session)Session["Session"];
+            session.End = DateTime.Now;
+            session.Status = 0;
+            db.Sessions.Attach(session);
+            db.ObjectStateManager.ChangeObjectState(session, EntityState.Modified);
+            db.SaveChanges();
+            HttpContext.Session["Session"] = null;
+            HttpContext.Session["User"] = null;
+            
             return RedirectToAction("Index", "BasicPage");
         }
 
         //
         // GET: /Account/Register
 
+        [LogOn(Status = false)]
         public ActionResult Register()
         {
             return View();
@@ -204,6 +207,7 @@ namespace Shopnet.Controllers
         //
         // GET: /Account/ChangePassword
 
+        [LogOn(Status = true)]
         public ActionResult ChangePassword()
         {
             return View();
@@ -279,6 +283,7 @@ namespace Shopnet.Controllers
         //
         // GET: /Account/Details/
 
+        [LogOn(Status = true)]
         public ViewResult Details()
         {
             int id = ((User)HttpContext.Session["User"]).UserID;
@@ -301,8 +306,9 @@ namespace Shopnet.Controllers
         }
 
         //
-        // GET: /Account/Register
+        // GET: /Account/Edit
 
+        [LogOn(Status = true)]
         public ActionResult Edit()
         {
             string name = ((User)HttpContext.Session["User"]).Name;
