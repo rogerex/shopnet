@@ -5,7 +5,8 @@ using System.Web;
 
 namespace Shopnet.Controllers.Attributes
 {
-    public class PermissionAtributte : Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    class PermissionAttribute : Attribute
     {
         public string Title { get; set; }
 
