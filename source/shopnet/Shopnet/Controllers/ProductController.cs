@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shopnet.Models;
+using Shopnet.Models.Domain;
+using Shopnet.Controllers.Attributes;
 
 namespace Shopnet.Controllers
 { 
@@ -16,6 +18,7 @@ namespace Shopnet.Controllers
         //
         // GET: /Product/
 
+        [UserAccess(Title = "Product List", Description = "Access to Product List")]
         public ViewResult Index()
         {
             return View(db.Products.ToList());

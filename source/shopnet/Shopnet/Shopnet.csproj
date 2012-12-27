@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Attributes\PermissionAtributte.cs" />
     <Compile Include="Controllers\BasicPageController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\Domain\AccountModels.cs" />
     <Compile Include="Models\Domain\Encryptor.cs" />
     <Compile Include="Models\Domain\ShoppingCart.cs" />
+    <Compile Include="Controllers\Attributes\UserAccessAttribute.cs" />
     <Compile Include="Models\GeneralValidate.cs" />
     <Compile Include="Models\Item.cs">
       <DependentUpon>Shopnet.tt</DependentUpon>
@@ -344,6 +346,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\BasicPage\AccessDenied.cshtml" />
+    <Content Include="Views\BasicPage\PageNotFound.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
