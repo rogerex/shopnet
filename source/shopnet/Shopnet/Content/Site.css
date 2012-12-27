@@ -354,3 +354,20 @@ tr:hover
 {
     width: 100px;    
 }
+
+.dataTables_length
+{
+    float: left;
+    width: 50%;    
+}
+
+.dataTables_filter
+{
+    float: left;
+    width: 50%;    
+}
+
+.dataTable
+{
+    clear: both;
+}

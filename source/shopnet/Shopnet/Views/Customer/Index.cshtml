@@ -4,12 +4,22 @@
     ViewBag.Title = "Index";
 }
 
+<script src="@Url.Content("~/Scripts/jquery.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.dataTables.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+    });
+</script>
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table id="datatable">
+    <thead>
     <tr>
         <th>
             Name
@@ -34,7 +44,9 @@
         </th>
         <th></th>
     </tr>
+    </thead>
 
+    <tbody>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -65,5 +77,6 @@
         </td>
     </tr>
 }
+    </tbody>
 
 </table>
