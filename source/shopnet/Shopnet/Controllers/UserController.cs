@@ -11,7 +11,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Shopnet.Models.Domain;
 
-
 namespace Shopnet.Controllers
 { 
     public class UserController : Controller
@@ -84,21 +83,25 @@ namespace Shopnet.Controllers
         }
 
         //
-        // GET: /Role/AddItem/5
+        // GET: /User/AddRole/5
 
-        public ActionResult AddRole(User user) //el id del rol        
+        public ActionResult AddRole(User user)
         {
             IEnumerable<Role> myRoles = db.Roles.Where(r => r.Usuarios.Any(u => u.UserID == user.UserID));
             var model = new AssignRolesToUserViewModel(user, myRoles, db.Roles);
             return View(model);
         }
+
+        //
+        // POST: /User/AddRole/5
+
         [HttpPost]
         public ActionResult AddRole(int id_user, FormCollection postedForm)
         {
             User user = db.Users.Include("Roles").Single(u => u.UserID == id_user);
             db.Users.Attach(user);
 
-            removeAll(user);
+            RemoveAllItems(user);
 
             foreach (var item in db.Roles.ToList())
             {
@@ -111,7 +114,7 @@ namespace Shopnet.Controllers
             return RedirectToAction("Index");
         }
 
-        public void removeAll(User user)
+        private void RemoveAllItems(User user)
         {
             foreach (var item in user.Roles.ToList())
             {

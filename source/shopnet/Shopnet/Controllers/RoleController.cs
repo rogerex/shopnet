@@ -6,21 +6,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shopnet.Models;
+using Shopnet.ViewModels;
 
 namespace Shopnet.Controllers
 {
     public class RoleController : Controller
     {
         private ShopnetEntities db = new ShopnetEntities();
-
-        public Role roleConcurrency = new Role();
-        public Item itemElected = new Item();
-        public IEnumerable<Item> itemsConcurrency;
+        
         //
         // GET: /Role/
-        //[Authorize(Roles = "Administrator")]
-        //[CustomAuthorizeAttribute(RequiredRole = "Role")]
-        //[Authorize]
+        
         public ViewResult Index()
         {
             return View(db.Roles.ToList());
@@ -84,25 +80,28 @@ namespace Shopnet.Controllers
             }
             return View(role);
         }
+
         //
         // GET: /Role/AddItem/5
 
-        public ActionResult AddItem(Role role) //el id del rol        
+        public ActionResult AddItem(Role role)      
         {
             IEnumerable<Item> myItems = db.Items.Where(i => i.Roles.Any(r => r.RoleID == role.RoleID));
-            var model = new AssignItemsRoleViewModel(role, myItems, db.Items.Include("ParentItem"));
+            var model = new AssignItemsToRoleViewModel(role, myItems, db.Items.Include("ParentItem"));
             return View(model);
         }
+
+        //
+        // POST: /Role/AddItem/5
+
         [HttpPost]
         public ActionResult AddItem(int id_role, FormCollection postedForm)
         {
-            //Include("NombrePropiedadNavegacion")
             List<Item> itemsToUpdate = new List<Item>();
             Role role = db.Roles.Include("Items").Single(r => r.RoleID == id_role);
-            //Role role = db.Roles.Single(r => r.RoleID == id_role);           
+            
             db.Roles.Attach(role);
-
-            removeAll(role);
+            RemoveAllItems(role);
 
             foreach (var item in db.Items.ToList())
             {
@@ -116,34 +115,14 @@ namespace Shopnet.Controllers
             return RedirectToAction("Index");
         }
 
-        public void removeAll(Role role)
+        private void RemoveAllItems(Role role)
         {
             foreach (var item in role.Items.ToList())
             {
                 role.Items.Remove(item);
-                //db.Items.DeleteObject(item);           
             }
-
             db.SaveChanges();
         }
-
-        public void comparteSelecting(IEnumerable<Item> selects)
-        {
-            int cont = 0;
-            foreach (Item item in itemsConcurrency)
-            {
-                if (item == selects.ElementAt(cont))
-                {
-                    item.Elected = true;
-                    cont++;
-                }
-            }
-        }
-
-
-
-        //public string Add(Item elected)
-
 
         //
         // GET: /Role/Delete/5

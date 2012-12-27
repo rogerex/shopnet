@@ -9,13 +9,14 @@ namespace Shopnet.ViewModels
     public class AssignRolesToUserViewModel
     {
         public Dictionary<Role, bool> RoleChecklist { get; set; }
-        public User userCocurrency { get; set; }
+
+        public User UserCocurrency { get; set; }
       
         public AssignRolesToUserViewModel(User user, IEnumerable myRoles, IEnumerable roles)
         {
             bool found;
             RoleChecklist = new Dictionary<Role, bool>();
-            this.userCocurrency = user;
+            this.UserCocurrency = user;
             foreach (Role role in roles)
             {
                 found = false;

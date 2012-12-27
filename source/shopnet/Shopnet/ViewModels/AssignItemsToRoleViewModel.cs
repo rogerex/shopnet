@@ -4,25 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Collections;
 using Shopnet.Models;
-namespace Shopnet.Models
+
+namespace Shopnet.ViewModels
 {    
-    public class AssignItemsRoleViewModel
+    public class AssignItemsToRoleViewModel
     {
         public Dictionary<Item, bool> ItemChecklist { get; set; }
-        public Role roleCocurrency { get; set; }
-        public AssignItemsRoleViewModel(Role role)
+        
+        public Role RoleCocurrency { get; set; }
+
+        public AssignItemsToRoleViewModel(Role role)
         {
-            this.roleCocurrency = role;
+            this.RoleCocurrency = role;
         }
-        public AssignItemsRoleViewModel(Role role,IEnumerable myItems , IEnumerable items) 
+
+        public AssignItemsToRoleViewModel(Role role,IEnumerable myItems , IEnumerable items) 
         {
             bool found;            
-            ItemChecklist = new Dictionary<Item,bool>();
-            this.roleCocurrency = role;
-           foreach(Item item in  items)
-           {
-               found = false;
-               foreach (Item myItem in myItems)
+            ItemChecklist = new Dictionary<Item, bool>();
+            this.RoleCocurrency = role;
+            foreach(Item item in items)
+            {
+                found = false;
+                foreach (Item myItem in myItems)
                 {
                     if (myItem.ItemID == item.ItemID)
                     {
@@ -33,7 +37,7 @@ namespace Shopnet.Models
                 }
                 if (!found)
                     ItemChecklist.Add(item,false);
-           }
+            }
         }
     }
 }

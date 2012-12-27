@@ -9,24 +9,27 @@ namespace Shopnet.Controllers
 {
     public class MenuItemController : Controller
     {
+        private ShopnetEntities db = new ShopnetEntities();
+
         //
         // GET: /MenuItem/
-        private ShopnetEntities db = new ShopnetEntities();
+        
         [ChildActionOnly]
         public ActionResult ItemList()
         {            
-            int id = ((Session)Session["Session"]).UserID;
+            int id = ((Session)HttpContext.Session["Session"]).UserID;
             User user = db.Users.Include("Roles").Single(u => u.UserID == id);
             IEnumerable<Role> roles = user.Roles;         
-            List<ViewModelItemMenu> items = new List<ViewModelItemMenu>();
-            foreach (var role in roles)
+            List<MenuItemViewModel> items = new List<MenuItemViewModel>();
+            foreach (Role role in roles)
             {
-                items.Add(new ViewModelItemMenu { name = role.Name, control = role.Name, action = role.Name });
+                Role currentRole = db.Roles.Include("Items").Single(r => r.RoleID == role.RoleID);
+                foreach (Item item in currentRole.Items)
+                {
+                    items.Add(new MenuItemViewModel { Name = item.Name, Controller = item.Path, Action = "" });
+                }
             }
-
-            //  return View(items);
             return PartialView("ItemList", items);
         }
-
     }
 }

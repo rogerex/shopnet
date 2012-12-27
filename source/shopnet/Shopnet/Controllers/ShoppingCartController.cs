@@ -105,6 +105,5 @@ namespace Shopnet.Controllers
             List<Product> products = db.Products.Where(product => product.Code.Contains(key)).Take(5).ToList();
             return View(products);
         }
-
     }
 }

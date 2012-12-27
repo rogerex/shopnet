@@ -55,7 +55,7 @@ namespace Shopnet.Controllers
                     db.SaveChanges();
 
                     HttpContext.Session["User"] = user;
-                    HttpContext.Session["Session"] = session;                    
+                    HttpContext.Session["Session"] = session;
 
                     if (model.RememberMe)
                     {
@@ -69,7 +69,6 @@ namespace Shopnet.Controllers
                         Response.Cookies["Name"].Expires = DateTime.Now.AddMonths(-1);
                         Response.Cookies["Password"].Expires = DateTime.Now.AddMonths(-1);
                     }
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                    
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))

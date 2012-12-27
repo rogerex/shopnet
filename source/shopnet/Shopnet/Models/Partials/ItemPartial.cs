@@ -11,7 +11,6 @@ namespace Shopnet.Models
     [MetadataType(typeof(ItemMetaData))]
     public partial class Item
     {
-        
         public bool Elected { get; set; }
 
         public int Index { get; set; }
