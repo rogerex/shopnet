@@ -14,7 +14,14 @@
 <h1>
 Shop Net</h1>
 <ul id="navlist">
-    <li class="first"><a href="@Url.Content("~")" id="current">Home</a></li>
+
+@if (HttpContext.Current.User.Identity.IsAuthenticated )
+{
+    Html.RenderAction("ItemList", "MenuItem"); 
+  //  Html.RenderAction("Create", "UserController"); 
+}else
+{
+   <li class="first"><a href="@Url.Content("~")" id="current">Home</a></li>
     <li><a href="@Url.Content("~/BasicPage/About")">About</a></li>
     <li><a href="@Url.Content("~/Provider/")">Provider</a></li>
     <li><a href="@Url.Content("~/Product/")">Product</a></li>
@@ -25,7 +32,11 @@ Shop Net</h1>
     <li><a href="@Url.Content("~/Purchase/")">Purchase</a></li>
     <li><a href="@Url.Content("~/Payment/")">Payment</a></li>
     <li><a href="@Url.Content("~/TypePayment/")">Type Payment</a></li>
-    @{Html.RenderAction("AccountSummary", "Account");}
+    {Html.RenderAction("AccountSummary", "Account");}
+}
+
+
+    
 </ul>
 </div>
 
