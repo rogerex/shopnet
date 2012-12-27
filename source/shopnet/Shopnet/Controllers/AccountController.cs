@@ -24,7 +24,7 @@ namespace Shopnet.Controllers
         {
             LogOnModel model = new LogOnModel();
             if (Request.Cookies["Name"] != null)
-                 model.UserName = Request.Cookies["Name"].Value;
+                model.UserName = Request.Cookies["Name"].Value;
             if (Request.Cookies["Password"] != null)
                 model.Password = Request.Cookies["Password"].Value;
             if (Request.Cookies["Name"] != null && Request.Cookies["Password"] != null)
@@ -54,8 +54,8 @@ namespace Shopnet.Controllers
                     db.Sessions.AddObject(session);
                     db.SaveChanges();
 
-                    Session["User"] = user;
-                    Session["Session"] = session;
+                    HttpContext.Session["User"] = user;
+                    HttpContext.Session["Session"] = session;
 
                     if (model.RememberMe)
                     {
@@ -113,7 +113,7 @@ namespace Shopnet.Controllers
 
         public ActionResult LogOff()
         {
-            if (Session["Session"] != null)
+            if (HttpContext.Session["Session"] != null)
             {
                 Session session = (Session)Session["Session"];
                 session.End = DateTime.Now;
@@ -121,8 +121,8 @@ namespace Shopnet.Controllers
                 db.Sessions.Attach(session);
                 db.ObjectStateManager.ChangeObjectState(session, EntityState.Modified);
                 db.SaveChanges();
-                Session["Session"] = null;
-                Session["User"] = null;
+                HttpContext.Session["Session"] = null;
+                HttpContext.Session["User"] = null;
             }
             return RedirectToAction("Index", "BasicPage");
         }
@@ -281,7 +281,7 @@ namespace Shopnet.Controllers
 
         public ViewResult Details()
         {
-            int id = ((User)Session["User"]).UserID;
+            int id = ((User)HttpContext.Session["User"]).UserID;
             User user = db.Users.Single(u => u.UserID == id);
             return View(new UserViewModel(user));
         }
@@ -292,10 +292,10 @@ namespace Shopnet.Controllers
         [ChildActionOnly]
         public ActionResult AccountSummary()
         {
-            ViewData["Session"] = Session["Session"] != null;
+            ViewData["Session"] = HttpContext.Session["Session"] != null;
             if (Session["User"] != null) 
             {
-                ViewData["UserID"] = ((User)Session["User"]).UserID;
+                ViewData["UserID"] = ((User)HttpContext.Session["User"]).UserID;
             }
             return PartialView("AccountSummary");
         }
@@ -305,8 +305,8 @@ namespace Shopnet.Controllers
 
         public ActionResult Edit()
         {
-            string name = ((User)Session["User"]).Name;
-            string email = ((User)Session["User"]).Email;
+            string name = ((User)HttpContext.Session["User"]).Name;
+            string email = ((User)HttpContext.Session["User"]).Email;
             return View(new EditModel() { UserName = name, Email = email});
         }
 
@@ -337,7 +337,7 @@ namespace Shopnet.Controllers
 
         private MembershipCreateStatus EditUser(EditModel model)
         {
-            int id = ((Session)Session["Session"]).UserID;
+            int id = ((Session)HttpContext.Session["Session"]).UserID;
             User oldUser = db.Users.Single(u => u.UserID == id);
             if (oldUser.Name != model.UserName)
             {
@@ -375,17 +375,7 @@ namespace Shopnet.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             cart.MigrateCart(UserName);
-            Session[ShoppingCart.CartSessionKey] = UserName;
-        }
-
-        public bool IsLogOn()
-        {
-            bool res = false;
-            if (Session["Session"] != null)
-            {
-                res = true;
-            }
-            return res;
+            HttpContext.Session[ShoppingCart.CartSessionKey] = UserName;
         }
 
         #region Status Codes

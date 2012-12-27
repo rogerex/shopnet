@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web;
+using Shopnet.Models;
 
 namespace Shopnet.Controllers.Attributes
 {
@@ -16,22 +16,48 @@ namespace Shopnet.Controllers.Attributes
 
         public bool RestrictAccess { get; set; }
 
+        private ShopnetEntities db = new ShopnetEntities();
+
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            AccountController account = new AccountController();
-            if (account.IsLogOn())
+            Session session = (Session)HttpContext.Current.Session["Session"];
+            if (session != null)
             {
-                // User user = account.getUser();
+                User user = db.Users.Include("Roles").Single(m => m.UserID == session.UserID);
+                if (user.Roles.Any())
+                {
+                    var request = HttpContext.Current.Request;
+                    string path = request.FilePath;
+                    bool res = false;
+                    foreach (Role role in user.Roles)
+                    {
+                        Role rol = db.Roles.Include("Items").Single(r => r.RoleID == role.RoleID);
+                        var rows = from value in rol.Items where value.Path == path select value;
+                        if (rows.Any())
+                            res = true;
+                    }
+                    if (!res)
+                        AccessDenied(filterContext);
+                }
+                else
+                {
+                    AccessDenied(filterContext);
+                }
             }
             else
             {
-                filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary {
-                        {"controller", "BasicPage"},
-                        {"action", "AccessDenied"}
-                });
+                AccessDenied(filterContext);
             }
  
+        }
+
+        private void AccessDenied(AuthorizationContext filterContext)
+        {
+            filterContext.Result = new RedirectToRouteResult(
+                  new RouteValueDictionary {
+                        {"controller", "BasicPage"},
+                        {"action", "AccessDenied"}
+            });
         }
     }
 }
