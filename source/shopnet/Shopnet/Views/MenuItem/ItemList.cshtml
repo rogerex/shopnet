@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Shopnet.ViewModels.ViewModelItemMenu>
+
+@foreach(var role in Model)
+{
+    @: <li> @Html.ActionLink(role.action, role.name,role.control)</li>
+}
