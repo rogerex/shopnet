@@ -5,45 +5,109 @@ using System.Web;
 using System.Web.Mvc;
 using System.Reflection;
 using Shopnet.Controllers.Attributes;
+using Shopnet.ViewModels;
+using Shopnet.Models;
 
 namespace Shopnet.Controllers
 {
     public class PermissionController : Controller
     {
+        private ShopnetEntities db = new ShopnetEntities();
+
         //
         // GET: /Permission/
 
         public ActionResult Index()
         {
-            List<string> actions = new List<string>();
-            string[] controllers = {"AccountController"};
-            foreach (string controller in controllers)
+            List<RolePermissionsViewModel> rolesPermissions = new List<RolePermissionsViewModel>();
+
+            List<Role> roles = db.Roles.ToList();
+            foreach (Role role in roles)
             {
-                if (true)
-                {
-                    foreach (MethodInfo method in (typeof(AccountController)).GetMethods())
-                    { 
-                        if (IsUserAccess(method))
-                        {
-                            actions.Add(method.Name);
-                        }
-                        actions.Add(method.Name);
-                    }
-                }
+                RolePermissionsViewModel rolePermissions = new RolePermissionsViewModel();
+                rolePermissions.Role = role;
+                rolePermissions.Controllers.AddRange(GetControllersPermissions());
+
+                rolesPermissions.Add(rolePermissions);
             }
-            return View(actions);
+            return View(rolesPermissions);
         }
 
-        private bool IsUserAccess(MemberInfo member)
+        private List<ControllerPermissionsViewModel> GetControllersPermissions()
         {
-            foreach (object attribute in member.GetCustomAttributes(typeof(AccountController), false))
+            List<ControllerPermissionsViewModel> controllersPermissions = new List<ControllerPermissionsViewModel>();
+            
+            List<Type> controllers = GetControllers();
+
+            foreach (Type controller in controllers)
+            {
+                PermissionAttribute permissionController = IsPermissionController(controller);
+                if (permissionController != null)
+                {
+                    ControllerPermissionsViewModel controllerPermissions = new ControllerPermissionsViewModel();
+                    controllerPermissions.Attribute = permissionController;
+
+                    foreach (MethodInfo method in controller.GetMethods())
+                    { 
+                        UserAccessAttribute userAccess = IsUserAccess(method);
+                        if (userAccess != null)
+                        {
+                            // methods.Add(controller.Name.Replace("Controller", "") + "/" + method.Name);
+                            // controllerPermissions.Controllers.Add(controllerPermissions);
+                            controllerPermissions.ItemChecklist.Add(userAccess, true);
+                        }
+                    }
+                    if (controllerPermissions.ItemChecklist.Any())
+                        controllersPermissions.Add(controllerPermissions);
+                }
+            }
+            return controllersPermissions;
+        }
+
+        private PermissionAttribute IsPermissionController(Type type)
+        {
+            foreach (object attribute in type.GetCustomAttributes(true))
+            {
+                if (attribute is PermissionAttribute)
+                {
+                    return (PermissionAttribute)attribute;
+                }
+            }
+            return null;
+        }
+
+        private UserAccessAttribute IsUserAccess(MethodInfo member)
+        {
+            foreach (object attribute in member.GetCustomAttributes(true))
             {
                 if (attribute is UserAccessAttribute)
                 {
-                    return true;
+                    return (UserAccessAttribute)attribute;
                 }
             }
-            return false;
+            return null;
+        }
+
+        private List<Type> GetSubClasses<T>()
+        {
+            return Assembly.GetCallingAssembly().GetTypes().Where(
+                type => type.IsSubclassOf(typeof(T))).ToList();
+        }
+
+        private List<string> GetControllerNames()
+        {
+            List<string> controllerNames = new List<string>();
+            GetSubClasses<Controller>().ForEach(
+                type => controllerNames.Add(type.Name));
+            return controllerNames;
+        }
+
+        private List<Type> GetControllers()
+        {
+            List<Type> controllers = new List<Type>();
+            GetSubClasses<Controller>().ForEach(
+                type => controllers.Add(type));
+            return controllers;
         }
 
     }

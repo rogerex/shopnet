@@ -1,11 +1,49 @@
-﻿@model List<string>
+﻿@model List<Shopnet.ViewModels.RolePermissionsViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-@foreach (var i in Model)
+
+<table>
+<tr>
+<th>
+</th>
+@foreach (var rolePermissions in Model)
 {
-    @i.ToString();
+    <th>
+    @rolePermissions.Role.Name
+    </th>
 }
+</tr>
+@foreach (var rolePermissions in Model)
+{
+    foreach (var controller in rolePermissions.Controllers)
+    {
+        <tr>
+        <td>
+        @controller.Attribute.Title
+        </td>
+        @foreach (var role in Model)
+        {
+            <td></td>
+        }
+        </tr>
+        
+        foreach (var item in controller.ItemChecklist)
+        {
+            <tr>
+            <td>@item.Key.Title</td>
+            @foreach (var role in Model)
+            {
+                <td>@Html.CheckBox(item.Key.Title, item.Value)</td>
+            }
+            </tr>
+            break;
+        }
+        break;
+    }
+    break;
+}
+</table>

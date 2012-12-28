@@ -10,7 +10,8 @@ using Shopnet.Models.Domain;
 using Shopnet.Controllers.Attributes;
 
 namespace Shopnet.Controllers
-{ 
+{
+    [Permission(Title = "Product", Description = "Product Controller")]
     public class ProductController : Controller
     {
         private ShopnetEntities db = new ShopnetEntities();
@@ -36,6 +37,7 @@ namespace Shopnet.Controllers
         //
         // GET: /Product/Create
 
+        [UserAccess(Title = "Product Create", Description = "Access to Product Create")]
         public ActionResult Create()
         {
             return View();

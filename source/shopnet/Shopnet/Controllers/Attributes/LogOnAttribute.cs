@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace Shopnet.Controllers
 {
-    class LogOnAttribute : AuthorizeAttribute
+    public class LogOnAttribute : AuthorizeAttribute
     {
         public bool Status { get; set; } 
 

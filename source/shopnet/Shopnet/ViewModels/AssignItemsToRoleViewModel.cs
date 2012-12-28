@@ -18,7 +18,7 @@ namespace Shopnet.ViewModels
             this.RoleCocurrency = role;
         }
 
-        public AssignItemsToRoleViewModel(Role role,IEnumerable myItems , IEnumerable items) 
+        public AssignItemsToRoleViewModel(Role role, IEnumerable myItems, IEnumerable items) 
         {
             bool found;            
             ItemChecklist = new Dictionary<Item, bool>();
@@ -36,7 +36,7 @@ namespace Shopnet.ViewModels
                     }                    
                 }
                 if (!found)
-                    ItemChecklist.Add(item,false);
+                    ItemChecklist.Add(item, false);
             }
         }
     }
