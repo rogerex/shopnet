@@ -371,3 +371,32 @@ tr:hover
 {
     clear: both;
 }
+
+.controller-name
+{
+    font-weight: bold; 
+}
+
+.controller-description
+{
+    font-size: 8px; 
+    font-style: italic; 
+}
+
+.permission-name
+{
+    font-size: 12px;   
+}
+
+.permission-description
+{
+    font-size: 8px; 
+    font-style: italic;   
+}
+
+.permission-restrict-access
+{
+    color: Red;
+    font-size: 8px;
+    font-style: italic;
+}

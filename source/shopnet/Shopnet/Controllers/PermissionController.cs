@@ -19,24 +19,55 @@ namespace Shopnet.Controllers
 
         public ActionResult Index()
         {
-            List<RolePermissionsViewModel> rolesPermissions = new List<RolePermissionsViewModel>();
+            PermissionsRolesViewModel permissionsRoles = new PermissionsRolesViewModel();
+            permissionsRoles.Roles = db.Roles.ToList();
+            permissionsRoles.controllersPermissions = GetControllersPermissions();
+            permissionsRoles.controllersPermissions.OrderBy(p => p.Name);
+            return View(permissionsRoles);
+        }
 
-            List<Role> roles = db.Roles.ToList();
+        //
+        // POST: /Permission/
+
+        [HttpPost]
+        public ActionResult Index(FormCollection postedForm)
+        {
+            List<Role> roles = db.Roles.Include("Items").ToList();
             foreach (Role role in roles)
             {
-                RolePermissionsViewModel rolePermissions = new RolePermissionsViewModel();
-                rolePermissions.Role = role;
-                rolePermissions.Controllers.AddRange(GetControllersPermissions());
-
-                rolesPermissions.Add(rolePermissions);
+                foreach (var item in db.Items.ToList())
+                {
+                    if (postedForm[item.Path + "-" + role.RoleID] != null)
+                    {
+                        if (postedForm[item.Path + "-" + role.RoleID].ToString().Contains("true"))
+                        {
+                            if (!role.Items.Where(i => i.Path == item.Path).Any())
+                            {
+                                role.Items.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            if (role.Items.Where(i => i.Path == item.Path).Any())
+                            {
+                                role.Items.Remove(item);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        db.DeleteObject(item);
+                    }
+                }
             }
-            return View(rolesPermissions);
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         private List<ControllerPermissionsViewModel> GetControllersPermissions()
         {
             List<ControllerPermissionsViewModel> controllersPermissions = new List<ControllerPermissionsViewModel>();
-            
             List<Type> controllers = GetControllers();
 
             foreach (Type controller in controllers)
@@ -45,19 +76,36 @@ namespace Shopnet.Controllers
                 if (permissionController != null)
                 {
                     ControllerPermissionsViewModel controllerPermissions = new ControllerPermissionsViewModel();
-                    controllerPermissions.Attribute = permissionController;
+                    controllerPermissions.Name = permissionController.Title;
+                    controllerPermissions.Description = permissionController.Description;
 
                     foreach (MethodInfo method in controller.GetMethods())
                     { 
                         UserAccessAttribute userAccess = IsUserAccess(method);
                         if (userAccess != null)
                         {
-                            // methods.Add(controller.Name.Replace("Controller", "") + "/" + method.Name);
-                            // controllerPermissions.Controllers.Add(controllerPermissions);
-                            controllerPermissions.ItemChecklist.Add(userAccess, true);
+                            userAccess.Path = "/" + controller.Name.Replace("Controller", "") + "/" + method.Name;
+                            controllerPermissions.CreatePermissions(db.Roles.Include("Items").ToList(), userAccess);
+                            if (!db.Items.Where(i => i.Path == userAccess.Path).Any())
+                            {
+                                Item item = new Item();
+                                item.Name = userAccess.Title;
+                                item.Description = userAccess.Description;
+                                item.Path = userAccess.Path;
+                                db.Items.AddObject(item);
+                                db.SaveChanges();
+                            }
+                            else 
+                            {
+                                Item item = db.Items.Single(i => i.Path == userAccess.Path);
+                                item.Name = userAccess.Title;
+                                item.Description = userAccess.Description;
+                                item.Path = userAccess.Path;
+                                db.SaveChanges();
+                            }
                         }
                     }
-                    if (controllerPermissions.ItemChecklist.Any())
+                    if (controllerPermissions.Permissions.Any())
                         controllersPermissions.Add(controllerPermissions);
                 }
             }
@@ -109,6 +157,5 @@ namespace Shopnet.Controllers
                 type => controllers.Add(type));
             return controllers;
         }
-
     }
 }

@@ -28,6 +28,7 @@ namespace Shopnet.Controllers
         //
         // GET: /Product/Details/5
 
+        [UserAccess(Title = "Product Details", Description = "Access to Product Details")]
         public ViewResult Details(int id)
         {
             Product product = db.Products.Single(p => p.ProductID == id);
@@ -62,7 +63,8 @@ namespace Shopnet.Controllers
         
         //
         // GET: /Product/Edit/5
- 
+
+        [UserAccess(Title = "Product Edit", Description = "Access to Product Edit")]
         public ActionResult Edit(int id)
         {
             Product product = db.Products.Single(p => p.ProductID == id);
@@ -87,7 +89,8 @@ namespace Shopnet.Controllers
 
         //
         // GET: /Product/Delete/5
- 
+
+        [UserAccess(Title = "Product Details", Description = "Access to Product Delete", RestrictAccess = true)]
         public ActionResult Delete(int id)
         {
             Product product = db.Products.Single(p => p.ProductID == id);

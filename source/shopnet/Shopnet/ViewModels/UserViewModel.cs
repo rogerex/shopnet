@@ -22,6 +22,5 @@ namespace Shopnet.ViewModels
             this.User = user;
             this.Status = user.Status;
         }
-
     }
 }

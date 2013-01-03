@@ -8,9 +8,6 @@ namespace Shopnet.ViewModels
     public class MenuItemViewModel
     {        
         public string Name { get; set; }
-        
-        public string Action { get; set; }
-        
-        public string Controller { get; set; }
+        public string Path { get; set; }
     }
 }

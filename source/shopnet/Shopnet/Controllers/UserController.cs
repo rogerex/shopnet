@@ -10,9 +10,11 @@ using Shopnet.ViewModels;
 using System.Security.Cryptography;
 using System.Text;
 using Shopnet.Models.Domain;
+using Shopnet.Controllers.Attributes;
 
 namespace Shopnet.Controllers
-{ 
+{
+    [Permission(Title = "User", Description = "User Controller")]
     public class UserController : Controller
     {
         private ShopnetEntities db = new ShopnetEntities();
@@ -20,6 +22,7 @@ namespace Shopnet.Controllers
         //
         // GET: /User/
 
+        [UserAccess(Title = "User List", Description = "Access to User List")]
         public ViewResult Index()
         {
             List<UserViewModel> views = new List<UserViewModel>();
@@ -35,6 +38,7 @@ namespace Shopnet.Controllers
         //
         // GET: /User/Details/5
 
+        [UserAccess(Title = "User Details", Description = "Access to User Details")]
         public ViewResult Details(int id)
         {
             User user = db.Users.Single(u => u.UserID == id);
@@ -44,6 +48,7 @@ namespace Shopnet.Controllers
         //
         // GET: /User/Create
 
+        [UserAccess(Title = "User Create", Description = "Access to User Create", RestrictAccess = true)]
         public ActionResult Create()
         {
             ViewBag.Status = new SelectList((new UserViewModel()).GetStatus(), "Value", "Text");
@@ -85,6 +90,7 @@ namespace Shopnet.Controllers
         //
         // GET: /User/AddRole/5
 
+        [UserAccess(Title = "Add role to user", Description = "Enable grant roles to user")]
         public ActionResult AddRole(User user)
         {
             IEnumerable<Role> myRoles = db.Roles.Where(r => r.Usuarios.Any(u => u.UserID == user.UserID));
@@ -126,7 +132,8 @@ namespace Shopnet.Controllers
 
         //
         // GET: /User/Edit/5
- 
+
+        [UserAccess(Title = "User edit", Description = "Access to User edit", RestrictAccess = true)]
         public ActionResult Edit(int id)
         {
             User user = db.Users.Single(u => u.UserID == id);
@@ -193,7 +200,8 @@ namespace Shopnet.Controllers
 
         //
         // GET: /User/Delete/5
- 
+
+        [UserAccess(Title = "User Delete", Description = "Access to User Delete", RestrictAccess = true)]
         public ActionResult Delete(int id)
         {
             User user = db.Users.Single(u => u.UserID == id);

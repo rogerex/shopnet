@@ -26,7 +26,7 @@ namespace Shopnet.Controllers
                 Role currentRole = db.Roles.Include("Items").Single(r => r.RoleID == role.RoleID);
                 foreach (Item item in currentRole.Items)
                 {
-                    items.Add(new MenuItemViewModel { Name = item.Name, Controller = item.Path, Action = "" });
+                    items.Add(new MenuItemViewModel { Name = item.Name, Path = item.Path });
                 }
             }
             return PartialView("ItemList", items);

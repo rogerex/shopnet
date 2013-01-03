@@ -2,5 +2,5 @@
 
 @foreach(var item in Model)
 {
-    <li>@Html.ActionLink(item.Name, item.Action, item.Controller)</li>
+    <li><a href="@Url.Content("~" + item.Path)">@item.Name</a></li>
 }

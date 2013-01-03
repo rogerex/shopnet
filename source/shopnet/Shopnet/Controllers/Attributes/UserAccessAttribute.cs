@@ -11,11 +11,9 @@ namespace Shopnet.Controllers.Attributes
     public class UserAccessAttribute : AuthorizeAttribute
     {
         public string Title { get; set; }
-
         public string Description { get; set; }
-
         public bool RestrictAccess { get; set; }
-
+        public string Path { get; set; }
         private ShopnetEntities db = new ShopnetEntities();
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

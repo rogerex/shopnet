@@ -1,4 +1,4 @@
-﻿@model List<Shopnet.ViewModels.RolePermissionsViewModel>
+﻿@model Shopnet.ViewModels.PermissionsRolesViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -6,44 +6,56 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
 <table>
 <tr>
 <th>
 </th>
-@foreach (var rolePermissions in Model)
+@foreach (var roles in Model.Roles)
 {
     <th>
-    @rolePermissions.Role.Name
+    @roles.Name
     </th>
 }
 </tr>
-@foreach (var rolePermissions in Model)
+@foreach (var controllerPermissions in Model.controllersPermissions)
 {
-    foreach (var controller in rolePermissions.Controllers)
+    <tr>
+    <td colspan="@(Model.Roles.Count+1)">
+    <div class="controller-name">
+    @controllerPermissions.Name
+    </div>
+    <div class="controller-description">
+    @controllerPermissions.Description
+    </div>
+    </td>
+    </tr>
+    foreach (var permissions in controllerPermissions.Permissions)
     {
         <tr>
         <td>
-        @controller.Attribute.Title
+        <div class="permission-name">
+        @permissions.Name
+        </div>
+        <div class="permission-description">
+        @permissions.Description
+        </div>
+        <div class="permission-restrict-access">
+        @permissions.RestrictAccess
+        </div>
         </td>
-        @foreach (var role in Model)
+        @foreach (var permissionRole in permissions.ItemChecklist)
         {
-            <td></td>
+            <td>
+            @Html.CheckBox(permissionRole.Key.GetPermissionRoleID(), permissionRole.Value)
+            </td>
         }
         </tr>
-        
-        foreach (var item in controller.ItemChecklist)
-        {
-            <tr>
-            <td>@item.Key.Title</td>
-            @foreach (var role in Model)
-            {
-                <td>@Html.CheckBox(item.Key.Title, item.Value)</td>
-            }
-            </tr>
-            break;
-        }
-        break;
     }
-    break;
 }
 </table>
+<p>
+<input type="submit" value="Save" />
+</p>
+}

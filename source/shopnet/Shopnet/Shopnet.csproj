@@ -90,6 +90,7 @@
     <Compile Include="Controllers\MenuItemController.cs" />
     <Compile Include="Controllers\Attributes\LogOnAttribute.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="ViewModels\PermissionsRolesViewModel.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
@@ -186,7 +187,8 @@
     <Compile Include="ViewModels\AssignItemsToRoleViewModel.cs" />
     <Compile Include="ViewModels\AssignRolesToUserViewModel.cs" />
     <Compile Include="ViewModels\ControllerPermissionsViewModel.cs" />
-    <Compile Include="ViewModels\RolePermissionsViewModel.cs" />
+    <Compile Include="ViewModels\PermissionViewModel.cs" />
+    <Compile Include="ViewModels\PermissionRoleViewModel.cs" />
     <Compile Include="ViewModels\SaleViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
